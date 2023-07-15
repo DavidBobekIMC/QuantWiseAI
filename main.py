@@ -1,5 +1,6 @@
 # In file S&P500.csv, the first column is the date,
 # Date: 07/12/2023 ,Open,High,Low,Close
+
 import polars as pl
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,7 +11,7 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 from initial_visualisation import plot_candlestick_data, plot_candlestick_data_2, plot_nasdaq
-
+from xg_boost import xg_boost_pred
 def S_and_P_500():
     data = pd.read_csv("data\S&P500.csv")
     # Convert the data to a Pandas DataFrame
@@ -85,7 +86,8 @@ def plot_yearly(filename):
     # Format the Date column as datetime
     df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y')
     df.set_index('Date', inplace=True)
-
+    #sort the data by date
+    df.sort_values("Date", inplace=True)
     # Rename the column for compatibility with plot_candlestick_data function
     df.rename(columns={'Close/Last': 'Close'}, inplace=True)
     
@@ -98,8 +100,10 @@ def plot_yearly(filename):
         data_by_year[year].append(entry)
     
     for year in data_by_year:
-        plot_nasdaq(df.loc[data_by_year[year]],company=company,filename=year,covid=False)
-    
+        temp_data = df.loc[data_by_year[year]]
+        print(type(temp_data))
+        #plot_nasdaq(temp_data,company=company,filename=year,covid=False)
+        xg_boost_pred(temp_data,company=company,year=year)
 
         
     
