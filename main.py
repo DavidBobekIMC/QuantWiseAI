@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from initial_visualisation import plot_candlestick_data, plot_candlestick_data_2, plot_nasdaq
 from xg_boost import xg_boost_pred
+from support_resistance import detection_support_resistance
 def S_and_P_500():
     data = pd.read_csv("data\S&P500.csv")
     # Convert the data to a Pandas DataFrame
@@ -102,8 +103,12 @@ def plot_yearly(filename):
     for year in data_by_year:
         temp_data = df.loc[data_by_year[year]]
         print(type(temp_data))
-        #plot_nasdaq(temp_data,company=company,filename=year,covid=False)
-        xg_boost_pred(temp_data,company=company,year=year)
+        
+        #Visualisation of the data
+        plot_nasdaq(temp_data,company=company,filename=year,covid=False)
+        
+        #XGBoost prediction of the data which is used incorrectly
+        #xg_boost_pred(temp_data,company=company,year=year)
 
         
     
@@ -111,4 +116,5 @@ if __name__ == "__main__":
     #S_and_P_500()
     #google_data()
     #nasdaq_data()
-    plot_yearly("data_nasdaq\HistoricalData_SBUX.csv")
+    #plot_yearly("data_nasdaq\HistoricalData_SBUX.csv")
+    detection_support_resistance("data_nasdaq\HistoricalData_SBUX.csv")

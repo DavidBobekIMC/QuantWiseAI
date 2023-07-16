@@ -11,17 +11,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import r2_score
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import RandomizedSearchCV
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import TimeSeriesSplit
-from sklearn.model_selection import KFold
-from sklearn.model_selection import StratifiedKFold
-from sklearn.model_selection import RepeatedKFold
-from sklearn.model_selection import RepeatedStratifiedKFold
-from sklearn.model_selection import LeaveOneOut
    #xgboost
 from xgboost import XGBRegressor
  
