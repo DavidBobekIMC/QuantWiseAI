@@ -13,6 +13,7 @@ import pandas as pd
 from initial_visualisation import plot_candlestick_data, plot_candlestick_data_2, plot_nasdaq
 from xg_boost import xg_boost_pred
 from support_resistance import detection_support_resistance
+from trendline_detection import trendline_detect
 def S_and_P_500():
     data = pd.read_csv("data\S&P500.csv")
     # Convert the data to a Pandas DataFrame
@@ -117,4 +118,5 @@ if __name__ == "__main__":
     #google_data()
     #nasdaq_data()
     #plot_yearly("data_nasdaq\HistoricalData_SBUX.csv")
-    detection_support_resistance("data_nasdaq\HistoricalData_SBUX.csv")
+    #detection_support_resistance("data_nasdaq\HistoricalData_SBUX.csv")
+    trendline_detect("data_nasdaq\HistoricalData_SBUX.csv")
