@@ -1,92 +1,105 @@
 import pandas as pd
 import numpy as np
-from matplotlib import pyplot
 import plotly.graph_objects as go
 
-
-def trendline_detect(file:str):
-    """
-    This function detects trendlines in a given financial dataset and plots them using Plotly.
+def trendline_detect(financial_data:pd.DataFrame, num_back_candles: int = 70, back_candle_range: int = 50, window_size: int = 7,record_to_plot: int = 2000,fig:go.Figure=None)->pd.DataFrame:
+    """_summary_
 
     Args:
-    file (str): The file path of the financial dataset.
+        file_path (str): _description_
+        num_back_candles (int, optional): _description_. Defaults to 70. 
+        back_candle_range (int, optional): _description_. Defaults to 50.
+        window_size (int, optional): _description_. Defaults to 7.
+        record_to_plot (int, optional): _description_. Defaults to 2000.
 
     Returns:
-    None
+        plotly graph
     """
-    # Read the financial dataset
-    df = pd.read_csv("EURUSD_Candlestick_4_Hour_ASK_05.05.2003-16.10.2021 (1).csv")
+  
 
-    # Rename the columns of the dataset
-    df.columns=['time', 'open', 'high', 'low', 'close', 'volume']
-
-    # Remove rows with NA values
-    df=df[df['volume']!=0]
-
-    # Reset the index of the dataset
-    df.reset_index(drop=True, inplace=True)
-
-    # Print the first 10 rows of the dataset
-    df.head(10)
-
-    backcandles= 70
-    brange = 50 #should be less than backcandles
-    wind = 5
-
-    candleid = 150
-    dfpl = df[:2000]
-    fig = go.Figure(data=[go.Candlestick(x=dfpl.index,
-                        open=dfpl['open'],
-                        high=dfpl['high'],
-                        low=dfpl['low'],
-                        close=dfpl['close'])])
     
-    while candleid < 2000:
 
-        optbackcandles= backcandles
-        sldiff = 100
-        sldist = 10000
-        for r1 in range(backcandles-brange, backcandles+brange):
-            maxim = np.array([])
-            minim = np.array([])
-            xxmin = np.array([])
-            xxmax = np.array([])
-            
-            for i in range(candleid-r1, candleid+1, wind):
-                minim = np.append(minim, df.low.iloc[i:i+wind].min())
-                xxmin = np.append(xxmin, df.low.iloc[i:i+wind].idxmin())
-            for i in range(candleid-r1, candleid+1, wind):
-                maxim = np.append(maxim, df.high.loc[i:i+wind].max())
-                xxmax = np.append(xxmax, df.high.iloc[i:i+wind].idxmax())
-            slmin, intercmin = np.polyfit(xxmin, minim,1)
-            slmax, intercmax = np.polyfit(xxmax, maxim,1)
-            
-            dist = (slmax*candleid + intercmax)-(slmin*candleid + intercmin)
-            if(dist<sldist): #abs(slmin-slmax)<sldiff and
-                #sldiff = abs(slmin-slmax)
-                sldist = dist
-                optbackcandles=r1
-                slminopt = slmin
-                slmaxopt = slmax
-                intercminopt = intercmin
-                intercmaxopt = intercmax
-                maximopt = maxim.copy()
-                minimopt = minim.copy()
-                xxminopt = xxmin.copy()
-                xxmaxopt = xxmax.copy()
+    # Candle id is the index of the candle in the dataset that we are currently processing
+    candle_id = num_back_candles+back_candle_range
 
-                
+    #data to plot: selection of the data to plot (first 2000 candles by default)
+    if record_to_plot > len(financial_data):
+        raise ValueError("record_to_plot must be less than the length of the dataset")
+    else:
+        financial_data = financial_data[:record_to_plot]
+
+    
+
+    #initialise the report dataframe 
+    report = pd.DataFrame(columns=['candle_id','slope_min','slope_max','intercept_min','intercept_max','dist','xx_min','xx_max','min_vals','max_vals'])
+    while candle_id < record_to_plot:
+        optimal_num_back_candles = num_back_candles
+        slope_diff_threshold = 100
+        slope_dist_threshold = 10000
+
+        for r1 in range(num_back_candles - back_candle_range, num_back_candles + back_candle_range):
+            max_vals = np.array([])
+            min_vals = np.array([])
+            xx_min = np.array([])
+            xx_max = np.array([])
+
+            for i in range(candle_id - r1, candle_id + 1, window_size):
+                min_vals = np.append(min_vals, financial_data.Low.iloc[i:i + window_size].min())
+                xx_min = np.append(xx_min, financial_data.Low.iloc[i:i + window_size].idxmin())
+            for i in range(candle_id - r1, candle_id + 1, window_size):
+                max_vals = np.append(max_vals, financial_data.High.loc[i:i + window_size].max())
+                xx_max = np.append(xx_max, financial_data.High.iloc[i:i + window_size].idxmax())
+
+            slope_min, intercept_min = np.polyfit(xx_min, min_vals, 1)
+            slope_max, intercept_max = np.polyfit(xx_max, max_vals, 1)
+
+            dist = (slope_max * candle_id + intercept_max) - (slope_min * candle_id + intercept_min)
+            if dist < slope_dist_threshold:  # abs(slope_min - slope_max) < slope_diff_threshold and
+                slope_dist_threshold = dist
+                optimal_num_back_candles = r1
+                slope_min_optimal = slope_min
+                slope_max_optimal = slope_max
+                intercept_min_optimal = intercept_min
+                intercept_max_optimal = intercept_max
+                max_vals_optimal = max_vals.copy()
+                min_vals_optimal = min_vals.copy()
+                xx_min_optimal = xx_min.copy()
+                xx_max_optimal = xx_max.copy()
+
+        data_to_plot = financial_data[candle_id - window_size - optimal_num_back_candles - num_back_candles:
+                                      candle_id + optimal_num_back_candles]
+
+        adj_intercept_max = (financial_data.High.iloc[xx_max_optimal] - slope_max_optimal * xx_max_optimal).max()
+        adj_intercept_min = (financial_data.Low.iloc[xx_min_optimal] - slope_min_optimal * xx_min_optimal).min()
+
+
+        if (slope_min_optimal > 0):
+            color = 'green'
+        else:
+            color = 'red'
+
+
+        fig.add_trace(go.Scatter(x=xx_min_optimal, y=slope_min_optimal * xx_min_optimal + adj_intercept_min,
+                                 mode='lines', name='min slope', line=dict(color=color)))
+        fig.add_trace(go.Scatter(x=xx_max_optimal, y=slope_max_optimal * xx_max_optimal + adj_intercept_max,
+                                 mode='lines', name='max slope', line=dict(color=color)))
+                          
+
+        report = report._append({'candle_id': candle_id,
+                                'slope_min': slope_min_optimal,
+                                'slope_max': slope_max_optimal,
+                                'intercept_min': adj_intercept_min,
+                                'intercept_max': adj_intercept_max,
+                                'dist': slope_dist_threshold,
+                                'xx_min': xx_min_optimal,
+                                'xx_max': xx_max_optimal,
+                                'min_vals': min_vals_optimal,
+                                'max_vals': max_vals_optimal}, ignore_index=True)
         
-        dfpl = df[candleid-wind-optbackcandles-backcandles:candleid+optbackcandles]  
+        candle_id += optimal_num_back_candles 
         
 
-        adjintercmax = (df.high.iloc[xxmaxopt] - slmaxopt*xxmaxopt).max()
-        adjintercmin = (df.low.iloc[xxminopt] - slminopt*xxminopt).min()
-        fig.add_trace(go.Scatter(x=xxminopt, y=slminopt*xxminopt + adjintercmin, mode='lines', name='min slope', line=dict(color='red')))
-        fig.add_trace(go.Scatter(x=xxmaxopt, y=slmaxopt*xxmaxopt + adjintercmax, mode='lines', name='max slope', line=dict(color='green')))
-        candleid += optbackcandles
-        
-        
-    fig.show()
+    #save report to csv
+    #report.to_csv('report.csv',index=False)
 
-trendline_detect("EURUSD_Candlestick_4_Hour_ASK_05.05.2003-16.10.2021.csv")
+    return report
