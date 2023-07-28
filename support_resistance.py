@@ -9,41 +9,6 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 
 def detection_support_resistance(financial_data:pd.DataFrame,record_to_plot:int=2000,fig:go.Figure=None)->pd.DataFrame:
-    
-    
-    def support(financial_data1, l, n1, n2)->1 or 0:
-        #financial_data1 is the dataframe
-        #l is the row
-        #n1 is the number of candles before
-        #n2 is the number of candles after
-        
-        for i in range(l-n1+1, l+1):
-            #if the low of the candle is higher than the low of the previous candle
-            if(financial_data1.Low[i]>financial_data1.Low[i-1]):
-                return 0
-            
-        
-        for i in range(l+1,l+n2+1):
-            #if the low of the candle is higher than the low of the next candle
-            if(financial_data1.Low[i]<financial_data1.Low[i-1]):
-                return 0
-        return 1
-    
-    def resistance(financial_data1, l, n1, n2)->1 or 0: 
-        #financial_data1 is the dataframe
-        #l is the row
-        #n1 is the number of candles before
-        #n2 is the number of candles after
-        for i in range(l-n1+1, l+1):
-            #if the high of the candle is lower than the high of the previous candle
-            if(financial_data1.High[i]<financial_data1.High[i-1]):
-                return 0
-        for i in range(l+1,l+n2+1):
-            #if the high of the candle is lower than the high of the next candle
-            if(financial_data1.High[i]>financial_data1.High[i-1]):
-                return 0
-        return 1
-        
     #sr = support and resistance
     sr = []
     #n1 is the number of candles before
@@ -59,11 +24,8 @@ def detection_support_resistance(financial_data:pd.DataFrame,record_to_plot:int=
         if resistance(financial_data, row, n1, n2):
             #append the row, the high of the candle and 2 for resistance
             sr.append((row,financial_data.High[row],2))
-  
-    
-
-    
-    
+            
+            
     #add zoomer on the y axis
            
 
@@ -80,4 +42,46 @@ def detection_support_resistance(financial_data:pd.DataFrame,record_to_plot:int=
                 #add a red line for resistance
                 x0=i[0], y0=i[1], x1=i[0]+20*(n1+n2), y1=i[1], line=dict(color="red",width=1))
         c+=1
+    
+
+  
+    
+def support(financial_data1, l, n1, n2)->1 or 0:
+    #financial_data1 is the dataframe
+    #l is the row
+    #n1 is the number of candles before
+    #n2 is the number of candles after
+    
+    for i in range(l-n1+1, l+1):
+        #if the low of the candle is higher than the low of the previous candle
+        if(financial_data1.Low[i]>financial_data1.Low[i-1]):
+            return 0
+        
+    
+    for i in range(l+1,l+n2+1):
+        #if the low of the candle is higher than the low of the next candle
+        if(financial_data1.Low[i]<financial_data1.Low[i-1]):
+            return 0
+    return 1
+
+def resistance(financial_data1, l, n1, n2)->1 or 0: 
+    #financial_data1 is the dataframe
+    #l is the row
+    #n1 is the number of candles before
+    #n2 is the number of candles after
+    for i in range(l-n1+1, l+1):
+        #if the high of the candle is lower than the high of the previous candle
+        if(financial_data1.High[i]<financial_data1.High[i-1]):
+            return 0
+    for i in range(l+1,l+n2+1):
+        #if the high of the candle is lower than the high of the next candle
+        if(financial_data1.High[i]>financial_data1.High[i-1]):
+            return 0
+    return 1
+        
+    
+    
+
+    
+    
     

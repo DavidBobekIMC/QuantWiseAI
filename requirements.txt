@@ -8,3 +8,4 @@ tenacity==8.2.2
 scikit-learn=1.3.0
 xgboost==1.7.6
 pandas_ta==0.3.14b0
+backtesting ==0.3.3
