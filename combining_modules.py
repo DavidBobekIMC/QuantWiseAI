@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 def main(file:str,num_back_candles: int = 70, back_candle_range: int = 50, window_size: int = 7,record_to_plot:int=2000,fig:go.Figure=None):
 
     financial_data = pd.read_csv(file)
-
+  
     #delete dollar sign
     try:
         # Clean up dollar signs and convert columns to numeric values
@@ -33,13 +33,12 @@ def main(file:str,num_back_candles: int = 70, back_candle_range: int = 50, windo
     financial_data.rename(columns={"open":"Open"}, inplace=True)
     financial_data.rename(columns={"volume":"Volume"}, inplace=True)
     financial_data.rename(columns={"close":"Close"}, inplace=True)
-    financial_data.reset_index(drop=True, inplace=True)
 
     
 
     # Reset the index of the dataset
     financial_data = financial_data.reset_index(drop=True)
-        
+    financial_data = financial_data[:2000]
     # Print the first 10 rows of the dataset
     print(financial_data.head(10))
 
@@ -73,9 +72,9 @@ def main(file:str,num_back_candles: int = 70, back_candle_range: int = 50, windo
     #detection_support_resistance(financial_data,record_to_plot,fig)
     
     #Moving average is adding extra columns to the dataframe so need to fix this
-    #moving_average(financial_data,record_to_plot=len(financial_data),fig=fig)
+    #moving_average(financial_data,record_to_plot=len(financial_data),fig=fig,dates=[7,15,21,60,120])
     #backtesting(financial_data,record_to_plot,fig)
-    moving_average_backtest(financial_data,record_to_plot=20000,fig=fig)
+    moving_average_backtest(financial_data,record_to_plot=2000,fig=fig)
     fig.show()
 
 
