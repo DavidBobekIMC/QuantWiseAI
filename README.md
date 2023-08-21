@@ -32,3 +32,10 @@
     - Green line for 30 day moving average
     - Purple line for 60 day moving average
   
+
+### 5. Implementation of ARIMA CHANNELS
+![Alt text](Progress\arima_prediction_channels.png)
+- ARIMA channels are represented with
+    - BLue line for upper channel
+    - Blue line for lower channel
+  

@@ -1,6 +1,6 @@
 from backtesting import Backtest, Strategy
 from moving_average import moving_average
-
+import plotly.graph_objects as go
 
 
 
@@ -19,6 +19,7 @@ def moving_average_backtest(financial_data,record_to_plot,fig=None):
         def next(self):
             if self.signal > 0:
                 self.buy()
+                
             elif self.signal < 0:
                 self.sell()
 

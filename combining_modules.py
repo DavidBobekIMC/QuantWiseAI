@@ -3,6 +3,7 @@ from trendline_detection import trendline_detect
 from moving_average import moving_average
 from backtesting_module import backtesting
 from moving_average_backtest import moving_average_backtest
+from arima_module import arima_model
 import pandas as pd
 
 import plotly.graph_objects as go
@@ -74,7 +75,8 @@ def main(file:str,num_back_candles: int = 70, back_candle_range: int = 50, windo
     #Moving average is adding extra columns to the dataframe so need to fix this
     #moving_average(financial_data,record_to_plot=len(financial_data),fig=fig,dates=[7,15,21,60,120])
     #backtesting(financial_data,record_to_plot,fig)
-    moving_average_backtest(financial_data,record_to_plot=2000,fig=fig)
+    #moving_average_backtest(financial_data,record_to_plot=2000,fig=fig)
+    arima_model(financial_data,record_to_plot=2000,fig=fig)
     fig.show()
 
 
