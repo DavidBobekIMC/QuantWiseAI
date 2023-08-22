@@ -1,4 +1,4 @@
-import pandas_ta as pa
+
 import pandas as pd
 
 import plotly.graph_objects as go
@@ -26,15 +26,30 @@ def arima_model(financial_data: pd.DataFrame, record_to_plot: int = 2000, fig: g
         financial_data['forecast_auto'] = [None] * \
             len(df_train) + list(forecast_test_auto)
 
+        best_rmse = float('inf')  # Initialize with a large value
+        best_seasonal_period = None
+
+        # Try different values for seasonal periods
+        for seasonal_period in range(2, 50):
+            model = ExponentialSmoothing(
+                df_train, trend='mul', seasonal='mul', seasonal_periods=seasonal_period).fit()
+            # Assuming you have a separate validation dataset (df_val) for evaluation
+            predictions = model.forecast(len(df_test))
+            rmse = ((predictions - df_test)**2).mean()**0.5
+
+        if rmse < best_rmse:
+            best_rmse = rmse
+            best_seasonal_period = seasonal_period
+
         model = ExponentialSmoothing(
-            df_train, trend='mul', seasonal='mul', seasonal_periods=10).fit()
+            df_train, trend='mul', seasonal='mul', seasonal_periods=best_seasonal_period).fit()
         best_model = model.forecast(len(df_test))
 
         financial_data['forecast_smoothing'] = [
             None]*len(df_train) + list(best_model)
 
         fig.add_trace(go.Scatter(x=financial_data.index,
-                      y=financial_data['forecast_smoothing'], name='Forecast Smothing',    line=dict(color='blue', width=1)))
+                      y=financial_data['forecast_smoothing'], name=f'Forecast Smothing {variable}',    line=dict(color='blue', width=1)))
 
     support_resistance('Close')
     support_resistance('Open')
