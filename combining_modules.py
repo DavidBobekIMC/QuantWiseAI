@@ -6,7 +6,8 @@ from moving_average_backtest import moving_average_backtest
 from arima_module import arima_model
 from choch_module import choch
 import pandas as pd
-
+from engulfing_pattern_star_pattern import detectCustomPatterns
+from backtesting import Strategy, Backtest
 import plotly.graph_objects as go
 
 
@@ -75,10 +76,39 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
 
     # Moving average is adding extra columns to the dataframe so need to fix this
     # moving_average(financial_data,record_to_plot=len(financial_data),fig=fig,dates=[7,15,21,60,120])
-    # backtesting(financial_data,record_to_plot,fig)
+    #backtesting(financial_data,record_to_plot,fig)
     # moving_average_backtest(financial_data,record_to_plot=2000,fig=fig)
     # arima_model(financial_data, record_to_plot=2000, fig=fig)
-    choch(financial_data, record_to_plot=2000, fig=fig)
+    #choch(financial_data, record_to_plot=2000, fig=fig)
+    financial_data = detectCustomPatterns(financial_data=financial_data,fig=fig)
+
+        
+    def SIGNAL():
+        return financial_data.signal
+
+    class MyCandlesStrat(Strategy):
+        def init(self):
+            super().init()
+            self.signal1 = self.I(SIGNAL)
+
+        def next(self):
+            super().next()
+            
+            if self.signal1 == 2:
+                sl1 = self.data.Close[-1] - 600e-4
+                tp1 = self.data.Close[-1] + 450e-4
+                self.buy(sl=sl1, tp=tp1)
+            elif self.signal1 == 1:
+                sl1 = self.data.Close[-1] + 600e-4
+                tp1 = self.data.Close[-1] - 450e-4
+                self.sell(sl=sl1, tp=tp1)
+
+    bt = Backtest(financial_data, MyCandlesStrat, cash=10_000, commission=.00)
+    stat = bt.run()
+    #print(stat)
+    bt.plot()
+
+
     fig.show()
 
 
