@@ -68,29 +68,32 @@ def detectCustomPatterns(financial_data, fig: go.Figure = None):
     # Star Pattern 1: Bullish
     # Star Pattern 2: Bearish
     
+    
+    #add column caleld signal to financial data
+    financial_data["signal"] = 0
+    
 
     for i in range(1, length):
         if (analyzeEngulf(i)[0] == 1):
             results["engulfing_1"] += 1
             fig.add_trace(go.Scatter(x=[i], y=[analyzeEngulf(i)[1]], name=f'Engulfing 1', marker=dict(size=12, color="turquoise"), mode="markers"))
             fig.add_trace(go.Scatter(x=[i], y=[analyzeEngulf(i)[2]], name=f'Engulfing 1', marker=dict(size=12, color="turquoise"), mode="markers"))
-            financial_data["signal"] = 2
+            financial_data["signal"][i] = 2
         elif (analyzeEngulf(i)[0] == 2):
             results["engulfing_2"] += 1
             fig.add_trace(go.Scatter(x=[i], y=[analyzeEngulf(i)[1]], name=f'Engulfing 2', marker=dict(size=12, color="orange"), mode="markers"))
             fig.add_trace(go.Scatter(x=[i], y=[analyzeEngulf(i)[2]], name=f'Engulfing 2', marker=dict(size=12, color="orange"), mode="markers"))
-            financial_data["signal"] = 1
+            financial_data["signal"][i] = 1
         if (identifyStar(i)[0] == 1):   
             results["star_1"] += 1
             fig.add_trace(go.Scatter(x=[i], y=[identifyStar(i)[1]], name=f'Star 1', marker=dict(size=12, color="pink"), mode="markers"))
             fig.add_trace(go.Scatter(x=[i], y=[identifyStar(i)[2]], name=f'Star 1', marker=dict(size=12, color="pink"), mode="markers"))
-            financial_data["signal"] = 2
+            #financial_data["signal"][i] = 2
         elif (identifyStar(i)[0] == 2):
             results["star_2"] += 1
             fig.add_trace(go.Scatter(x=[i], y=[identifyStar(i)[1]], name=f'Star 2', marker=dict(size=12, color="brown"), mode="markers"))
             fig.add_trace(go.Scatter(x=[i], y=[identifyStar(i)[2]], name=f'Star 2', marker=dict(size=12, color="brown"), mode="markers"))
-            financial_data["signal"] = 1
+            #financial_data["signal"][i] = 1
             
-    print(results)
     return financial_data
 

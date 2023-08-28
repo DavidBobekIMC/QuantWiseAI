@@ -36,6 +36,12 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     except:
         pass
 
+
+
+     # Reverse financial data if needed
+    if financial_data.iloc[0]['Close'] > financial_data.iloc[-1]['Close']:
+        financial_data = financial_data[::-1]
+
     financial_data.rename(columns={"high": "High"}, inplace=True)
     financial_data.rename(columns={"low": "Low"}, inplace=True)
     financial_data.rename(columns={"open": "Open"}, inplace=True)
@@ -67,9 +73,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
         )
     )
 
-    # Reverse financial data if needed
-    if financial_data.iloc[0]['Close'] > financial_data.iloc[-1]['Close']:
-        financial_data = financial_data[::-1]
+   
 
     # trendline_detect(financial_data, num_back_candles=20, back_candle_range=10, window_size=3,record_to_plot=record_to_plot,fig=fig)
     # detection_support_resistance(financial_data,record_to_plot,fig)
@@ -90,27 +94,35 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
         def init(self):
             super().init()
             self.signal1 = self.I(SIGNAL)
-
         def next(self):
             super().next()
             
             if self.signal1 == 2:
                 sl1 = self.data.Close[-1] - 600e-4
                 tp1 = self.data.Close[-1] + 450e-4
-                self.buy(sl=sl1, tp=tp1)
+                self.buy(tp=tp1, sl=sl1)
+                
             elif self.signal1 == 1:
                 sl1 = self.data.Close[-1] + 600e-4
                 tp1 = self.data.Close[-1] - 450e-4
-                self.sell(sl=sl1, tp=tp1)
+                self.sell(tp=tp1, sl=sl1)
 
     bt = Backtest(financial_data, MyCandlesStrat, cash=10_000, commission=.00)
     stat = bt.run()
-    #print(stat)
     bt.plot()
 
-
+    count_buy = 0
+    count_sell = 0
+    for i in financial_data.signal:
+        if i == 2:
+            count_buy += 1
+        elif i == 1:
+            count_sell += 1
+            
+    print(count_buy)
+    print(count_sell)
     fig.show()
 
 
-# main(file="data_nasdaq\HistoricalData_SBUX.csv")
-main(file="data\EURUSD_Candlestick_4_Hour_ASK_05.05.2003-16.10.2021.csv")
+main(file="data_nasdaq\HistoricalData_SBUX.csv")
+#main(file="data_nasdaq\HistoricalData_MSFT.csv")
