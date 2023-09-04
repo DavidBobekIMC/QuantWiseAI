@@ -96,7 +96,7 @@ def calculate_qqe_rsi_trailing_stop(financial_data: pd.DataFrame, record_to_plot
 
     # Plot the results
     if record_to_plot is not None:
-        
+        plt.plot(smoothed_rsi[smooth+2:], label='Trailing Stop')
         plt.legend(loc='upper left')
         plt.show()
 
