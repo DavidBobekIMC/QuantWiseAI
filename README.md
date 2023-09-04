@@ -39,3 +39,7 @@
     - BLue line for upper channel
     - Blue line for lower channel
   
+### 6. Implementation of RSI
+- Implementation of RSI indicator
+- Up to 20% return on investment
+![Alt text](Progress\RSI_results.png)

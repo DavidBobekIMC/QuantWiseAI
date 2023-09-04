@@ -9,6 +9,7 @@ import pandas as pd
 from engulfing_pattern_star_pattern import detectCustomPatterns
 from rolling_window import rolling_window
 from backtesting import Strategy, Backtest
+from rsi import calculate_qqe_rsi_trailing_stop
 import plotly.graph_objects as go
 
 
@@ -76,7 +77,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
 
    
 
-    trendline_detect(financial_data, num_back_candles=20, back_candle_range=10, window_size=3,record_to_plot=record_to_plot,fig=fig)
+    #trendline_detect(financial_data, num_back_candles=20, back_candle_range=10, window_size=3,record_to_plot=record_to_plot,fig=fig)
     # detection_support_resistance(financial_data,record_to_plot,fig)
 
     # Moving average is adding extra columns to the dataframe so need to fix this
@@ -87,7 +88,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     #choch(financial_data, record_to_plot=2000, fig=fig)
     #financial_data = detectCustomPatterns(financial_data=financial_data,fig=fig)
     #rolling_window(financial_data=financial_data, record_to_plot=2000, fig=fig)
-        
+    financial_data = calculate_qqe_rsi_trailing_stop(financial_data=financial_data, record_to_plot=1200)
     def SIGNAL():
         return financial_data.signal
 
@@ -107,7 +108,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
                 sl1 = self.data.Close[-1] + 600e-4
                 tp1 = self.data.Close[-1] - 450e-4
                 self.sell(tp=tp1, sl=sl1)
-    """
+    
     bt = Backtest(financial_data, MyCandlesStrat, cash=10_000, commission=.00)
     stat = bt.run()
     bt.plot()
@@ -122,7 +123,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
             
     print(count_buy)
     print(count_sell)
-    """
+    
     fig.show()
 
 
