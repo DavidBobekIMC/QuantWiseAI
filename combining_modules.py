@@ -10,6 +10,7 @@ from engulfing_pattern_star_pattern import detectCustomPatterns
 from rolling_window import rolling_window
 from backtesting import Strategy, Backtest
 from rsi import calculate_qqe_rsi_trailing_stop
+from vold_ratio_module import void_ratio
 import plotly.graph_objects as go
 
 
@@ -88,7 +89,9 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     #choch(financial_data, record_to_plot=2000, fig=fig)
     #financial_data = detectCustomPatterns(financial_data=financial_data,fig=fig)
     #rolling_window(financial_data=financial_data, record_to_plot=2000, fig=fig)
-    financial_data = calculate_qqe_rsi_trailing_stop(financial_data=financial_data, record_to_plot=1200)
+    #financial_data = calculate_qqe_rsi_trailing_stop(financial_data=financial_data, record_to_plot=1200)
+
+    financial_data = void_ratio(financial_data=financial_data, record_to_plot=2000)
     def SIGNAL():
         return financial_data.signal
 
@@ -108,10 +111,18 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
                 sl1 = self.data.Close[-1] + 600e-4
                 tp1 = self.data.Close[-1] - 450e-4
                 self.sell(tp=tp1, sl=sl1)
+
+
+
+    # Run the backtest
+    
     
     bt = Backtest(financial_data, MyCandlesStrat, cash=10_000, commission=.00)
     stat = bt.run()
+    
+
     bt.plot()
+    print(stat)
 
     count_buy = 0
     count_sell = 0
