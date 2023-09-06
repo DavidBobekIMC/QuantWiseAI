@@ -57,3 +57,16 @@
 
 - RSI is represented with - Orange line for RSI - Blue line for prices
   ![Alt text](Progress\RSI_plot.png)
+
+
+### 7. Implementation of VOLD RATIO
+  - Implementation of VOLD RATIO indicator
+  - Up to 25% return on investment
+![Alt text](Progress\vold_ratio_results.png)
+
+- Explantion
+  - Basis = Middle line (Yellow)
+  - Upper line = Upper Area (Green)
+  - Lower line = Lower Area (Red)
+  - Close = Blue line
+![Alt text](Progress\vold_ratio_plot.png)

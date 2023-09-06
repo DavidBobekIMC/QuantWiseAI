@@ -69,35 +69,41 @@ def void_ratio(financial_data: pd.DataFrame, record_to_plot: int = None):
     # if the close price is less than the lower band sell
     # if the close price is less than the basis, and greater than the lower band, sell
     last_signal = None
+    not_active = 0
+    temp_low = 0
+    temp_high = 0
     for i in range(length, len(financial_data)):
-        if financial_data['Close'][i] > basis[i] and i < len(financial_data):          
-                    if last_signal != 'buy':
-                        plt.plot(i, financial_data['Close'][i], marker='o', color='red')
-                        last_signal = 'buy'
-                        financial_data["signal"][i] = 2
-                        continue
-                        
-                    
-        if financial_data['Close'][i] > upper[i] and i < len(financial_data):
-            if last_signal != 'sell':
+        if last_signal != 'sell':
+            if financial_data['Close'][i] < lower[i] and i < len(financial_data):
+                plt.plot(i, financial_data['Close'][i], marker='o', color='green')
+                last_signal = 'sell'
+                financial_data["signal"][i] = 1
+                continue 
+            
+        if last_signal != 'sell':
+            if financial_data['Close'][i] > upper[i] and i < len(financial_data):
                 plt.plot(i, financial_data['Close'][i], marker='o', color='green')
                 last_signal = 'sell'
                 financial_data["signal"][i] = 1
                 continue
-        if financial_data['Close'][i] < lower[i] and i < len(financial_data):
-            if last_signal != 'buy' :
+        
+        if last_signal != 'buy':
+            if financial_data['Close'][i] < basis[i] and i < len(financial_data):
                 plt.plot(i, financial_data['Close'][i], marker='o', color='red')
                 last_signal = 'buy'
                 financial_data["signal"][i] = 2
                 continue
-        if financial_data['Close'][i] < basis[i] and i < len(financial_data):
-            if last_signal != 'sell':
-                plt.plot(i, financial_data['Close'][i], marker='o', color='green')
-                last_signal = 'sell'
-                financial_data["signal"][i] = 1
+        
+        if last_signal != 'buy':
+            if financial_data['Close'][i] > lower[i] and i < len(financial_data):
+                plt.plot(i, financial_data['Close'][i], marker='o', color='red')
+                last_signal = 'buy'
+                financial_data["signal"][i] = 2
                 continue
-                
+            
+        not_active += 1
 
+    print("Not active: ", not_active)
     plt.plot(financial_data.index, basis,
              label='Basis', color='yellow', alpha=0.5)
     plt.fill_between(financial_data.index, upper, lower,
