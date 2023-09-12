@@ -12,6 +12,7 @@ from backtesting import Strategy, Backtest
 from rsi import calculate_qqe_rsi_trailing_stop
 from vold_ratio_module import void_ratio
 from macd_module import calculate_macd
+from PPSRMA import ppsrma
 import plotly.graph_objects as go
 
 
@@ -91,7 +92,8 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     #financial_data = detectCustomPatterns(financial_data=financial_data,fig=fig)
     #rolling_window(financial_data=financial_data, record_to_plot=2000, fig=fig)
     #financial_data = calculate_qqe_rsi_trailing_stop(financial_data=financial_data, record_to_plot=1200)
-    financial_data = calculate_macd(financial_data=financial_data, record_to_plot=2000)
+    #financial_data = calculate_macd(financial_data=financial_data, record_to_plot=2000)
+    financial_data = ppsrma(financial_data=financial_data, record_to_plot=1999)
     #financial_data = void_ratio(financial_data=financial_data, record_to_plot=1500)
     def SIGNAL():
         return financial_data.signal
@@ -117,7 +119,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
 
     # Run the backtest
     
-    
+    """
     bt = Backtest(financial_data, MyCandlesStrat, cash=10_000, commission=.00)
     stat = bt.run()
     
@@ -137,7 +139,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     print(count_sell)
     
     fig.show()
-
+    """
 
 #main(file="data_nasdaq\HistoricalData_SBUX.csv")
 #main(file="data_nasdaq\HistoricalData_MSFT.csv")
