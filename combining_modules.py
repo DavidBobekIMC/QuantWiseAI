@@ -104,8 +104,8 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
             self.signal1 = self.I(SIGNAL)
         def next(self):
             super().next()
-            
             if self.signal1 == 2:
+                # Buy
                 sl1 = self.data.Close[-1] - 600e-4
                 tp1 = self.data.Close[-1] + 450e-4
                 self.buy(tp=tp1, sl=sl1)
@@ -119,7 +119,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
 
     # Run the backtest
     
-    """
+    
     bt = Backtest(financial_data, MyCandlesStrat, cash=10_000, commission=.00)
     stat = bt.run()
     
@@ -139,7 +139,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     print(count_sell)
     
     fig.show()
-    """
+    
 
 #main(file="data_nasdaq\HistoricalData_SBUX.csv")
 #main(file="data_nasdaq\HistoricalData_MSFT.csv")
