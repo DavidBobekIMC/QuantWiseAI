@@ -149,30 +149,31 @@ def ppsrma(financial_data: pd.DataFrame, record_to_plot: int):
         plt.fill_between(financial_data.index, dtime_ph,
                          dtime_pl, alpha=0.1, color='brown')
 
-    last_call = 2
+    last_call = 0
     financial_data['signal'] = 0
     count = 0
     for i in financial_data.index:
         count += 1
         # if meds>fasts = sell
         # if meds<fasts = buy
-        if (med_ema1[i] and med_ema1[i]) > (fast_ema[i] or fast_sma[i]):
+        if (med_ema1[i] and med_ema1[i]) > (fast_ema[i] and fast_sma[i]):
             if last_call != 1:
                 plt.scatter(
                     i, financial_data['Low'][i], c='red', label='Sell', s=100, marker='v', linewidth=1)
                 last_call = 1
-                financial_data['signal'] = 1
+                financial_data['signal'][i] = 1
                 continue
         
                 
-        if (med_ema1[i] and med_ema1[i]) < (fast_ema[i] or fast_sma[i]):
+        if (med_ema1[i] and med_ema1[i]) < (fast_ema[i] and fast_sma[i]):
             if last_call != 2:
                 plt.scatter(
                     i, financial_data['Low'][i], c='lime', label='Buy', s=100, marker='^', linewidth=1)
                 last_call = 2
-                financial_data['signal'] = 2
+                financial_data['signal'][i] = 2
                 continue
           
+        financial_data['signal'][i] = 0
                 
     
     # buys

@@ -14,6 +14,7 @@ from vold_ratio_module import void_ratio
 from macd_module import calculate_macd
 from PPSRMA import ppsrma
 import plotly.graph_objects as go
+import backtrader as bt
 
 
 def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, window_size: int = 7, record_to_plot: int = 2000, fig: go.Figure = None):
@@ -94,6 +95,8 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     #financial_data = calculate_qqe_rsi_trailing_stop(financial_data=financial_data, record_to_plot=1200)
     #financial_data = calculate_macd(financial_data=financial_data, record_to_plot=2000)
     financial_data = ppsrma(financial_data=financial_data, record_to_plot=1999)
+
+    
     #financial_data = void_ratio(financial_data=financial_data, record_to_plot=1500)
     def SIGNAL():
         return financial_data.signal
@@ -108,12 +111,13 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
                 # Buy
                 sl1 = self.data.Close[-1] - 600e-4
                 tp1 = self.data.Close[-1] + 450e-4
-                self.buy(tp=tp1, sl=sl1)
+          
+                self.buy(sl=sl1, tp=tp1)
                 
             elif self.signal1 == 1:
                 sl1 = self.data.Close[-1] + 600e-4
                 tp1 = self.data.Close[-1] - 450e-4
-                self.sell(tp=tp1, sl=sl1)
+                self.sell(sl=sl1, tp=tp1)
 
 
 
