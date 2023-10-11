@@ -8,7 +8,7 @@ from datetime import datetime
 
 def moving_average(financial_data: pd.DataFrame, record_to_plot: int = 2000, fig: go.Figure = None, dates=None):
     # rename column from Close/Last to Close
-
+    financial_data = financial_data[:record_to_plot]
     financial_data.rename(columns={"Close/Last": "Close"}, inplace=True)
 
     for date in dates:
@@ -30,11 +30,11 @@ def moving_average(financial_data: pd.DataFrame, record_to_plot: int = 2000, fig
 
         if x[f"MA{shortest}"] > x[f"MA{longest}"] and prev == -1:
             prev = 1
-            print("buy")
+            
             return 1, prev
         elif x[f"MA{shortest}"] < x[f"MA{longest}"] and prev == 1:
             prev = -1
-            print("sell")
+           
             return -1, prev
         else:
             return 0, prev
@@ -97,5 +97,5 @@ def moving_average(financial_data: pd.DataFrame, record_to_plot: int = 2000, fig
             position = financial_data.index.get_loc(index)
             sell_dates.append(position)
     print("days where the signal was -1", sell_dates)
-
-    return dfpl
+    fig.show()
+    return dfpl,financial_data

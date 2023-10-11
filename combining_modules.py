@@ -56,7 +56,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
 
     # Reset the index of the dataset
     financial_data = financial_data.reset_index(drop=True)
-    financial_data = financial_data[:2000]
+    #financial_data = financial_data[:2000]
     # Print the first 10 rows of the dataset
     print(financial_data.head(10))
 
@@ -81,20 +81,20 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
 
    
 
-    #trendline_detect(financial_data, num_back_candles=20, back_candle_range=10, window_size=3,record_to_plot=record_to_plot,fig=fig)
+    #financial_data = trendline_detect(financial_data, num_back_candles=20, back_candle_range=10, window_size=3,record_to_plot=record_to_plot,fig=fig)
     # detection_support_resistance(financial_data,record_to_plot,fig)
 
     # Moving average is adding extra columns to the dataframe so need to fix this
-    # moving_average(financial_data,record_to_plot=len(financial_data),fig=fig,dates=[7,15,21,60,120])
-    #backtesting(financial_data,record_to_plot,fig)
+    #moving_average(financial_data,record_to_plot=len(financial_data),fig=fig,dates=[7,15,21,60,120])
+    #backtesting(financial_data,record_to_plot=10000,fig=fig)
     # moving_average_backtest(financial_data,record_to_plot=2000,fig=fig)
-    # arima_model(financial_data, record_to_plot=2000, fig=fig)
-    #choch(financial_data, record_to_plot=2000, fig=fig)
-    #financial_data = detectCustomPatterns(financial_data=financial_data,fig=fig)
-    #rolling_window(financial_data=financial_data, record_to_plot=2000, fig=fig)
+    #financial_data = arima_model(financial_data, record_to_plot=500, fig=fig)
+    #financial_data = choch(financial_data, record_to_plot=2000, fig=fig)
+    financial_data = detectCustomPatterns(financial_data=financial_data,fig=fig)
+    #financial_data = rolling_window(financial_data=financial_data, record_to_plot=2000)
     #financial_data = calculate_qqe_rsi_trailing_stop(financial_data=financial_data, record_to_plot=1200)
     #financial_data = calculate_macd(financial_data=financial_data, record_to_plot=2000)
-    financial_data = ppsrma(financial_data=financial_data, record_to_plot=1999)
+    #financial_data = ppsrma(financial_data=financial_data, record_to_plot=1999)
 
     
     #financial_data = void_ratio(financial_data=financial_data, record_to_plot=1500)
@@ -123,27 +123,29 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
 
     # Run the backtest
     
-    
-    bt = Backtest(financial_data, MyCandlesStrat, cash=10_000, commission=.00)
-    stat = bt.run()
-    
+    def apply_backtest(financial_data: pd.DataFrame ):
+        bt = Backtest(financial_data, MyCandlesStrat, cash=10_000, commission=.00)
+        stat = bt.run()
+        
 
-    bt.plot()
-    print(stat)
+        bt.plot()
+        print(stat)
 
-    count_buy = 0
-    count_sell = 0
-    for i in financial_data.signal:
-        if i == 2:
-            count_buy += 1
-        elif i == 1:
-            count_sell += 1
-            
-    print(count_buy)
-    print(count_sell)
-    
-    fig.show()
-    
+        count_buy = 0
+        count_sell = 0
+        for i in financial_data.signal:
+            if i == 2:
+                count_buy += 1
+            elif i == 1:
+                count_sell += 1
+                
+        print(count_buy)
+        print(count_sell)
+  
+    if financial_data.get('signal') is not None:
+        apply_backtest(financial_data=financial_data)
+       
+
 
 #main(file="data_nasdaq\HistoricalData_SBUX.csv")
 #main(file="data_nasdaq\HistoricalData_MSFT.csv")

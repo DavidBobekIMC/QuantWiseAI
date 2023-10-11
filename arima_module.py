@@ -53,3 +53,6 @@ def arima_model(financial_data: pd.DataFrame, record_to_plot: int = 2000, fig: g
 
     support_resistance('Close')
     support_resistance('Open')
+    fig.update_layout(title_text="ARIMA Model")
+    fig.show()
+    return financial_data

@@ -20,15 +20,18 @@ def calculate_macd(financial_data:pd.DataFrame,record_to_plot:int,short_window=1
     # 1 = Sell signal
     last_signal = 0
     for i in range(len(financial_data)):
-        if macd[i] > 0.007 and macd[i-1] < 0.007 and last_signal != 1:
+        if i == 792:
+            print("i: ", macd[i])
+            print("i-1: ", macd[i-1])
+        if macd[i] > 0.0015 and macd[i-1] < 0.0015 and last_signal != 2:
             financial_data["signal"][i] = 2
             last_signal = 2
             plt.plot(financial_data.index[i], financial_data["Close"][i], 'o', color='green')
             continue    
             
-        if macd[i] < -0.007 and macd[i-1] > -0.007 and last_signal != 2:
+        if macd[i] < -0.0015 and macd[i-1] > -0.0015 and last_signal != 1:
             financial_data["signal"][i] = 1
-            last_signal = 1
+            last_signal = 1     
             plt.plot(financial_data.index[i], financial_data["Close"][i], 'o', color='red')
             continue
 

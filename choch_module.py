@@ -135,3 +135,5 @@ def choch(financial_data: pd.DataFrame, record_to_plot: int = 2000, fig: go.Figu
 
     fig.add_trace(go.Scatter(x=financial_data[financial_data['pattern_detected'] == 1].index,
                              y=financial_data[financial_data['pattern_detected'] == 1]['Close'], name=f'Pattern',    marker=dict(size=4, color="purple"), mode="markers"))
+
+    fig.show()

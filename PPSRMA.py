@@ -2,7 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def ppsrma(financial_data: pd.DataFrame, record_to_plot: int):
+def ppsrma(financial_data: pd.DataFrame, record_to_plot: int=2000):
+    financial_data = financial_data[:record_to_plot]
     # Define the input parameters as constants
     pctP = 66
     pblb = 6
@@ -175,11 +176,7 @@ def ppsrma(financial_data: pd.DataFrame, record_to_plot: int):
           
         financial_data['signal'][i] = 0
                 
-    
-    # buys
-    print(financial_data[financial_data['signal'] == 2].count())
-    print(financial_data[financial_data['signal'] == 1].count())
-    
+     
     
     # Plot the PinBars
     # plt.scatter(financial_data.index, financial_data['Low'], c=financial_data['bar_colors'], label='PinBars', s=100, marker='o', linewidth=1)

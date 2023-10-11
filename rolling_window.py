@@ -5,6 +5,8 @@ import plotly.graph_objects as go
 # Checks if there is a local peak detected at the current index
 
 def rolling_window(financial_data:  pd.DataFrame, record_to_plot: int=None):
+    financial_data = financial_data[:record_to_plot]
+    financial_data['signal'] = 0
     def detect_local_peak(data: np.array, curr_index: int, order: int) -> bool:
         if curr_index < order * 2 + 1:
             return False
@@ -58,16 +60,33 @@ def rolling_window(financial_data:  pd.DataFrame, record_to_plot: int=None):
     financial_data['date'], format='%d.%m.%Y %H:%M:%S.%f')
     financial_data = financial_data.set_index('date')
 
-    financial_data = financial_data[:200]
+    #financial_data = financial_data[:200]
 
     detected_peaks, detected_valleys = find_extremes(financial_data['Close'].to_numpy(), 5)
 
     idx = financial_data.index
-    for peak in detected_peaks:
-        plt.plot(idx[peak[1]], peak[2], marker='o', color='green')
-
-    for valley in detected_valleys:
-        plt.plot(idx[valley[1]], valley[2], marker='o', color='red')
-
+    
+    last_signal = 0
+    for i in range(len(financial_data)):
+        financial_data['signal'][i] = 0
+        for peak in detected_peaks:
+            if i == peak[0]:
+                if last_signal != 1:
+                    plt.scatter(
+                        idx[i], financial_data['Low'][i], c='red', label='Sell', linewidth=1)
+                    last_signal = 1
+                    financial_data['signal'][i] = 1
+                    continue
+        for valley in detected_valleys:
+            if i == valley[0]:
+                if last_signal != 2:
+                    plt.scatter(
+                        idx[i], financial_data['Low'][i], c='lime', label='Buy', linewidth=1)
+                    last_signal = 2
+                    financial_data['signal'][i] = 2
+                    continue
+        
+        
     plt.plot(idx, financial_data['Close'])
     plt.show()
+    return financial_data

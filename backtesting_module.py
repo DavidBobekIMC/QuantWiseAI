@@ -13,7 +13,7 @@ from support_resistance import support, resistance
 
 
 def backtesting(df: pd.DataFrame, record_to_plot: int = 2000, fig: go.Figure = None):
-
+    df = df[:record_to_plot]
     df.reset_index(drop=True, inplace=True)
     df.isna().sum()
     df.tail()
