@@ -15,9 +15,10 @@ from macd_module import calculate_macd
 from PPSRMA import ppsrma
 import plotly.graph_objects as go
 import backtrader as bt
-
+from doncian_channels_ML import doncian_channels_ML
 
 def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, window_size: int = 7, record_to_plot: int = 2000, fig: go.Figure = None):
+    # sourcery skip: use-contextlib-suppress
 
     financial_data = pd.read_csv(file)
 
@@ -32,19 +33,17 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
             "$", "").astype(float)
         financial_data["Low"] = financial_data["Low"].str.replace(
             "$", "").astype(float)
-    except:
+    except Exception:
         pass
 
     # rename the headers
     try:
-
         financial_data.rename(columns={"Close/Last": "Close"}, inplace=True)
-    except:
+    except Exception:
         pass
 
 
 
-     # Reverse financial data if needed
     #if financial_data.iloc[0]['Close'] > financial_data.iloc[-1]['Close']:
     #    financial_data = financial_data[::-1]
 
@@ -60,7 +59,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     # Print the first 10 rows of the dataset
     print(financial_data.head(10))
 
-    data_to_plot = financial_data[:len(financial_data)]
+    data_to_plot = financial_data[:]
 
     # initialise the figure
     fig = go.Figure(data=[go.Candlestick(x=data_to_plot.index,
@@ -79,7 +78,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
         )
     )
 
-   
+
 
     #financial_data = trendline_detect(financial_data, num_back_candles=20, back_candle_range=10, window_size=3,record_to_plot=record_to_plot,fig=fig)
     # detection_support_resistance(financial_data,record_to_plot,fig)
@@ -90,13 +89,13 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     # moving_average_backtest(financial_data,record_to_plot=2000,fig=fig)
     #financial_data = arima_model(financial_data, record_to_plot=500, fig=fig)
     #financial_data = choch(financial_data, record_to_plot=2000, fig=fig)
-    financial_data = detectCustomPatterns(financial_data=financial_data,fig=fig)
+    #financial_data = detectCustomPatterns(financial_data=financial_data,fig=fig)
     #financial_data = rolling_window(financial_data=financial_data, record_to_plot=2000)
     #financial_data = calculate_qqe_rsi_trailing_stop(financial_data=financial_data, record_to_plot=1200)
     #financial_data = calculate_macd(financial_data=financial_data, record_to_plot=2000)
     #financial_data = ppsrma(financial_data=financial_data, record_to_plot=1999)
+    financial_data = doncian_channels_ML(financial_data=financial_data)
 
-    
     #financial_data = void_ratio(financial_data=financial_data, record_to_plot=1500)
     def SIGNAL():
         return financial_data.signal
@@ -111,9 +110,9 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
                 # Buy
                 sl1 = self.data.Close[-1] - 600e-4
                 tp1 = self.data.Close[-1] + 450e-4
-          
+
                 self.buy(sl=sl1, tp=tp1)
-                
+
             elif self.signal1 == 1:
                 sl1 = self.data.Close[-1] + 600e-4
                 tp1 = self.data.Close[-1] - 450e-4
@@ -122,11 +121,11 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
 
 
     # Run the backtest
-    
+
     def apply_backtest(financial_data: pd.DataFrame ):
         bt = Backtest(financial_data, MyCandlesStrat, cash=10_000, commission=.00)
         stat = bt.run()
-        
+
 
         bt.plot()
         print(stat)
@@ -138,10 +137,10 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
                 count_buy += 1
             elif i == 1:
                 count_sell += 1
-                
+
         print(count_buy)
         print(count_sell)
-  
+
     if financial_data.get('signal') is not None:
         apply_backtest(financial_data=financial_data)
        
