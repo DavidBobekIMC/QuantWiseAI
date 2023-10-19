@@ -141,11 +141,13 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
         print(count_buy)
         print(count_sell)
 
+    
+
     if financial_data.get('signal') is not None:
         apply_backtest(financial_data=financial_data)
        
 
-
+        
 #main(file="data_nasdaq\HistoricalData_SBUX.csv")
 #main(file="data_nasdaq\HistoricalData_MSFT.csv")
 main(file="data\EURUSD_Candlestick_4_Hour_ASK_05.05.2003-16.10.2021.csv")
