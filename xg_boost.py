@@ -75,3 +75,5 @@ def statistics(y_test,y_pred):
     #mean absolute percentage error
     mape = np.mean(np.abs((y_test - y_pred) / y_test)) * 100
     print('MAPE: %.3f' % mape)
+    
+    

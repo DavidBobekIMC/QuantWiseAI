@@ -90,3 +90,6 @@ def rolling_window(financial_data:  pd.DataFrame, record_to_plot: int=None):
     plt.plot(idx, financial_data['Close'])
     plt.show()
     return financial_data
+
+
+rolling_window("../data/EURGBP_Candlestick_4_Hour_BID_23.07.2013-22.07.2023.csv", 200)

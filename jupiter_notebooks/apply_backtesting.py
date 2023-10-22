@@ -42,8 +42,8 @@ def backtester(financial_data):
             elif i == 1:
                 count_sell += 1
 
-        print(count_buy)
-        print(count_sell)
+        #print(count_buy)
+        #print(count_sell)
         return bt,stats
         
     if financial_data.get('signal') is not None:
