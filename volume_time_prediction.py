@@ -146,7 +146,7 @@ def volume_time_precision(financial_data):
     
     """   x = 2
         y = clusters[str(x)]
-        
+         q
         ax.scatter(x, y, c='blue', marker='o', label='cluster 1')
         
         x = 3
