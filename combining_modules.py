@@ -7,7 +7,7 @@ from arima_module import arima_model
 from choch_module import choch
 import pandas as pd
 from engulfing_pattern_star_pattern import detectCustomPatterns
-from rolling_window import rolling_window
+#from rolling_window import rolling_window
 from backtesting import Strategy, Backtest
 from rsi import calculate_qqe_rsi_trailing_stop
 from vold_ratio_module import void_ratio
@@ -15,7 +15,6 @@ from macd_module import calculate_macd
 from PPSRMA import ppsrma
 import plotly.graph_objects as go
 import backtrader as bt
-from doncian_channels_ML import doncian_channels_ML
 
 def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, window_size: int = 7, record_to_plot: int = 2000, fig: go.Figure = None):
     # sourcery skip: use-contextlib-suppress
@@ -84,7 +83,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     # detection_support_resistance(financial_data,record_to_plot,fig)
 
     # Moving average is adding extra columns to the dataframe so need to fix this
-    #moving_average(financial_data,record_to_plot=len(financial_data),fig=fig,dates=[7,15,21,60,120])
+    financial_data = moving_average(financial_data,record_to_plot=len(financial_data),fig=fig,dates=[7,15,21,60,120])
     #backtesting(financial_data,record_to_plot=10000,fig=fig)
     # moving_average_backtest(financial_data,record_to_plot=2000,fig=fig)
     #financial_data = arima_model(financial_data, record_to_plot=500, fig=fig)
@@ -94,7 +93,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     #financial_data = calculate_qqe_rsi_trailing_stop(financial_data=financial_data, record_to_plot=1200)
     #financial_data = calculate_macd(financial_data=financial_data, record_to_plot=2000)
     #financial_data = ppsrma(financial_data=financial_data, record_to_plot=1999)
-    financial_data = doncian_channels_ML(financial_data=financial_data)
+    #financial_data = doncian_channels_ML(financial_data=financial_data)
 
     #financial_data = void_ratio(financial_data=financial_data, record_to_plot=1500)
     def SIGNAL():

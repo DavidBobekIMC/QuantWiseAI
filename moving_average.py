@@ -29,13 +29,13 @@ def moving_average(financial_data: pd.DataFrame, record_to_plot: int = 2000, fig
         longest = dates[-1]
 
         if x[f"MA{shortest}"] > x[f"MA{longest}"] and prev == -1:
-            prev = 1
+            prev = 2
             
             return 1, prev
         elif x[f"MA{shortest}"] < x[f"MA{longest}"] and prev == 1:
-            prev = -1
+            prev = 1
            
-            return -1, prev
+            return 1, prev
         else:
             return 0, prev
 
@@ -44,7 +44,7 @@ def moving_average(financial_data: pd.DataFrame, record_to_plot: int = 2000, fig
         signal, previous = mysig(row, prev=previous)  # Call mysig for each row
 
         financial_data.at[index, "signal"] = signal
-        if signal == 1:
+        if signal == 2:
             fig.add_annotation(
                 x=index,
                 y=row["Close"],
@@ -53,7 +53,7 @@ def moving_average(financial_data: pd.DataFrame, record_to_plot: int = 2000, fig
                 arrowhead=0,  # No arrowhead
                 font=dict(size=20),  # Adjust font size as needed
             )
-        elif signal == -1:
+        elif signal == 1:
             fig.add_annotation(
                 x=index,
                 y=row["Close"],

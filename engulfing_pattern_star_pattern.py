@@ -1,6 +1,6 @@
 import plotly.graph_objects as go
-def detectCustomPatterns(financial_data, fig: go.Figure = None):
-
+def detectCustomPatterns(financial_data, fig: go.Figure = None,record_to_plot: int = 2000):
+    financial_data = financial_data[:record_to_plot]
     length = len(financial_data)
     highs = list(financial_data['High'])
     lows = list(financial_data['Low'])
