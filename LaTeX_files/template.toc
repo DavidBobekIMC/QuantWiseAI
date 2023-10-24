@@ -1,0 +1,19 @@
+\contentsline {chapter}{Declaration of honour}{iii}{section*.2}%
+\contentsline {chapter}{Abstract}{iv}{section*.3}%
+\contentsline {chapter}{Acknowledgements}{vii}{section*.6}%
+\contentsline {chapter}{Table of Contents}{viii}{section*.7}%
+\contentsline {chapter}{List of Tables}{ix}{section*.8}%
+\contentsline {chapter}{List of Figures}{x}{section*.9}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Example Chapter}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Code and syntax highlighting}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Labels and References}{6}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Mathematical Equations and Expressions}{6}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Enumerations and Descriptions}{6}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Adding images}{7}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Colors}{7}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Just a poem by Emily Dickinson}{8}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Tables}{8}{section.2.8}%
+\contentsline {chapter}{Bibliography}{9}{section*.13}%
+\contentsline {chapter}{Appendix \numberline {A}Example Appendix 1}{11}{appendix.a.A}%
+\contentsline {chapter}{Appendix \numberline {B}Example Appendix 2}{13}{appendix.a.B}%
