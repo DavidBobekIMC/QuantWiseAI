@@ -150,7 +150,9 @@ Pandas, Numpy, Matplotlib,Plotly, Scikit-learn, Tensorflow, Keras, Backtesting o
 		\end{itemize}
 
 	\item Picking the Machine Learning models and Technical Indicators. This step is going to require a lot of in-depth knwopledge 
-	of the strengths and weaknesses of each Model and Indicator. Some of the models I could consider are 
+	of the strengths and weaknesses of each Model and Indicator. Some of the models and Indicators  I could consider are 
+	\begin{enumerate}
+		\item Machine Learning models:
 		\begin{itemize}
 			\item ARIMA (Autoregressive Integrated Moving Average) models are commonly used for time
 			series analysis and forecasting. They can handle both stationary and non-
@@ -180,7 +182,23 @@ Pandas, Numpy, Matplotlib,Plotly, Scikit-learn, Tensorflow, Keras, Backtesting o
 			(RNN) that can learn long-term dependencies in time series data and is therefore a good candidate for time series forecasting.
 			
 		\end{itemize}
+		\item Technical Indicators:
+		\begin{itemize}
+			\item RSI (Relative Strength Index): RSI is a momentum indicator that measures the magnitude of recent price changes to evaluate overbought
+			 or oversold conditions in the price of a stock or other asset.
+			\item MACD (Moving Average Convergence Divergence): MACD is a trend-following momentum indicator that shows the relationship between 
+			two moving averages of a so called security’s price.
+			\item VOLD (Volume Delta): Volume Delta is a volume-based indicator that measures the flow of money in and out of a security.
+			\item Bollinger Bands: Bollinger Bands are a technical analysis tool that measures a security's volatility and provides a relative definition 
+			of high and low prices.
+			\item Rolling Windows: Rolling Windows are a type of window function that computes a set of statistics for a fixed window of time and then 
+			slides the window across the data by a specified interval in order to calculate the next set of statistics.
+		\end{itemize}	
+	
 	 
+	\end{enumerate}
+
+		
 
 	\item Training and Testing of Machine learning algorithms: By having high quality
 	data I will be able to train the models in much fewer epochs. In this thesis I will
@@ -417,12 +435,12 @@ The goal of this research is trying to reject the null hypothesis that it is not
 \section{Implementation}
 My Implementation is going to consist of 3 main parts. Each consisting of multiple steps.
 	\begin{itemize}
-		\item Data Analysis
+		\item Data Science
 		\item Technical Indicators
 		\item Machine Learning Models
 	\end{itemize}
 
-	\subsection{Data Analysis}
+	\subsection{Data Science}
 	In the section of data analysis I will be focusing on the analysis of the data and trying to gain information about 
 	the data via visualizations and statistical analysis. I will be using libraries such as Pandas, Numpy, Matplotlib, Plotly, or Bokeh 
 	in order to create visualizations and graphs that will help me understand the data better. I will be looking for patterns and analysing things as:
@@ -459,71 +477,134 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 		\item Evaluation of singular Machine Learning model: This step will be focused on the evaluation of every single one of the Machine Learning models and representing their performance. 
 	\end{itemize}
 
-\section{Evaluation}
-In this section I will be focusing on the evaluation of the performance of the Machine Learning models and Technical Indicators.
-I will be using metrics such as: (Return on investment, Buy and hold return, Sharpe ratio, Win Trade, Accuracy, RMSE and many more)
-\begin{itemize}
-	\item Return on investment: $ROI = \frac{Current\ Value - Original\ Value}{Original\ Value}$
-	\item Buy and hold return: $Buy\ and\ hold\ return = \frac{Current\ Value - Original\ Value}{Original\ Value}$
-	\item Sharpe ratio: $Sharpe\ ratio = \frac{R_p - R_f}{\sigma_p}$ => where $R_p$ is the return of the portfolio, $R_f$ is the risk-free rate of return, and $\sigma_p$ is the standard deviation of the portfolio's excess return.
-	\item Win Trade: $Win\ Trade = \frac{Number\ of\ winning\ trades}{Total\ number\ of\ trades}$
-	\item Accuracy: $Accuracy = \frac{Number\ of\ correct\ predictions}{Total\ number\ of\ predictions}$
-	\item RMSE: $RMSE = \sqrt{\frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{n}}$
-	\item R2 score: $R2\ score = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y}_i)^2}$
-	\item MAE: $MAE = \frac{\sum_{i=1}^{n} |y_i - \hat{y}_i|}{n}$
-	\end{itemize}
+	\section{Evaluation metrics}
+		In this section I will be focusing on the evaluation of the performance of the Machine Learning models and Technical Indicators.
+		I will be using metrics such as: (Return on investment, Buy and hold return, Sharpe ratio, Win Trade, Accuracy, RMSE and many more)
+		\begin{itemize}
+			\item Return on investment: $ROI = \frac{Current\ Value - Original\ Value}{Original\ Value}$
+			\item Buy and hold return: $Buy\ and\ hold\ return = \frac{Current\ Value - Original\ Value}{Original\ Value}$
+			\item Sharpe ratio: $Sharpe\ ratio = \frac{R_p - R_f}{\sigma_p}$ => where $R_p$ is the return of the portfolio, $R_f$ is the risk-free rate of return, and $\sigma_p$ is the standard deviation of the portfolio's excess return.
+			\item Win Trade: $Win\ Trade = \frac{Number\ of\ winning\ trades}{Total\ number\ of\ trades}$
+			\item Accuracy: $Accuracy = \frac{Number\ of\ correct\ predictions}{Total\ number\ of\ predictions}$
+			\item RMSE: $RMSE = \sqrt{\frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{n}}$
+			\item R2 score: $R2\ score = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y}_i)^2}$
+			\item MAE: $MAE = \frac{\sum_{i=1}^{n} |y_i - \hat{y}_i|}{n}$
+			\end{itemize}
 
-\subsection{Libraries and Technologies to be used}
-I believe it is important to mention the technologies and libraries I am going to be using in this thesis. My approach is not to reinvent the wheel and 
-use already existing data processing and visualising libraries. This will allow me to focus on the main topic of this thesis and not get distracted by
-the implementation of the libraries. I will be using the following libraries and technologies:
-\begin{itemize}
-	\item Python: Python is going to be the main programming language used in this thesis. It is a very popular programming language and is used 
-	heavily in the field of Data Science and Machine Learning.
-	\item Jupyter Notebook: Jupyter Notebook is going to be the main IDE used in this thesis. Juptyer Notebook will allow me to create interactive
-	report and visualizations that will be used to showcase the results of my research. As Juptyer Notebook allows me to run the code in blocks and store
-	the results of each block it is going to be very useful for me to showcase the progress in each step of my research.
-	\item Pandas: Pandas is a Python library used for data manipulation and analysis. It is used to manipulate and analyze data in a fast and efficient manner.
-	\item Numpy: Numpy is a Python library used for working with arrays. It also has functions for working in domain of linear algebra, fourier transform, and matrices.
-	\item  Matplotlib: Matplotlib is also a Python library used for creating static and interactive visualizations. It is a very popular library and is used in many different fields.
-	For my thesis I will be using it to create visualizations of the data mainly in the form of graphs. And static analysis of the data.
-	\item Plotly: Plotly is also a visualising library however it is used to create interactive visualizations. It is a very powerful library and supports a Candlestick
-	charts which is going to be very useful for my thesis as almost all of my data will be in the form of Candlestick charts. (Open, High, Low, Close)
-	\item Bokeh: Bokeh is also a visualising library however it is used to visualising my Backtesting results. By using Bokeh I will be able to 
-	track the performance of my indicators at any given momment and see how they are performing.
-	\item Scikit-learn: Scikit-learn is a Machine Learning library for Python. It is among the most popular Machine Learning libraries and
-	I will be heavily using it in my thesis. It contains many different Machine Learning models such as: Random Forest, Support Vector Regression, Linear Regression and many more.
-	\item Backtesting: Backtesting is a Python library used for backtesting trading strategies. It is going to be used to evaluate the performance of my Technical Indicators.
-	In my thesis I will create a class for a Strategy in which I will set TP(Take Profit), SL(Stop Loss) bounderies and the strategy will be able to buy and sell at any given time.
-\end{itemize}
+		\subsection{Libraries and Technologies to be used}
+			I believe it is important to mention the technologies and libraries I am going to be using in this thesis. My approach is not to reinvent the wheel and 
+			use already existing data processing and visualising libraries. This will allow me to focus on the main topic of this thesis and not get distracted by
+			the implementation of the libraries. I will be using the following libraries and technologies:
+			\begin{itemize}
+				\item Python: Python is going to be the main programming language used in this thesis. It is a very popular programming language and is used 
+				heavily in the field of Data Science and Machine Learning.
+				\item Jupyter Notebook: Jupyter Notebook is going to be the main IDE used in this thesis. Juptyer Notebook will allow me to create interactive
+				report and visualizations that will be used to showcase the results of my research. As Juptyer Notebook allows me to run the code in blocks and store
+				the results of each block it is going to be very useful for me to showcase the progress in each step of my research.
+				\item Pandas: Pandas is a Python library used for data manipulation and analysis. It is used to manipulate and analyze data in a fast and efficient manner.
+				\item Numpy: Numpy is a Python library used for working with arrays. It also has functions for working in domain of linear algebra, fourier transform, and matrices.
+				\item  Matplotlib: Matplotlib is also a Python library used for creating static and interactive visualizations. It is a very popular library and is used in many different fields.
+				For my thesis I will be using it to create visualizations of the data mainly in the form of graphs. And static analysis of the data.
+				\item Plotly: Plotly is also a visualising library however it is used to create interactive visualizations. It is a very powerful library and supports a Candlestick
+				charts which is going to be very useful for my thesis as almost all of my data will be in the form of Candlestick charts. (Open, High, Low, Close)
+				\item Bokeh: Bokeh is also a visualising library however it is used to visualising my Backtesting results. By using Bokeh I will be able to 
+				track the performance of my indicators at any given momment and see how they are performing.
+				\item Scikit-learn: Scikit-learn is a Machine Learning library for Python. It is among the most popular Machine Learning libraries and
+				I will be heavily using it in my thesis. It contains many different Machine Learning models such as: Random Forest, Support Vector Regression, Linear Regression and many more.
+				\item Backtesting: Backtesting is a Python library used for backtesting trading strategies. It is going to be used to evaluate the performance of my Technical Indicators.
+				In my thesis I will create a class for a Strategy in which I will set TP(Take Profit), SL(Stop Loss) bounderies and the strategy will be able to buy and sell at any given time.
+			\end{itemize}
 
-\subsection{Backtesting}
-Backtesting is a process of testing a strategy on historical data to see how it would have performed in the past. 
-This concept is often used to evaluate the effectiveness of a trading strategy and is a fairly simple process. 
-How it works step by step:
-\begin{enumerate}
-	\item Starting with a set amount of capital, we buy and sell assets according to the strategy we want to test.
-	\item We record the profits and losses we would have made for each trade.
-	\item We repeat this process for all trades made by the strategy during the time period we are backtesting.
-	\item We calculate the total profit or loss made by the strategy by adding up the profits and losses from all trades.
-	\item We compare the total profit or loss to the amount of capital we started with.
-\end{enumerate}
+		\subsection{Backtesting}
+			Backtesting is a process of testing a strategy on historical data to see how it would have performed in the past. 
+			This concept is often used to evaluate the effectiveness of a trading strategy and is a fairly simple process. 
+			How it works step by step:
+			\begin{enumerate}
+				\item Starting with a set amount of capital, we buy and sell assets according to the strategy we want to test.
+				\item We record the profits and losses we would have made for each trade.
+				\item We repeat this process for all trades made by the strategy during the time period we are backtesting.
+				\item We calculate the total profit or loss made by the strategy by adding up the profits and losses from all trades.
+				\item We compare the total profit or loss to the amount of capital we started with.
+			\end{enumerate}
 
-Backtesting as concept is also able to be represented Mathematicaly.
+			Backtesting as concept is also able to be represented Mathematicaly.
 
-\begin{itemize}
-	\item The formula for calculating the total profit or loss could be represented as:
-\end{itemize}
-\begin{equation}
-	\mathrm{Total Profit or Loss} = \sum_{i=1}^{n} (Sell\ Price_i - Buy\ Price_i)
-\end{equation}
+			\begin{itemize}
+				\item The formula for calculating the total profit or loss could be represented as:
+			\end{itemize}
+			\begin{equation}
+				\mathrm{Total Profit or Loss} = \sum_{i=1}^{n} (Sell\ Price_i - Buy\ Price_i)
+			\end{equation}
 
-\begin{itemize}
-	\item Therefore the formula for calculating the final capital could be represented as:
-\end{itemize}
-\begin{equation}
-	\mathrm{Final Capital} = \mathrm{Initial Capital} + \mathrm{Total Profit or Loss}
-\end{equation}
+			\begin{itemize}
+				\item Therefore the formula for calculating the final capital could be represented as:
+			\end{itemize}
+			\begin{equation}
+				\mathrm{Final Capital} = \mathrm{Initial Capital} + \mathrm{Total Profit or Loss}
+			\end{equation}
+			
+
+\chapter{Experimentation}
+	This chapter will be focused on displaying and experimenting with my proposed Technical Indicators and Machine Learning models. Each of the experimentation 
+	parts will be focused on a single Technical Indicator or Machine Learning model and will be displaying its performance and accuracy. I will be following the 
+	steps outlined in previous sections and will be trying to follow the same structure in order to assure a coherent structure of my research. 
+
+	\section{Data Science}
+		\subsection{Data Loading}
+			The process of Data Loading is starting with finding a trust-worthy source from which I could download the data I am going to be using in my 
+			research. As already mentioned  I am going to be working on the trading pair of EUR/GBP and a source from which I will be downloading the data 
+			is a Swiss Banking group called Dukascopy. Dukascopy have provided me with this historical data in a form of CSV file. The data is in the form of
+			Candlestick charts and contains the following columns: Date, Time, Open, High, Low, Close, Volume. I have been able to get the data in 4 hour intervals
+			which is perfect to determine the trend of the market during daily to weekly intervals. 
+		\subsection{Data Cleaning}
+			Data cleaning was not particularly difficult as the data was already in a very clean form. As the data provided by Dukascopy was a global data which is 
+			traceable backwards it did not contain any missing values. Also in terms of outliers there is no such a concept in the stock market as the price of the 
+			market is always changing and there is no such a thing as a price that is too high or too low. The only thing that could be considered as an outlier is 
+			an incorrect value that the data provider could have secretly added to the data. However this is not the case and the data is very clean and almost ready to be used.
+			The only thing that had to be done is renaming the column values as there was an initial issue which caused problems
+		\subsection{Data Analysis}
+			I have created a separate Juptyer Notebook ($volume_time_analysis.ipynb$) that contains an analysis of what is the busiest hour during the day and what is the busiest hour during the 
+			day and if it somewhow correlates with the price of the stock market. I have been able to find out that the busiest hour during the day and by the 
+			chart we can see that the busiest hours are: 11:00 and 15:00. (GMT+2) This is a very interesting finding and also very reasonable as these are the times 
+			when London Stock Exchange opens and closes. The London Stock Exchange is the largest stock exchange in Europe and the 3rd largest in the world.
+			Its opening and closing times are 8:00 - 16:30 (GMT+1) and therefore the busiest hours are 11:00 and 15:00 (GMT+2). Its sheer impact on the stock market can easily move the 
+			price of the pair (EURGBP). Hedge funds and other large financial institutions are also very active during these hours and therefore it is very reasonable to see this high trading volume 
+			during these hours. High volume of trading can change the price however if we have the same amount of buys than sells the price will not be going one way. The market needs to make 
+			an "internal agreement" in order to determine the direction it is going to be heading.
+			This theory can also be seen on the actual line chart of how the price moves during the day. 
+			The second figure in this section is showing the line chart with each distinct hour highlighted with a different color in order 
+			to see the differences. This plots tracks 400 hours worth of trading as the interval in between each of the points is 4 hours and there are 100 points in total.
+			I have decided to only display a fraction of the entire data due to the fact I wanted to display the differences in between the hours and not the market movement itself.
+			This way we can clearly see the integer values of each of the hours and how the price is moving during these hours. This is a fairly interesting finding as we can see that sometimes the 
+			price starts to move very significantly during the busy hour of the London Stock Exchange and we see fairly strong price movements even for one of the most stable markets in the 
+			world which is the currency exchange market. This suddden change in the price can be explained by the "internal agreement" of the market to move uni directionally. In other cases we can
+			see that price of the market is stagnating and is not moving at all. This is also a very interesting finding as we can see that the price is not moving at all during the busiest hours of the day, which 
+			on the first look could be contradicting the previous finding. However this is not the case as it can easily be exaplained by nullifying the "internal agreement" of the market. 
+			The bulls are not able to overpower the bears and the bears are not able to overpower the bulls and therefore the price is not moving at all. 
+	
+			In certain cases like $INESERT HEREEEE$ we can see that price is moving in a certain direction and then suddenly it changes its direction and starts moving in the opposite direction.
+			This is the concept "internal agreement" and it is very interesting to see that the price is moving in a certain direction and then suddenly changes its direction. However it could be 
+			explained by the opening of the market and the sheer volume of trading that is happening during these hours is able to change the direction of the market.
+			
+			
+
+
+	\section{Machine Learning models}
+		\subsection{Neural Network (LSTM)}
+		\subsection{ARIMA}
+		\subsection{Random Forest}
+		\subsection{XGBoost}
+		\subsection{Support Vector Regression}
+		\subsection{Linear Regression}
+	\section{Technical Indicators}
+		\subsection{RSI}
+		\subsection{MACD}
+		\subsection{VOLD \& Bollinger Bands}
+		\subsection{Rolling Windows}
+		\subsection{Moving Averages}
+		
+	
+	
 
 
 \chapter{Example Chapter}
