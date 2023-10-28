@@ -563,34 +563,50 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			an incorrect value that the data provider could have secretly added to the data. However this is not the case and the data is very clean and almost ready to be used.
 			The only thing that had to be done is renaming the column values as there was an initial issue which caused problems
 		\subsection{Data Analysis}
-			I have created a separate Juptyer Notebook ($volume_time_analysis.ipynb$) that contains an analysis of what is the busiest hour during the day and what is the busiest hour during the 
+			
+			I have created a separate Juptyer Notebook called: $volume_time_analysis.ipynb$ that contains an analysis of what is the busiest hour during the day and what is the busiest hour during the 
 			day and if it somewhow correlates with the price of the stock market. I have been able to find out that the busiest hour during the day and by the 
 			chart we can see that the busiest hours are: 11:00 and 15:00. (GMT+2) This is a very interesting finding and also very reasonable as these are the times 
-			when London Stock Exchange opens and closes. The London Stock Exchange is the largest stock exchange in Europe and the 3rd largest in the world.
+			when London Stock Exchange opens and closes.
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width=0.8\textwidth]{volumte_time_analysis_histogram.png}
+				\caption{Volume Time Analysis}
+				\label{fig:volume_time_analysis}
+			\end{figure} The London Stock Exchange is the largest stock exchange in Europe and the 3rd largest in the world.
 			Its opening and closing times are 8:00 - 16:30 (GMT+1) and therefore the busiest hours are 11:00 and 15:00 (GMT+2). Its sheer impact on the stock market can easily move the 
 			price of the pair (EURGBP). Hedge funds and other large financial institutions are also very active during these hours and therefore it is very reasonable to see this high trading volume 
 			during these hours. High volume of trading can change the price however if we have the same amount of buys than sells the price will not be going one way. The market needs to make 
 			an "internal agreement" in order to determine the direction it is going to be heading.
+			
 			This theory can also be seen on the actual line chart of how the price moves during the day. 
 			The second figure in this section is showing the line chart with each distinct hour highlighted with a different color in order 
-			to see the differences. This plots tracks 400 hours worth of trading as the interval in between each of the points is 4 hours and there are 100 points in total.
+			to see the differences. This plots tracks 100 hours worth of trading as the interval in between each of the points is 4 hours and there are 25 points in total.
 			I have decided to only display a fraction of the entire data due to the fact I wanted to display the differences in between the hours and not the market movement itself.
-			This way we can clearly see the integer values of each of the hours and how the price is moving during these hours. This is a fairly interesting finding as we can see that sometimes the 
+			This way we can clearly see the integer values of each of the hours and how the price is moving during these hours.
+			\begin{figure}[!h]
+				\centering
+				\includegraphics[width=0.8\textwidth]{volumte_time_analysis_linechart.png}
+				\caption{Volume Time Analysis}
+				\label{fig:volumte_time_analysis_linechart}
+			\end{figure}			
+			This is a fairly interesting finding as we can see that sometimes the 
 			price starts to move very significantly during the busy hour of the London Stock Exchange and we see fairly strong price movements even for one of the most stable markets in the 
-			world which is the currency exchange market. This suddden change in the price can be explained by the "internal agreement" of the market to move uni directionally. In other cases we can
-			see that price of the market is stagnating and is not moving at all. This is also a very interesting finding as we can see that the price is not moving at all during the busiest hours of the day, which 
-			on the first look could be contradicting the previous finding. However this is not the case as it can easily be exaplained by nullifying the "internal agreement" of the market. 
-			The bulls are not able to overpower the bears and the bears are not able to overpower the bulls and therefore the price is not moving at all. 
-	
-			In certain cases like $INESERT HEREEEE$ we can see that price is moving in a certain direction and then suddenly it changes its direction and starts moving in the opposite direction.
+			world which is the currency exchange market.
+			
+			In certain cases like at the 9th and 10th record. The time was 11 and 15 which are the 2 highest trading volumes. We can see that price is moving in a certain direction and then suddenly it changes its direction and starts moving in the opposite direction.
 			This is the concept "internal agreement" and it is very interesting to see that the price is moving in a certain direction and then suddenly changes its direction. However it could be 
-			explained by the opening of the market and the sheer volume of trading that is happening during these hours is able to change the direction of the market.
+			explained by the opening of the market and the sheer volume of trading that is happening during these hours is able to change the direction of the market and if the "interna agreement" happened
+			the market starts to move uni-directionally.
+			In other cases we can
+			see that price of the market is stagnating and is not moving at all. This is also a very interesting finding as we can see that the price is not moving at all during the busiest hours of the day, which 
+			on the first look could be contradicting the previous finding. However this is not the case as it can easily be exaplained by nullifying the "internal agreement" of the market.
+			This case can be seen at the 17th record where we can see that during the busiest trading hour the price is not moving at all.
+			The bulls (people that are trying to raise the price up) are not able to overpower the bears (individuals that are selling in order to devalue the trading pair) and the bears are not able to overpower the bulls and therefore the price is not moving at all. 
 			
-			
-
 
 	\section{Machine Learning models}
-		\subsection{Neural Network (LSTM)}
+		\subsection{Neural Network (LSTM)} 
 		\subsection{ARIMA}
 		\subsection{Random Forest}
 		\subsection{XGBoost}
@@ -598,6 +614,48 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 		\subsection{Linear Regression}
 	\section{Technical Indicators}
 		\subsection{RSI}
+			RSI stands for Relative Strength Index and is a momentum indicator used in technical analysis that measures the magnitude of recent price changes to
+			evaluate overbought or oversold conditions in the price of a stock or other asset. RSI is one of the most popular technical indicators
+			and works on the principle of moment where we define a delta, gain and loss. The formula for calculating the RSI is the following:
+			\begin{equation}
+				RSI = 100 - \frac{100}{1 + RS}
+			\end{equation}
+			Where:
+			\begin{itemize}
+				\item $RS = \frac{Average\ Gain}{Average\ Loss}$
+				\item $Average\ Gain = \frac{Sum\ of\ Gains\ over\ the\ past\ X\ periods}{X}$
+				\item $Average\ Loss = \frac{Sum\ of\ Losses\ over\ the\ past\ X\ periods}{X}$
+			\end{itemize}
+
+			
+			It can be clearly seen that RSI is working on the principle of momentum due to the fact it is using the previous X periods and is calculating the average gain and loss.
+			By using the average gain and loss we are able to calculate the RS and then the RSI. The RSI is an actual number between 0 and 100 and is used to determine if the market is overbought or oversold.
+			When the RSI is above a ceratin factor we do consider the market to be overbought and when the RSI is below a certain factor we do consider the market to be oversold.
+			In my implementation iam using a factor of 4. I am than using factor in my implementation to adjust the RSI values at crossover and crossunder points to make the indicator
+			more responsive to changes in the market.
+			\begin {figure}[h!]
+				\centering
+				\includegraphics[width=0.8\textwidth]{rsi_code.png}
+				\caption{RSI}
+				\label{fig:rsi}
+			\end {figure}
+			My implementation is not only limited to the usage of RSI, but I am also incorporating the usage of Trailing Stop.
+			At the begining of the implementation I am setting the initial values of crossover and crossunder where for each index RSI is lower or higher than 1.
+			\begin {figure}[h!]
+				\centering
+				\includegraphics[width=0.8\textwidth]{trailing_stop.png}
+				\caption{RSI}
+				\label{fig:rsi_initial_values}
+			\end {figure}
+			If the crossover or crossunder is detected by the presence of a 1 at the current index a ts is calulated. It is calculated by
+			the difference between the RSI value at the current index and the absolute value of the RSI at the current index multiplied by the factor mentioned before.
+			After successfully calculating the ts we are than reassinging the values of RSI and ts in the following way. Combining a 
+			percentage of the current value with a percentage of the previous value, weighted by the corresponding close price.
+			
+			
+
+
+
 		\subsection{MACD}
 		\subsection{VOLD \& Bollinger Bands}
 		\subsection{Rolling Windows}
