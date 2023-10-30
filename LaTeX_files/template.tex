@@ -188,7 +188,6 @@ Pandas, Numpy, Matplotlib,Plotly, Scikit-learn, Tensorflow, Keras, Backtesting o
 			 or oversold conditions in the price of a stock or other asset.
 			\item MACD (Moving Average Convergence Divergence): MACD is a trend-following momentum indicator that shows the relationship between 
 			two moving averages of a so called security’s price.
-			\item VOLD (Volume Delta): Volume Delta is a volume-based indicator that measures the flow of money in and out of a security.
 			\item Bollinger Bands: Bollinger Bands are a technical analysis tool that measures a security's volatility and provides a relative definition 
 			of high and low prices.
 			\item Rolling Windows: Rolling Windows are a type of window function that computes a set of statistics for a fixed window of time and then 
@@ -453,7 +452,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 
 	\subsection{Technical Indicators}
 	In this section I will be focusing on the implementation of the Technical Indicators and trying to find the best ones that will be used in the next steps.
-	The Technical indicators I am going to use are for example: RSI, MACD, VOLD, Bollinger Bands,Rolling Windows, or Moving Averages and many more.
+	The Technical indicators I am going to use are for example: RSI, MACD,Bollinger Bands,Rolling Windows, or Moving Averages and many more.
 	\begin{itemize}
 		\item Data Preparation: The data used to input into my Technical Indicators will be the data from the previous step and will be used to create new features.
 		\item Implementation of Technical Indicators: In this step I will be implementing the Technical Indicators by at first thoroughly studying them and then extracting 
@@ -687,8 +686,93 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 				significant difference on a low volatile market like the currency exchange one.
 
 
-		\subsection{MACD}
-		\subsection{VOLD \& Bollinger Bands}
+		
+		\subsection{Bollinger Bands}
+			Bollinger Bands are a well known technical indicator that is used to determine the volatility of the market. It was created by John Bollinger in the 1980s.
+			Bollinger Bands is a technical analysis tools comprising of two regions that are signalizing the volatility of the market. The first region is the upper band
+			which is signalizing the overbought region and the second region is the lower band which is signalizing the oversold region. The middle band is signalizing the
+			moving average of the market. As described Bollinger bands are composed of 3 lines. The upper band, the lower band and the middle band. 
+			\begin{itemize}
+
+				\item The middle band can be represented as the following:
+					\begin{equation}
+						Middle\ Band = \frac{Sum\ of\ Close\ Prices}{Number\ of\ Periods}
+					\end{equation}
+					Where the number of periods is the number of periods we are using to calculate the moving average. In my implementation I am using 50 periods. 
+					The number 50 was picked as I am trying to work on larger scale rather than short term swings that introduce extreme volatility due to the increased trading volume
+					by hedge funds and other large financial institutions. 
+
+				\item The upper band can be represented as the following:
+					\begin{equation}
+						Upper\ Band = Middle\ Band + 2 * Standard\ Deviation
+					\end{equation}
+					Where the middle band is the moving average of the market and the standard deviation is the standard deviation of the market at the current index.
+				\item The lower band can be represented as the following:
+					\begin{equation}
+						Lower\ Band = Middle\ Band - 2 * Standard\ Deviation
+					\end{equation}
+			\end{itemize}
+			
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width=0.8\textwidth]{bollinger_bands_code.png}
+				\caption{Bollinger Bands}
+				\label{fig:bollinger_bands}
+
+			\end{figure}
+			As we can see from the formulas above the Bollinger Bands are working on the principle of volatility.
+			At the begining of the implementation I am setting the length and the number of standard deviations. The length is the number of periods we are using to calculate
+			the moving average. The variable basis is than used to calculate the rolling mean of the window we have specified and the variable dev 
+			has the same purpose but is used to calculate the rolling window of the standard deviation.
+			After successfully calculating the rolling mean and the rolling standard deviation we are than calculating the upper and lower band. By
+			summing or subtracting the rolling mean with the rolling standard deviation respectively.
+			
+			\subsubsection{Trend detection}
+				The trend reversal into an uptrend is signaled when the Close price is below the lower band and the previous signal was a buying signal
+				The trend reversal into a downtrend is signaled when the Close price is above the upper band and the previous signal was a selling signal
+				
+				I have opted to have 2 buy and sell detection cases
+				\begin{itemize}
+					\item The first buy: The first buy happens when the close price is below the basis and the previous signal was a sell
+						\subitem This case is used to detect when the price could be called a safe buy and is used to detect when the price is in the oversold 
+						region and we are entering based on the moving average
+					\item The second buy: The second buy happens when the close price is higher than the lower band and the previous signal was a sell. This second case
+						\subitem This case is used to detect sharp trend reversals and is used to detect when price starts to recover after being tanked by the bears. 
+					\item The first sell: The first sell happens when the close price is higher than the upper band and the previous signal was a buy 
+						\subitem This case is used to detect when the price could be called a must sell and is used to detect when the price have shot up massively and 
+						is even outside of the overbought region
+					\item The second sell: The second sell happens when the close price is lower than the lower band and the previous signal was a buy
+						\subitem This case is used to detect sharp trend reversals and we are trying to protect our profits and sell before the price starts to tank.
+				\end{itemize}
+
+			\subsubsection{Performance}
+				\begin{figure}[h!]
+					\centering
+					\includegraphics[width=0.8\textwidth]{bollinger_bands_plot.png}
+					\caption{Bollinger Bands Performance}
+					\label{fig:bollinger_bands_performance}
+				\end{figure}
+				Bollinger Bands had a very good performance on the provided data and was able to detect trend changes exceptionally well. 
+				On the plot we can see a 2 clearly distinct regions (green and red). The green region is signalizing the overbought region and the red
+				region is signalizing the oversold region.
+				They are split in the middle by a yellow line which is the moving average of the market. 
+				
+				The metrics of the Bollinger Bands are the following:
+				\begin{table}[h!]
+					\centering
+					\begin{tabular}{|c|c|c|c|c|}
+						\hline
+						\textbf{ROI} & \textbf{Win Rate} & \textbf{Buy \& Hold Return} & \textbf{Average Trade Return} \\ \hline
+						20.5\%         & 92.6\%               & 5.5\%                         & 2.4\%                           \\ \hline
+					\end{tabular}
+					\caption{Bollinger Bands Performance Metrics}
+					\label{tab:bollinger_bands_performance_metrics}
+				
+				\end{table}
+				Overall performance of Bollinger Bands could be rated as very successful as it was able to generate a return on investment of 20.5\% and a win rate of 92.6\%.
+				Even when the market has grown by 5.5\% during the same time period. The Bollinger Bands was able to outperform the market by 15\% which could be considered as
+				an astonishing result.
+		\subsection{MACD}		
 		\subsection{Rolling Windows}
 		\subsection{Moving Averages}
 		
