@@ -25,13 +25,15 @@ def backtester(financial_data):
                 sl1 = self.data.Close[-1] + 600e-4
                 tp1 = self.data.Close[-1] - 450e-4
                 self.sell(sl=sl1, tp=tp1)
+                
+        
 
 
 
     # Run the backtest
 
     def apply_backtest(financial_data: pd.DataFrame ):
-        bt = Backtest(financial_data, MyCandlesStrat, cash=10_000, commission=.00)
+        bt = Backtest(financial_data, MyCandlesStrat, cash=10_000)
         stats = bt.run()
 
         count_buy = 0

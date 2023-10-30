@@ -641,19 +641,50 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			\end {figure}
 			My implementation is not only limited to the usage of RSI, but I am also incorporating the usage of Trailing Stop.
 			At the begining of the implementation I am setting the initial values of crossover and crossunder where for each index RSI is lower or higher than 1.
-			\begin {figure}[h!]
+			\begin{figure}[h!]
 				\centering
 				\includegraphics[width=0.8\textwidth]{trailing_stop.png}
 				\caption{RSI}
 				\label{fig:rsi_initial_values}
-			\end {figure}
-			If the crossover or crossunder is detected by the presence of a 1 at the current index a ts is calulated. It is calculated by
+			\end{figure}
+			If the crossover or crossunder is detected by the presence of a 1 at the current index a Trailing Stop is calulated. It is calculated by
 			the difference between the RSI value at the current index and the absolute value of the RSI at the current index multiplied by the factor mentioned before.
-			After successfully calculating the ts we are than reassinging the values of RSI and ts in the following way. Combining a 
+			After successfully calculating the Trailing Stop we are than reassinging the values of RSI and Trailing Stop in the following way. Combining a 
 			percentage of the current value with a percentage of the previous value, weighted by the corresponding close price.
-			
-			
+			After calculating the trailing stop I have than decided to apply smoothening to the RSI values in order to make the indicator once again
+			more responsive to changes in the market and not be as volatile.
+			Throughout my entire research section with the Technical Indicators I am going to be also detecting the signals of buy and sell.
+			These signals are important for the Backtesting module and its input as it relies on concrete signal to determine whether to buy or sell.
+			In my RSI strategy the buy signal is executed when the smoothed RSI is higher than the trailing stop and the sell signal is executed when the
+			smoothed RSI is lower than the trailing stop. 
+			\subsubsection{Performance}
+				
+				In terms of performance. RSI had a great performance on the provided data and was able to detect trend changes very well. On the plot we can
+				see the buy signals as green dots and the sell signals as red dots.
+				\begin{figure}[h!]
+					\centering
+					\includegraphics[width=0.8\textwidth]{rsi_plot.png}
+					\caption{RSI Performance}
+					\label{fig:rsi_performance}	
+				\end{figure}
 
+				The buy signals are executed when the RSI is higher than the trailing stop
+				and the sell signals are executed when the RSI is lower than the trailing stop. 
+				Over the span of 4000 hours, the RSI was able to achieve the following metrics
+				\begin{table}[h!]
+					\centering
+					\begin{tabular}{|c|c|c|c|c|}
+						\hline
+						\textbf{ROI} & \textbf{Win Rate} & \textbf{Buy \& Hold Return} & \textbf{Average Trade Return} \\ \hline
+						17.4\%         & 95.7\%               & 10.6\%                         & 2.5\%                           \\ \hline
+					\end{tabular}
+					\caption{RSI Performance Metrics}
+					\label{tab:rsi_performance_metrics}
+				\end{table}
+
+				Overall performance of RSI could be rated as very successful as it was able to generate a return on investment of 17.4\% and a win rate of 95.7\%.
+				Even though the market has grown by 10.6\% during the same time period. The RSI was able to outperform the market by almost 7\% which is a very
+				significant difference on a low volatile market like the currency exchange one.
 
 
 		\subsection{MACD}
@@ -803,7 +834,7 @@ How public, like a frog
 To tell your name the livelong day
 
 To an admiring bog!
-
+	
 \section{Tables}
 
 \begin{table}[ht]
