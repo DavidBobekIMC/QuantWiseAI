@@ -48,18 +48,21 @@
 \contentsline {subsection}{\numberline {5.3.2}Bollinger Bands}{25}{subsection.5.3.2}%
 \contentsline {subsubsection}{Trend detection}{26}{subsubsection*.20}%
 \contentsline {subsubsection}{Performance}{28}{subsubsection*.21}%
-\contentsline {subsection}{\numberline {5.3.3}MACD}{29}{subsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}Rolling Windows}{29}{subsection.5.3.4}%
-\contentsline {subsection}{\numberline {5.3.5}Moving Averages}{29}{subsection.5.3.5}%
-\contentsline {chapter}{\numberline {6}Example Chapter}{31}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Code and syntax highlighting}{31}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Labels and References}{32}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Mathematical Equations and Expressions}{32}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Enumerations and Descriptions}{32}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Adding images}{33}{section.6.5}%
-\contentsline {section}{\numberline {6.6}Colors}{33}{section.6.6}%
-\contentsline {section}{\numberline {6.7}Just a poem by Emily Dickinson}{34}{section.6.7}%
-\contentsline {section}{\numberline {6.8}Tables}{34}{section.6.8}%
-\contentsline {chapter}{Bibliography}{35}{section*.27}%
-\contentsline {chapter}{Appendix \numberline {A}Example Appendix 1}{37}{appendix.a.A}%
-\contentsline {chapter}{Appendix \numberline {B}Example Appendix 2}{39}{appendix.a.B}%
+\contentsline {subsection}{\numberline {5.3.3}Rolling Windows}{29}{subsection.5.3.3}%
+\contentsline {subsubsection}{Trend detection}{30}{subsubsection*.25}%
+\contentsline {subsubsection}{Performance}{30}{subsubsection*.26}%
+\contentsline {subsection}{\numberline {5.3.4}Moving Averages}{32}{subsection.5.3.4}%
+\contentsline {subsubsection}{Trend detection}{33}{subsubsection*.31}%
+\contentsline {subsubsection}{Performance}{33}{subsubsection*.32}%
+\contentsline {chapter}{\numberline {6}Example Chapter}{35}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Code and syntax highlighting}{35}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Labels and References}{36}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Mathematical Equations and Expressions}{36}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Enumerations and Descriptions}{36}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Adding images}{37}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Colors}{37}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Just a poem by Emily Dickinson}{38}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Tables}{38}{section.6.8}%
+\contentsline {chapter}{Bibliography}{39}{section*.38}%
+\contentsline {chapter}{Appendix \numberline {A}Example Appendix 1}{41}{appendix.a.A}%
+\contentsline {chapter}{Appendix \numberline {B}Example Appendix 2}{43}{appendix.a.B}%

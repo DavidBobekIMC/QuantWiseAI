@@ -186,12 +186,12 @@ Pandas, Numpy, Matplotlib,Plotly, Scikit-learn, Tensorflow, Keras, Backtesting o
 		\begin{itemize}
 			\item RSI (Relative Strength Index): RSI is a momentum indicator that measures the magnitude of recent price changes to evaluate overbought
 			 or oversold conditions in the price of a stock or other asset.
-			\item MACD (Moving Average Convergence Divergence): MACD is a trend-following momentum indicator that shows the relationship between 
-			two moving averages of a so called security’s price.
 			\item Bollinger Bands: Bollinger Bands are a technical analysis tool that measures a security's volatility and provides a relative definition 
 			of high and low prices.
 			\item Rolling Windows: Rolling Windows are a type of window function that computes a set of statistics for a fixed window of time and then 
 			slides the window across the data by a specified interval in order to calculate the next set of statistics.
+			\item Moving Averages: Moving averages is a set of lines that are used to identify trends over a certain windows when the individual moving averages are 
+			crossing we can predict a trend reversal.
 		\end{itemize}	
 	
 	 
@@ -452,7 +452,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 
 	\subsection{Technical Indicators}
 	In this section I will be focusing on the implementation of the Technical Indicators and trying to find the best ones that will be used in the next steps.
-	The Technical indicators I am going to use are for example: RSI, MACD,Bollinger Bands,Rolling Windows, or Moving Averages and many more.
+	The Technical indicators I am going to use are for example: RSI,Bollinger Bands,Rolling Windows, or Moving Averages and many more.
 	\begin{itemize}
 		\item Data Preparation: The data used to input into my Technical Indicators will be the data from the previous step and will be used to create new features.
 		\item Implementation of Technical Indicators: In this step I will be implementing the Technical Indicators by at first thoroughly studying them and then extracting 
@@ -606,6 +606,9 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 
 	\section{Machine Learning models}
 		\subsection{Neural Network (LSTM)} 
+				
+
+
 		\subsection{ARIMA}
 		\subsection{Random Forest}
 		\subsection{XGBoost}
@@ -685,8 +688,6 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 				Even though the market has grown by 10.6\% during the same time period. The RSI was able to outperform the market by almost 7\% which is a very
 				significant difference on a low volatile market like the currency exchange one.
 
-
-		
 		\subsection{Bollinger Bands}
 			Bollinger Bands are a well known technical indicator that is used to determine the volatility of the market. It was created by John Bollinger in the 1980s.
 			Bollinger Bands is a technical analysis tools comprising of two regions that are signalizing the volatility of the market. The first region is the upper band
@@ -772,12 +773,160 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 				Overall performance of Bollinger Bands could be rated as very successful as it was able to generate a return on investment of 20.5\% and a win rate of 92.6\%.
 				Even when the market has grown by 5.5\% during the same time period. The Bollinger Bands was able to outperform the market by 15\% which could be considered as
 				an astonishing result.
-		\subsection{MACD}		
 		\subsection{Rolling Windows}
-		\subsection{Moving Averages}
+			Rolling Windows is a technical indicator which works on a different principle than any other indicator as it work on the principle of peaks and walleys of the market.
+			The principle of this indicator is to calculate the where the peaks and walleys of the market are and than calculate the differences between the peaks and walleys.
+			When calculating each of the peaks and walleys we are than setting a using the window size in which we are going to be trying to detect the peaks and walleys.
+			When trying to detect the peaks and walleys we are using a peak/valley coefficient in order to determine how big of a peak we are trying to detect and how big of a valley we are trying to detect.
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width=0.8\textwidth]{rolling_windows_code.png}
+				\caption{Rolling Windows}
+				\label{fig:rolling_windows}
+
+			\end{figure}
+			In my implementation you can see 2 clear function which are then used inside of a list comprehension. The first function is local valley in which 
+			we are determining a so called neighborhood of the current index by using a half window size in order to determing the neighborhood before and after the current index.
+			After successfully determining the neighborhood I am than checking for the lowest and highest value and than determining a threshold. This threshold is than used to determine
+			where the value at a current index is confirmed to be a valley or not. If the value at the current index is lower than the threshold it is confirmed to be a valley.
+			The second function is local peak which works on the same principle however the only difference is that we are checking if the value at the current index is higher than the threshold.
+			The 2 list comprehensions at the end are used to determine the peaks and valleys inside of the entire data frame.
+			The three variables that are used to determine the peaks and valleys are the following:
+			Peak coefficient: The magnitude of the peak we are trying to detect
+			Valley coefficient: The magnitude of the valley we are trying to detect
+			Window size: The size of the window we are using to detect the peaks and valleys
+			
+			Threshold is calculated in the following way:
+			\begin{equation}
+				Threshold = Threshold\ coefficient * (max\_value - min\_value) + min\_value 
+			\end{equation}
+			Where:
+			\begin{itemize}
+				\item $Threshold\ coefficient$ is the coefficient used to determine the threshold
+				\item $max\_value$ is the maximum value in the neighborhood
+				\item $min\_value$ is the minimum value in the neighborhood
+			\end{itemize}
+			Peak detection could be represented as the following:
+			\begin{equation}
+				Peak = \left\{Close\ Price_{i}\right\}_{i=1}^{n} > Threshold
+			\end{equation}
+			Where:
+			\begin{itemize}
+				\item $Close\ Price_{i}$ is the close price at the current index
+				\item $Threshold$ is the threshold calculated in the previous equation
+			\end{itemize}
+			Valley detection could be represented as the following:
+			\begin{equation}
+				Valley = \left\{Close\ Price_{i}\right\}_{i=1}^{n} < Threshold
+			\end{equation}
+			Where:
+			\begin{itemize}
+				\item $Close\ Price_{i}$ is the close price at the current index
+				\item $Threshold$ is the threshold calculated in the previous equation
+			\end{itemize}
+			\subsubsection{Trend detection}
+				Buy signal is executed when the current value is a confirmed valley and the previous value was a peak.
+				Sell signal is executed when the current value is a confirmed peak and the previous value was a valley.
 		
+			\subsubsection{Performance}
+				The performance of this indicator was fairly good and also very interesting idea behind it. The idea of using peaks and walleys to determine the trend of the market
+				is a sophisticated idea and its usage could be used with other indicators in pair. Its performance alone was sufficient however I believe that it would be 
+				better used alongside other indicators.
+				\begin{figure}[h!]
+					\centering
+					\includegraphics[width=0.8\textwidth]{rolling_windows_plot.png}
+					\caption{Rolling Windows Performance}
+					\label{fig:rolling_windows_performance}
+				\end{figure}
+				
+				The metrics of the Rolling Windows are the following:	
+
+
+				\begin{table}[h!]
+					\centering
+					\begin{tabular}{|c|c|c|c|c|}
+						\hline
+						\textbf{ROI} & \textbf{Win Rate} & \textbf{Buy \& Hold Return} & \textbf{Average Trade Return} \\ \hline
+						20.0\%         & 90.5\%               & 10.6\%                         & 2.8\%                           \\ \hline
+					\end{tabular}
+					\caption{Rolling Windows Performance Metrics}
+					\label{tab:rolling_windows_performance_metrics}
+				\end{table}
+				The most impressive feature of this algorithm is the constant growth and not a lot of draw backs in terms of final equity.
+				On this chart we can see an equity curve of the Rolling Windows algorithm. The equity curve is a graphical representation of the change in value of a trading account over an entire
+				time the algorithm was running.
+				\begin{figure}[h!]
+					\centering
+					\includegraphics[width=0.8\textwidth]{rolling_windows_equity_curve.png}
+					\caption{Rolling Windows Equity Curve}
+					\label{fig:rolling_windows_equity_curve}
+				Oveall performance of Rolling Windows could be rated as very successful as it was able to generate a return on investment of 20.0\% and a win rate of 90.5\%. 
+				Even when the market has grown by 10.6\% during the same time period. The Rolling Windows was able to outperform the market by 9.4\% which could be considered as successful.
+				However as already mentioned I believe it would perform even better if it was used alongside other indicators.
+				\end{figure}
+
+		\subsection{Moving Averages}
+			Moving averages is a rather simple technical indicator as it is based on only 1 factor which is the moving average of the market. 
+			The principle of this indicator is ot combined a certain amount of individual moving averages in order to compare the moving average of the market in serveral 
+			different time periods. The moving average could be Mathematicaly represented as the following:
+			\begin{equation}
+				Moving\ Average = \frac{Sum\ of\ Close\ Prices}{Number\ of\ Periods}
+			\end{equation}
+			Where the number of periods is the number of periods we are using to calculate the moving average.
+			In my implementation I have opted to use 2 moving averages and both are relatively short term. The first moving average is 6 periods and the second moving average is 10 periods.
+			This strategy is high risk high reward as it is very volatile and is able to detect trend changes very quickly. This contrasts with the previous implementation of the 
+			Bollinger bands where I have opted for rather long term moving average.
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width=0.8\textwidth]{moving_averages_code.png}
+				\caption{Moving Averages}
+				\label{fig:moving_averages}
+
+			\end{figure}
+
+			As we can see from the code above, there is a list of numbers that is used to represent the windows that moving averages are going to be calculated on. 
+			By using a loop like this I am giving the user the potential to use as many moving averages as they want. However in my implementation I am only using 2 moving averages.
+			After successfully writing them down into my data frame I am detecting the shortest and longest as they are then going to be used to detect the crossovers and crossunders.
+			After successfully detecting the shortest and longest moving averages I am than checking for potential crossovers and crossunders. Once again
+			I am using the strategy that if the previous signal was a buy I am only looking for a sell signal and vice versa. This is done in order to prevent the strategy from just hoarding 
+			buy and sell signals and not being able to detect the trend changes. The strategy of hoarding buys works however in this research I am looking inside of
+			a trading strategy, not investing strategy.
+			\subsubsection{Trend detection}
+				Bullish trend is signaled when the shortest moving average is higher than the longest moving average and the previous signal was a sell.
+				Bearish trend is signaled when the shortest moving average is lower than the longest moving average and the previous signal was a buy.
+
+			\subsubsection{Performance}
+				\begin{figure}[h!]
+					\centering
+					\includegraphics[width=0.8\textwidth]{moving_averages_plot.png}
+					\caption{Moving Averages Performance}
+					\label{fig:moving_averages_performance}
+				\end{figure}
+				On this plot we can see 3 lines with the following colors: Blue, Orange and Green. The blue line is the close price of the market, the orange line is the moving average for 
+				a window of 10 periods and the green line is the moving average for a window of 6 periods. 
+				In certain occasions the green line (MA6) is above the orange line (MA10) and in certain occasions the orange line (MA10) is above the green line (MA6).
+				When the green line (MA6) is above the orange line (MA10) we are in a bullish trend and when the orange line (MA10) is above the green line (MA6) we are in a bearish trend.
+				Moving Averages seem to be the best performing Technical Indicator so far. It was able to detect trend changes exceptionally well and was able 
+				to capitalize on the trend reversals exceptionally. Even though the strategy is very volatile as I have set the windows to be very short term it performed 
+				very well and was able to generate a very high return on investment.
+				The metrics of the Moving Averages are the following:
+				\begin{table}[h!]
+					\centering
+					\begin{tabular}{|c|c|c|c|c|}
+						\hline
+						\textbf{ROI} & \textbf{Win Rate} & \textbf{Buy \& Hold Return} & \textbf{Average Trade Return} \\ \hline
+						26.1\%         & 69.2\%               & 8.8\%                         & 1.6\%                           \\ \hline
+					\end{tabular}
+					\caption{Moving Averages Performance Metrics}
+					\label{tab:moving_averages_performance_metrics}
+				
+				\end{table}
+				Overall performance of Moving Averages are astonishing as it was able to generate a return on investment of 26.1\%. However it is important to look at the following 
+				metric: Win Rate. The win rate of Moving Averages is 69.2\% which is very low compared to the previous Technical Indicators. This is due to the fact that the strategy I have 
+				chosen is very volatile. Even though the average trade return is 1.6\% which is also very low compared to the previous Technical Indicators. This is also due to the small size 
+				of windows I have chosen. If the windows would have been larger it would take longer time to detect the trend reversals.
 	
-	
+
 
 
 \chapter{Example Chapter}
