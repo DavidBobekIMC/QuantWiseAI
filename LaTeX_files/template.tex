@@ -606,10 +606,63 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 
 	\section{Machine Learning models}
 		\subsection{Neural Network (LSTM)} 
+			In this segment I will be focusing on the implementation of the LSTM model and trying to determine its performance and analyze its imeplementation.
+			LSTM or Long Short Term Memory is a type of Recurrent Neural Network that is able to remember the context of the data and is able to remember the previous data points.
+			This feature is very useful for time series forecasting as the model is able to remember the previous data points and is able to predict the future data points based on the previous ones.
+			In order to implement the LSTM model I have used the following libraries: Pandas, Numpy, Matplotlib, Plotly, Scikit-learn, Tensorflow
+
+			The main issue when it comes to the implementation of any machine learning model that is trying to predict time-series data is the fact that the traditional golden 80/20 rule does not apply as
+			there are local trends which are not applicable to the entire dataset. Therefore I have decided to use a different approach and split the data using a library TimeSeriesSplit from Scikit-learn.
+			This way I am going to be able to split the data into multiple splits and train the model on each of the splits. This way I am going to be able to train the model on multiple different trends and
+			see different results.
+			I have decided to use 6 splits and train the model on each of the splits.
+			I have decided to buld the model in the following way:
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.8\textwidth]{lstm_code.png}
+				\caption{LSTM Model}
+				\label{fig:lstm_model}
+			\end{figure}
 				
+		
+			I am using a Sequential model which is a linear stack of layers. I am than adding a LSTM
+			layer with 4 units and a Dense layer with 1 unit. I am using the Adam optimizer and the Mean Squared Error as a loss function.
+			I have decided to use the Adam optimizer as it is a very popular optimizer and is used in many different fields. After fitting the model with the data I am than calling a predict function which is native to the library 
+			that I am using. In order to have better results I am than scaling the data using an inverse_transform function which does the opposite of the scaling function and scales the data back to its original form. 
+			After scaling the data back to its original form I am than calculating the RMSE and R2 score of the model. 
+			By running my model on 6 parts of the data I have been able to achieve the following results:			
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.8\textwidth]{lstm_chart.png}
+				\caption{LSTM Model Results in different splits}
+				\label{fig:lstm_model_plots}
+			\end{figure}
+			As we can see on the plots the plots blue is the actual price of the stock market and the orange is the predicted price of the stock market. The model prediction is very accurate as it is holding the same trend as the actual price
+			of the stock market. The test data is the data that the model has not seen before and is used to test the model and see how well it is performing. The model is performing very well on the test data and is able to predict the price of the stock market.
+			Some metrics over the 6 splits are the following, 6 columns and 4 rows. 2 for RMSE (Train and Test data)  and 2 for R2 score (Train and Test data). Table
+			\begin{table}[h!]
+				\centering
+				\begin{tabular}{|c|c|c|c|c|}
+					\hline
+					\textbf{RMSE Train} & \textbf{RMSE Test} & \textbf{R2 Train} & \textbf{R2 Test} \\ \hline
+					0.06 & 0.03 & -10.5& -0.8 \\ \hline
+					0.03 & 0.04 & -0.27& -4.9 \\ \hline
+					0.04 & 0.13 & -1.55& -19.5 \\ \hline
+					0.03 & 0.05 & 0.63& -5.0 \\ \hline
+					0.03 & 0.01 & 0.71& 0 \\ \hline
+					0.05 & 0.05 & 0.09 & -11.4 \\ \hline
+					
+				\end{tabular}
+				\caption{LSTM Model Results}
+				\label{tab:lstm_model_results}
 
+			\end{table}
 
-		\subsection{ARIMA}
+			As we can see from the performance from the table RMSE were very similiar on the test and train data. What is interesting that in sime cases the R2 was absolutely off the prediction with the test data 
+			however at those same cases RMSE seemed to be unhinged.	The reason could that R2 and RMSE are measuring different things. R2 is measuring the variance of the data and RMSE is measuring the distance of
+			the data from the fitted line.
+
+			
 		\subsection{Random Forest}
 		\subsection{XGBoost}
 		\subsection{Support Vector Regression}
