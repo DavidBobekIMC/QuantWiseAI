@@ -628,7 +628,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			I am using a Sequential model which is a linear stack of layers. I am than adding a LSTM
 			layer with 4 units and a Dense layer with 1 unit. I am using the Adam optimizer and the Mean Squared Error as a loss function.
 			I have decided to use the Adam optimizer as it is a very popular optimizer and is used in many different fields. After fitting the model with the data I am than calling a predict function which is native to the library 
-			that I am using. In order to have better results I am than scaling the data using an inverse_transform function which does the opposite of the scaling function and scales the data back to its original form. 
+			that I am using. In order to have better results I am than scaling the data using an inverse transform function which does the opposite of the scaling function and scales the data back to its original form. 
 			After scaling the data back to its original form I am than calculating the RMSE and R2 score of the model. 
 			By running my model on 6 parts of the data I have been able to achieve the following results:			
 			\begin{figure}
@@ -639,7 +639,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			\end{figure}
 			As we can see on the plots the plots blue is the actual price of the stock market and the orange is the predicted price of the stock market. The model prediction is very accurate as it is holding the same trend as the actual price
 			of the stock market. The test data is the data that the model has not seen before and is used to test the model and see how well it is performing. The model is performing very well on the test data and is able to predict the price of the stock market.
-			Some metrics over the 6 splits are the following, 6 columns and 4 rows. 2 for RMSE (Train and Test data)  and 2 for R2 score (Train and Test data). Table
+			Some metrics over the 6 splits are the following
 			\begin{table}[h!]
 				\centering
 				\begin{tabular}{|c|c|c|c|c|}
@@ -649,7 +649,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 					0.03 & 0.04 & -0.27& -4.9 \\ \hline
 					0.04 & 0.13 & -1.55& -19.5 \\ \hline
 					0.03 & 0.05 & 0.63& -5.0 \\ \hline
-					0.03 & 0.01 & 0.71& 0 \\ \hline
+					0.03 & 0.01 & 0.71& 0.0 \\ \hline
 					0.05 & 0.05 & 0.09 & -11.4 \\ \hline
 					
 				\end{tabular}
@@ -662,8 +662,51 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			however at those same cases RMSE seemed to be unhinged.	The reason could that R2 and RMSE are measuring different things. R2 is measuring the variance of the data and RMSE is measuring the distance of
 			the data from the fitted line.
 
+		\subsection{ARIMA}
+			Autoregressive Integrated Moving Average or industry known as ARIMA is a very popular model used for time series forecasting. It is the most popular model used for time series forecasting and its use cases are very wide due 
+			to the fact that during its activation it is combining the usage of 3 different models. ARIMA is a combination of Autoregression, Differencing and Moving Average. The concept of these 3 models was already 
+			introduced in the theoretical part of this thesis and therefore I will not be going into detail about them. I will be focusing on the implementation of the ARIMA model and its performance.
+			In order to implement the ARIMA model I have used the following libraries: Pandas,statsmodels, Matplotlib, pmdarima and Scikit-learn. Scikit-learn only to calculate MSE and MAE.
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.8\textwidth]{arima_code.png}
+				\caption{ARIMA Model}
+				\label{fig:arima_model}		
+			\end{figure}
+			In order to run the ARIMA model there are 3 main steps that need to be done. The steps is to split the data into train and test data. This is than followed by fitting the model with the train data
+			and than predicting the test data.During this step I have been calculating a rolling forecast during which I have builf a new model based on the previous data and than predicted 
+			the next data point. This way I was able to predict the entire test data iteratievly and than calculate the RMSE and MAE of the model. There also comes a question of tuning the
+			model by optimizing the hyperparameters. In order to do that I have used a library called pmdarima which allowed me to find the best set of hyperparameters for my model.
+			The hyperparameters that I have used are the following: 0,1,2. During this function I have also used a native forecast function which is able to predict the future data points.
+			By activating of this function I have been able to find yhat which are the predicted values of the future data points. I have than used these values to calculate the RMSE and MAE
+			of the model in next step.
 			
-		\subsection{Random Forest}
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.8\textwidth]{arima_chart.png}
+				\caption{ARIMA Model Results}
+				\label{fig:arima_model_plots}
+			\end{figure}
+
+			On this chart we can see 3 colors blue green and red being train data, predicted data and test data respectively. On this plot we can see that the predicted data is very much following  
+			the real data at the end. This is a very good sign as it means that the model is able to predict the future data points with low error. The model is performing very well on the test data. 
+			I have personally had a expectation that the model will be performing very well as it is very widely used and is known in the Machine Learning community as the best model for time series forecasting.
+			My exectations were not hindered and the model was able to achieve the following metrics for MSE,MAE and RMSE.
+			\begin{table}[h!]
+				\centering
+				\begin{tabular}{|c|c|c|c|c|}
+					\hline
+					\textbf{MSE} & \textbf{MAE} & \textbf{RMSE} \\ \hline
+					8.489e-06 & 0.002 & 0.003 \\ \hline
+				\end{tabular}
+				\caption{ARIMA Model Results}
+				\label{tab:arima_model_results}
+			\end{table}
+
+			Judging by the results the model is performing very well and is able to predict the future data points with very low errorr and is able to predict the future price of the stock market.
+			
+	
+			\subsection{Random Forest}
 		\subsection{XGBoost}
 		\subsection{Support Vector Regression}
 		\subsection{Linear Regression}

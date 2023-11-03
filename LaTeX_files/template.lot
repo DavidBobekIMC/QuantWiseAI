@@ -3,11 +3,13 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces RSI Performance Metrics}}{25}{table.caption.18}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Bollinger Bands Performance Metrics}}{28}{table.caption.23}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Rolling Windows Performance Metrics}}{31}{table.caption.28}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Moving Averages Performance Metrics}}{33}{table.caption.34}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces LSTM Model Results}}{25}{table.caption.16}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces ARIMA Model Results}}{27}{table.caption.19}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces RSI Performance Metrics}}{31}{table.caption.24}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Bollinger Bands Performance Metrics}}{33}{table.caption.29}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Rolling Windows Performance Metrics}}{36}{table.caption.34}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Moving Averages Performance Metrics}}{39}{table.caption.40}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Example table}}{38}{table.caption.37}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Example table}}{44}{table.caption.43}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
