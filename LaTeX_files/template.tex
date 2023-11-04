@@ -706,8 +706,60 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			Judging by the results the model is performing very well and is able to predict the future data points with very low errorr and is able to predict the future price of the stock market.
 			
 	
-			\subsection{Random Forest}
+		
 		\subsection{XGBoost}
+			XGBoost or also known as Extreme Gradient Boosting is machine learning model that is used for both classification and regression problems. XGBoost as an algorithm uses an ensemble of decision trees
+			and implements a gradient boosting framework. The gradient boosting framework is an approach where new models are created that predict the residuals or errors of prior models and then added together.
+			This means that over time the model is taking the errors of the previous models as inputs and is trying to predict the errors of th next model. This way the model is able to learn from its mistakes and improve every
+			iteration. In order to implement the XGBoost model I have used the following libraries: Pandas, Numpy, Matplotlib, Plotly, Scikit-learn and XGBoost. 
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.8\textwidth]{xgboost_code.png}
+				\caption{XGBoost Model}
+				\label{fig:xgboost_model}
+			\end{figure}
+
+			In my implementation I have also decided to use the time series split as I have done previously. The train test split is the same as in the previous models. What changed is that now I have decided to use 
+			scaler transform and fit transform for my train and test data respectively. This will allow me to scale the data and make it more suitable for the model. I have also decided to use a MinMaxScaler which takes 
+			the data and scales it to a range of 0 and 1. By scaling the data I am able to make the data more suitable for the model and therefore improve its performance. When it comes to building the model I have decided not to define
+			anything as an initial value. In order to experimentater. Internally the objective of this model is squared error and therefore there is not neeed to overwrite it. After building the model, I have decided to 
+			experiment with hyperparameters, specifically: n_estimators, learning_rate, max_depth, subsample, colsample_bytree. Running this hyperparameter tuning was very time consuming and took a lot of time to run. 
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.8\textwidth]{xgboost_tuning_code.png}
+				\caption{XGBoost Hyperparameters}
+				\label{fig:xgboost_hyperparameters}
+			\end{figure}
+			As we can see from the code I have decided to use a GridSearchCV which is a function that is able to run a grid search on the hyperparameters and find the best set of hyperparameters for my model.
+			The input parameter of cv is representing a cross-validation which is a technique used to evaluate the performance of the model. I have decided to use a 3 fold cross validation which means that the data is split into 3 parts and
+			the model is trained on 2 parts and tested on 1 part. This is done 3 times and the average of the 3 results is taken. This way I am able to evaluate the performance of the model on multiple different splits and therefore.
+			By doing this and also time-series split I am evaluate the perfromance exceptionally well as I am doing it natively by taking 4 parts in the outer loop and than each of those 4 parts has the cross-validation actiavted on top of it.
+			The concept of trying to find the hyperparameters is great however when trying to hard we can overfit the model and therefore the model will not be able to generalize well. This is why I have decided to use a 3 fold cross validation.
+			By trying too hard we are encountering a well known issue in the machine learning world wchich is called: Bias Variance Tradeoff. This is a very important concept in the machine learning world and is used to describe the problem of overfitting
+			and underfitting. 
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.8\textwidth]{xgboost_chart.png}
+				\caption{XGBoost Chart}
+				\label{fig:xgboost_chart}
+			\end{figure}
+			On this plot we can see perfroamce on XGBoost model over the 4 splits we initialized at the start. The blue line is the actual price of the stock market and the orange line is the predicted price of the stock market.
+			We can see that on the first figure the model is basically skipping over the extreme values and plateauing. This is a very interesting finding as it means that the model is not able to predict the extreme values and is not able to predict the 
+			movement in some cases. On the other hand the other 3 figures are being tracked exceptionally well, even though we can see a small offset in the 3rd figure. This is a very good sign as it means that the model is able to have an 
+			advanced grasp of what is going on in the market. The performance of this model was collected in this table. All the values in the table are the average of the 4 splits.
+			\begin{table}[h!]
+				\centering
+				\begin{tabular}{|c|c|c|c|}
+					\hline
+					\textbf{MAE} & \textbf{MSE} & \textbf{RMSE} & \textbf{R2} \\ \hline
+					0.068 & 0.098 & 0.089 & 0.50 \\ \hline
+				\end{tabular}
+				\caption{XGBoost Detailed Results}
+				\label{tab:xgboost_detailed_results}
+			\end{table}
+			From the detailed information that were collected we can see that MAE(Mean Average Eror), MSE(Mean Squared Error) and RMSE(Root Mean Squared Error) are very low which is a very good sign. The only concernin metric is the R2 score which is 0.5.
+			This is not particularly bad however it is not particularly good either. The R2 score is a metric that is used to measure the variance of the data and therefore it could also just indicate the market has high variance and that is the 
+			sole reason why the R2 is higher. Conclusion to XGBoost: XGBoost has a great performance and our expectation were met as it a solid machine learning model with a rational logic backing it.
 		\subsection{Support Vector Regression}
 			Support Vector Regression or industry known as SVR is machine learning model that is used for regression problems. It belongs to the family of Support Vector Machines and is working on the 
 			principle of trying to find the best fit line that is able to fit the data. SVR is used for continuous data and is able to predict the future data points. It could be Mathematicaly represented as:
@@ -842,6 +894,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 				Overall performance of RSI could be rated as very successful as it was able to generate a return on investment of 17.4\% and a win rate of 95.7\%.
 				Even though the market has grown by 10.6\% during the same time period. The RSI was able to outperform the market by almost 7\% which is a very
 				significant difference on a low volatile market like the currency exchange one.
+		\section{Technical indicators}
 
 		\subsection{Bollinger Bands}
 			Bollinger Bands are a well known technical indicator that is used to determine the volatility of the market. It was created by John Bollinger in the 1980s.
