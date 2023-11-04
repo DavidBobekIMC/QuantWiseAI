@@ -38,31 +38,29 @@
 \contentsline {section}{\numberline {5.2}Machine Learning models}{22}{section.5.2}%
 \contentsline {subsection}{\numberline {5.2.1}Neural Network (LSTM)}{22}{subsection.5.2.1}%
 \contentsline {subsection}{\numberline {5.2.2}ARIMA}{25}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Random Forest}{28}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}XGBoost}{28}{subsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.2.5}Support Vector Regression}{28}{subsection.5.2.5}%
-\contentsline {subsection}{\numberline {5.2.6}Linear Regression}{28}{subsection.5.2.6}%
-\contentsline {section}{\numberline {5.3}Technical Indicators}{28}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}RSI}{28}{subsection.5.3.1}%
-\contentsline {subsubsection}{Performance}{29}{subsubsection*.22}%
-\contentsline {subsection}{\numberline {5.3.2}Bollinger Bands}{31}{subsection.5.3.2}%
-\contentsline {subsubsection}{Trend detection}{32}{subsubsection*.26}%
-\contentsline {subsubsection}{Performance}{33}{subsubsection*.27}%
-\contentsline {subsection}{\numberline {5.3.3}Rolling Windows}{34}{subsection.5.3.3}%
-\contentsline {subsubsection}{Trend detection}{36}{subsubsection*.31}%
-\contentsline {subsubsection}{Performance}{36}{subsubsection*.32}%
-\contentsline {subsection}{\numberline {5.3.4}Moving Averages}{36}{subsection.5.3.4}%
-\contentsline {subsubsection}{Trend detection}{38}{subsubsection*.37}%
-\contentsline {subsubsection}{Performance}{38}{subsubsection*.38}%
-\contentsline {chapter}{\numberline {6}Example Chapter}{41}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Code and syntax highlighting}{41}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Labels and References}{42}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Mathematical Equations and Expressions}{42}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Enumerations and Descriptions}{42}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Adding images}{43}{section.6.5}%
-\contentsline {section}{\numberline {6.6}Colors}{43}{section.6.6}%
-\contentsline {section}{\numberline {6.7}Just a poem by Emily Dickinson}{44}{section.6.7}%
-\contentsline {section}{\numberline {6.8}Tables}{44}{section.6.8}%
-\contentsline {chapter}{Bibliography}{45}{section*.44}%
-\contentsline {chapter}{Appendix \numberline {A}Example Appendix 1}{47}{appendix.a.A}%
-\contentsline {chapter}{Appendix \numberline {B}Example Appendix 2}{49}{appendix.a.B}%
+\contentsline {subsection}{\numberline {5.2.3}Random Forest}{27}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}XGBoost}{27}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Support Vector Regression}{27}{subsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.2.6}RSI}{30}{subsection.5.2.6}%
+\contentsline {subsubsection}{Performance}{32}{subsubsection*.25}%
+\contentsline {subsection}{\numberline {5.2.7}Bollinger Bands}{33}{subsection.5.2.7}%
+\contentsline {subsubsection}{Trend detection}{35}{subsubsection*.29}%
+\contentsline {subsubsection}{Performance}{35}{subsubsection*.30}%
+\contentsline {subsection}{\numberline {5.2.8}Rolling Windows}{36}{subsection.5.2.8}%
+\contentsline {subsubsection}{Trend detection}{38}{subsubsection*.34}%
+\contentsline {subsubsection}{Performance}{38}{subsubsection*.35}%
+\contentsline {subsection}{\numberline {5.2.9}Moving Averages}{39}{subsection.5.2.9}%
+\contentsline {subsubsection}{Trend detection}{40}{subsubsection*.40}%
+\contentsline {subsubsection}{Performance}{41}{subsubsection*.41}%
+\contentsline {chapter}{\numberline {6}Example Chapter}{43}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Code and syntax highlighting}{43}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Labels and References}{44}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Mathematical Equations and Expressions}{44}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Enumerations and Descriptions}{44}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Adding images}{45}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Colors}{45}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Just a poem by Emily Dickinson}{46}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Tables}{46}{section.6.8}%
+\contentsline {chapter}{Bibliography}{47}{section*.47}%
+\contentsline {chapter}{Appendix \numberline {A}Example Appendix 1}{49}{appendix.a.A}%
+\contentsline {chapter}{Appendix \numberline {B}Example Appendix 2}{51}{appendix.a.B}%

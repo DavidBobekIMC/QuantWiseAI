@@ -583,7 +583,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			to see the differences. This plots tracks 100 hours worth of trading as the interval in between each of the points is 4 hours and there are 25 points in total.
 			I have decided to only display a fraction of the entire data due to the fact I wanted to display the differences in between the hours and not the market movement itself.
 			This way we can clearly see the integer values of each of the hours and how the price is moving during these hours.
-			\begin{figure}[!h]
+			\begin{figure}[!h!]
 				\centering
 				\includegraphics[width=0.8\textwidth]{volumte_time_analysis_linechart.png}
 				\caption{Volume Time Analysis}
@@ -709,8 +709,67 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			\subsection{Random Forest}
 		\subsection{XGBoost}
 		\subsection{Support Vector Regression}
-		\subsection{Linear Regression}
-	\section{Technical Indicators}
+			Support Vector Regression or industry known as SVR is machine learning model that is used for regression problems. It belongs to the family of Support Vector Machines and is working on the 
+			principle of trying to find the best fit line that is able to fit the data. SVR is used for continuous data and is able to predict the future data points. It could be Mathematicaly represented as:
+			\begin{equation}
+				y = \sum_{i=1}^{n} \alpha_i K(x_i,x) + b
+			\end{equation}
+			Where:
+			\begin{itemize}
+				\item $y$ is the predicted value
+				\item  $\alpha$ is the weight 
+				\item  $K$ is the kernel function
+				\item  $x_i$ is the training data
+				\item  $x$ is the test data.
+
+			\end{itemize}
+			SVR is offering a series of different kernels that can be used to fit the data. The most popular ones are: Linear, Polynomial, RBF and Sigmoid.
+			In my implementation I have decided to use the RBF, Linear and Polynomial kernel and compare their performance. In order to implement the SVR model I have decided to use the time series split as I have done with the LSTM model.
+			I have decided to use only 4 splits and look at a very short time period of 100 ticks. I have decided to use a short time period as I wanted to see how the model is performing on a short time period and how it is able to perform 
+			on a short training data. The implementation of the SVR is rather simple and it can be done like this:
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width=0.8\textwidth]{svr_code.png}
+				\caption{SVR Model}
+				\label{fig:svr_model}
+			\end{figure}
+			At the start I have declared 4 time series splits and looped through each of them. I have than declared 3 different models (RBF, Linear, Polynomial) and than fitted each of them with the train data.
+			In terms of the hyperparameters I have opted to minimize the C as I am dealing with very litle changes in the data over time. The principle of C is that it is a penalty parameter of the error term.
+			It controls the trade off between smooth decision boundary and classifying the training points correctly. As my deltas are very small I have decided to minimize the C and therefore minimize the penalty parameter. 
+			In terms of the gamma I have decided to use go for the auto option for the Linear and Polynomial kernels and for RBF I have decided to use the scale option. I have also decided to use a scaling function
+			provided by a library Scikit-learn. In my implementation I have decided to use a MinMaxScaler which takes the data and scales it to a range of 0 and 1. This is a very useful function as it is able to scale the data 
+			irrelevant of its magnitude. As my percentage changes are very small this scaler is going to be very useful for my implementation.
+			The largest drawback I have found with the SVR model is the fact that it is very slow and it takes a lot of time to train the model when using extremely low values of C. 
+			After fitting the model I have than predicted the test data and calculated the RMSE and MAE of the model.
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.8\textwidth]{svr_chart.png}
+				\caption{SVR Model Results}
+				\label{fig:svr_model_plots}
+			\end{figure}
+			On this plot we can see the actual price of the stock market as a black scatter plot and 3 lines which are trying to preedict the movement of the stock market. Red is the RBF kernel, orange is the Linear kernel and purple is the Polynomial kernel.
+			As we can see the RBF kernel is on the first look performing the best and is able to predict the market with the closest match to the actual price. The Linear kernel is performing the worst and is not able to predict the market at all.
+			The performance of the Polynomial kernel is questionable however it is relatively successful in predicting the market. Each of the 4 plots is representing a different split and therefore we can see that the model is performing differently on each of the splits.
+			Its performance can be summarized in the following table where we can see MSE, MAE and R2 score of each of the kernels. The data inside of this table is the average of the 4 splits.
+			
+			
+			\begin{table}[h!]
+				\centering
+				\begin{tabular}{|c|c|c|c|}
+					\hline
+					\textbf{Type} &\textbf{MSE} & \textbf{MAE} & \textbf{R2} \\ \hline
+					RBF & 0.297 & 0.371 & -2.866 \\ \hline
+					Linear & 0.268 & 0.374 & -2.854 \\ \hline
+					Poly & 0.099 & 0.099 & -0.483 \\ \hline
+				\end{tabular}
+				\caption{SVR Model Results}
+				\label{tab:svr_model_results}
+			\end{table}
+			After carefully examining the averages and comparing the results with the plots we can see that statistically the Polynomial kernel is performing the best. However the RBF kernel is performing the best on the plots.
+			 The perfromance of the Linear kernel is almost identical to the RBF kernel however when lookin at the plots we can clearly see that the RBF kernel is performing better. The reason for this could be the fact that the RBF kernel has higher variance
+			 when it start to predict the future data points and the initial prediction is not very close to the actual price. However as the prediction continues the RBF kernel is able to predict the future data points with higher accuracy, 
+			 but tends to fly off the actual price at the end. As a conclusion we can say that the SVR model is not performing very well and could not be used for time series forecasting. The reason for this could be the fact that the SVR model is not able to 
+			accurately detect trends and match the data flow of the stock market.
 		\subsection{RSI}
 			RSI stands for Relative Strength Index and is a momentum indicator used in technical analysis that measures the magnitude of recent price changes to
 			evaluate overbought or oversold conditions in the price of a stock or other asset. RSI is one of the most popular technical indicators
@@ -1097,7 +1156,7 @@ Maybe such descriptions are also useful. These look neat to me. What do you thin
 
 \section{Adding images}
 Adding a simple image is easy. Adding complex images is also easy. What is a complex image anyway? 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{imclogo.png}
 	\caption{Old IMC Logo}
@@ -1217,3 +1276,4 @@ Appendices should be used for supplemental information that does not form part o
 	
 \end{appendices}
 \end{document}
+	
