@@ -3,14 +3,17 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces LSTM Model Results}}{25}{table.caption.16}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces LSTM Model Results}}{24}{table.caption.16}%
 \contentsline {table}{\numberline {5.2}{\ignorespaces ARIMA Model Results}}{27}{table.caption.19}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces SVR Model Results}}{31}{table.caption.26}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces RSI Performance Metrics}}{33}{table.caption.31}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Bollinger Bands Performance Metrics}}{38}{table.caption.36}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Rolling Windows Performance Metrics}}{40}{table.caption.41}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Moving Averages Performance Metrics}}{43}{table.caption.47}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces XGBoost Detailed Results}}{30}{table.caption.23}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces SVR Model Results}}{32}{table.caption.26}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces RSI Performance Metrics}}{35}{table.caption.31}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Bollinger Bands Performance Metrics}}{39}{table.caption.36}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Rolling Windows Performance Metrics}}{41}{table.caption.41}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Moving Averages Performance Metrics}}{44}{table.caption.47}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Example table}}{48}{table.caption.50}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Machine Learning Strategies Metrics}}{45}{table.caption.49}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Example table}}{50}{table.caption.53}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
