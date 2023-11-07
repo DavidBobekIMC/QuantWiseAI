@@ -3,26 +3,26 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Volume Time Analysis}}{20}{figure.caption.12}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Volume Time Analysis}}{21}{figure.caption.13}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces LSTM Model}}{23}{figure.caption.14}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces LSTM Model Results in different splits}}{24}{figure.caption.15}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces ARIMA Model}}{26}{figure.caption.17}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces ARIMA Model Results}}{27}{figure.caption.18}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces XGBoost Model}}{28}{figure.caption.20}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces XGBoost Hyperparameters}}{29}{figure.caption.21}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces XGBoost Chart}}{30}{figure.caption.22}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces SVR Model}}{31}{figure.caption.24}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces SVR Model Results}}{32}{figure.caption.25}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces RSI}}{34}{figure.caption.27}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces RSI}}{35}{figure.caption.28}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces RSI Performance}}{36}{figure.caption.30}%
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Bollinger Bands}}{37}{figure.caption.32}%
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Bollinger Bands Performance}}{39}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Rolling Windows}}{40}{figure.caption.37}%
-\contentsline {figure}{\numberline {5.18}{\ignorespaces Rolling Windows Performance}}{41}{figure.caption.40}%
-\contentsline {figure}{\numberline {5.19}{\ignorespaces Rolling Windows Equity Curve}}{42}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.20}{\ignorespaces Moving Averages}}{43}{figure.caption.43}%
-\contentsline {figure}{\numberline {5.21}{\ignorespaces Moving Averages Performance}}{44}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Volume Time Analysis}}{20}{figure.caption.10}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Volume Time Analysis}}{21}{figure.caption.11}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces LSTM Model}}{23}{figure.caption.12}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces LSTM Model Results in different splits}}{24}{figure.caption.13}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces ARIMA Model}}{26}{figure.caption.15}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces ARIMA Model Results}}{27}{figure.caption.16}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces XGBoost Model}}{28}{figure.caption.18}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces XGBoost Hyperparameters}}{29}{figure.caption.19}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces XGBoost Chart}}{30}{figure.caption.20}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces SVR Model}}{31}{figure.caption.22}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces SVR Model Results}}{32}{figure.caption.23}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces RSI}}{34}{figure.caption.25}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces RSI}}{35}{figure.caption.26}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces RSI Performance}}{36}{figure.caption.28}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Bollinger Bands}}{37}{figure.caption.30}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Bollinger Bands Performance}}{39}{figure.caption.33}%
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Rolling Windows}}{40}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Rolling Windows Performance}}{41}{figure.caption.38}%
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Rolling Windows Equity Curve}}{42}{figure.caption.40}%
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Moving Averages}}{43}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.21}{\ignorespaces Moving Averages Performance}}{44}{figure.caption.44}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Equity Curves for Different Strategies}}{47}{figure.caption.54}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Equity Curves for Different Strategies}}{47}{figure.caption.52}%
