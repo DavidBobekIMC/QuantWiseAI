@@ -2,8 +2,8 @@
 \contentsline {chapter}{Abstract}{iv}{section*.3}%
 \contentsline {chapter}{Acknowledgements}{vii}{section*.6}%
 \contentsline {chapter}{Table of Contents}{viii}{section*.7}%
-\contentsline {chapter}{List of Tables}{x}{section*.8}%
-\contentsline {chapter}{List of Figures}{xi}{section*.9}%
+\contentsline {chapter}{List of Tables}{ix}{section*.8}%
+\contentsline {chapter}{List of Figures}{x}{section*.9}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Research Questions}{2}{section.1.2}%
@@ -53,17 +53,11 @@
 \contentsline {subsubsection}{Trend detection}{43}{subsubsection*.44}%
 \contentsline {subsubsection}{Performance}{43}{subsubsection*.45}%
 \contentsline {chapter}{\numberline {6}Conclusion}{45}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Machine Learning Strategies}{45}{section.6.1}%
 \contentsline {subsubsection}{ What is the comparative performance and predictive accuracy of a machine learning algorithms and technical indicators for price forecasting in financial markets? }{45}{subsubsection*.48}%
 \contentsline {subsubsection}{Is it possible to predict the future price of the stock market based on historical data?}{46}{subsubsection*.50}%
-\contentsline {chapter}{\numberline {7}Example Chapter}{47}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Code and syntax highlighting}{47}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Labels and References}{48}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Mathematical Equations and Expressions}{48}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Enumerations and Descriptions}{48}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Adding images}{49}{section.7.5}%
-\contentsline {section}{\numberline {7.6}Colors}{49}{section.7.6}%
-\contentsline {section}{\numberline {7.7}Just a poem by Emily Dickinson}{50}{section.7.7}%
-\contentsline {section}{\numberline {7.8}Tables}{50}{section.7.8}%
-\contentsline {chapter}{Bibliography}{51}{section*.54}%
-\contentsline {chapter}{Appendix \numberline {A}Example Appendix 1}{53}{appendix.a.A}%
-\contentsline {chapter}{Appendix \numberline {B}Example Appendix 2}{55}{appendix.a.B}%
+\contentsline {section}{\numberline {6.2}Technical Indicators}{46}{section.6.2}%
+\contentsline {subsubsection}{ What is the comparative performance and predictive accuracy of a machine learning algorithms and technical indicators for price forecasting in financial markets? }{46}{subsubsection*.51}%
+\contentsline {subsubsection}{Is it possible to predict the future price of the stock market based on historical data?}{47}{subsubsection*.53}%
+\contentsline {section}{\numberline {6.3}Conclusion}{47}{section.6.3}%
+\contentsline {chapter}{Bibliography}{49}{section*.55}%

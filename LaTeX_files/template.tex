@@ -231,7 +231,7 @@ Pandas, Numpy, Matplotlib,Plotly, Scikit-learn, Tensorflow, Keras, Backtesting o
 				\item Sharpe ratio: The Sharpe ratio is a measure of risk-adjusted return, which compares an investment's excess return to its standard deviation of returns.
 				The higher the Sharpe ratio, the better the investment's historical risk-adjusted performance.
 			\end{itemize}
-		\item Evaluation of Metrics on the Machine Learning models is going to be different as when using Technical Indicators. 
+		\item Evaluation of Metrics on the Machine Learning models is going to be different \cite{evaluation_metrics} as when using Technical Indicators. 
 		While using Machine learning models I will be measuring the accuracy of the model and the RMSE (Root Mean Square Error) of the model and R2 score.
 			\begin{itemize}
 				\item Accuracy: Accuracy is the most obvious performance measure and it represents a ratio of correctly predicted observation to the total observations.
@@ -281,7 +281,7 @@ In time series forecasting we have several topics we need to look a bit deeper i
 
 	\begin{itemize}
 		\item Stationarity
-		Stationarity is assumed for time series data, which means that its statistical features remain constant across time.
+		Stationarity \cite{Smoothing_and_stationarity} is assumed for time series data, which means that its statistical features remain constant across time.
 		This comprises a constant mean, constant variance, and autocovariance that is only affected by time lag.
 		Many time series models rely on stationarity to produce accurate forecasts because they require steady statistical features.
 		Stationarity can be spotted by comparing means and RMSE in various different places and if these 2 values do not different in many
@@ -391,7 +391,7 @@ In time series forecasting we have several topics we need to look a bit deeper i
 
 	\section{Academic Research}
 		Machine learning is a very hot topic in the year 2023 and its combination with the well known stock market is a prevalent combination
-		of the past few years. I have been able to find study such as\cite{ref1}  that have focused on in-depth analysis of performance of certain algorithms,
+		of the past few years. I have been able to find study such as \cite{ref1}  that have focused on in-depth analysis of performance of certain algorithms,
 		however it is not directly what I will be researching . The research of deep learning algorithms used to predict the financial \cite{deep_learning}
 		were very niche and well performed. I am definitely going to use the already existing findings from the author's essay in order to gain better insight
 		on the current problematic of time series forecasting with deep  learning algoriths. 
@@ -405,10 +405,10 @@ In time series forecasting we have several topics we need to look a bit deeper i
 		“Empirical results show that the two-day candlestick patterns after filtering have the best prediction effect when forecasting one day ahead”
 		and that applying machine learning methods to two day and three day  patterns for one day ahead forecasts can be profitable
 
-		Possibly one of the most insightful studies is a thesis named “Machine learning techniques and data for stock market forecasting: A literature review”.\cite{lit_review} 
+		Possibly one of the most insightful studies is a thesis named “Machine learning techniques and data for stock market forecasting: A literature review”. \cite{lit_review} 
 		Its purpose was analyzing multiple machine learning studies and conducting their results. The whole thesis was comparing the performance and quality 
 		of the already existing sources. By analyzing a significant amount of studies they have been able to point out which approaches have been performing
-		very well, such as: SVM (Support Vector Machine), or  ANN (Artificial neural network) or Fuzzy Theory. These studies were conducted on different markets
+		very well, such as: SVM (Support Vector Machine), or  ANN (Artificial neural network) \cite{Deep_learning_2} or Fuzzy Theory. These studies were conducted on different markets
 		in order to diversify the machine learning models and also introduce potential differences based on geographical locations of the markets.
 		This study has found out that by using neural networks on the American stock market  S\&P 500  and as input of indices data and google trends,
 		they were able to achieve over 86.\% on a Hit Ratio. These results can be categorized as significant and therefore giving us a good understanding 
@@ -452,7 +452,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 
 	\subsection{Technical Indicators}
 	In this section I will be focusing on the implementation of the Technical Indicators and trying to find the best ones that will be used in the next steps.
-	The Technical indicators I am going to use are for example: RSI,Bollinger Bands,Rolling Windows, or Moving Averages and many more.
+	The Technical indicators I am going to use are for example: RSI \cite{RSI_1},Bollinger Bands \cite{Bollinger_Bands_1},Rolling Windows \cite{Rolling_window_1}, or Moving Averages \cite{Moving_average_1} and many more.
 	\begin{itemize}
 		\item Data Preparation: The data used to input into my Technical Indicators will be the data from the previous step and will be used to create new features.
 		\item Implementation of Technical Indicators: In this step I will be implementing the Technical Indicators by at first thoroughly studying them and then extracting 
@@ -477,7 +477,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 	\end{itemize}
 
 	\section{Evaluation metrics}
-		In this section I will be focusing on the evaluation of the performance of the Machine Learning models and Technical Indicators.
+		In this section I will be focusing on the evaluation \cite{evaluation_metrics_2} of the performance of the Machine Learning models and Technical Indicators.
 		I will be using metrics such as: (Return on investment, Buy and hold return, Sharpe ratio, Win Trade, Accuracy, RMSE and many more)
 		\begin{itemize}
 			\item Return on investment: $ROI = \frac{Current\ Value - Original\ Value}{Original\ Value}$
@@ -515,7 +515,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			\end{itemize}
 
 		\subsection{Backtesting}
-			Backtesting is a process of testing a strategy on historical data to see how it would have performed in the past. 
+			Backtesting is a process of testing a strategy\cite{what_is_backtesting} on historical data to see how it would have performed in the past. 
 			This concept is often used to evaluate the effectiveness of a trading strategy and is a fairly simple process. 
 			How it works step by step:
 			\begin{enumerate}
@@ -553,7 +553,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			The process of Data Loading is starting with finding a trust-worthy source from which I could download the data I am going to be using in my 
 			research. As already mentioned  I am going to be working on the trading pair of EUR/GBP and a source from which I will be downloading the data 
 			is a Swiss Banking group called Dukascopy. Dukascopy have provided me with this historical data in a form of CSV file. The data is in the form of
-			Candlestick charts and contains the following columns: Date, Time, Open, High, Low, Close, Volume. I have been able to get the data in 4 hour intervals
+			Candlestick charts and contains the following columns: Date, Time, Open, High, Low, Close, Volume \cite{Technical_Indicators_with_the_Volume}. I have been able to get the data in 4 hour intervals
 			which is perfect to determine the trend of the market during daily to weekly intervals. 
 		\subsection{Data Cleaning}
 			Data cleaning was not particularly difficult as the data was already in a very clean form. As the data provided by Dukascopy was a global data which is 
@@ -606,7 +606,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 
 	\section{Machine Learning models}
 		\subsection{Neural Network (LSTM)} 
-			In this segment I will be focusing on the implementation of the LSTM model and trying to determine its performance and analyze its imeplementation.
+			In this segment I will be focusing on the implementation of the LSTM \cite{lstm_implement} model and trying to determine its performance and analyze its imeplementation.
 			LSTM or Long Short Term Memory is a type of Recurrent Neural Network that is able to remember the context of the data and is able to remember the previous data points.
 			This feature is very useful for time series forecasting as the model is able to remember the previous data points and is able to predict the future data points based on the previous ones.
 			In order to implement the LSTM model I have used the following libraries: Pandas, Numpy, Matplotlib, Plotly, Scikit-learn, Tensorflow
@@ -708,7 +708,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			XGBoost or also known as Extreme Gradient Boosting is machine learning model that is used for both classification and regression problems. XGBoost as an algorithm uses an ensemble of decision trees
 			and implements a gradient boosting framework. The gradient boosting framework is an approach where new models are created that predict the residuals or errors of prior models and then added together.
 			This means that over time the model is taking the errors of the previous models as inputs and is trying to predict the errors of th next model. This way the model is able to learn from its mistakes and improve every
-			iteration. In order to implement the XGBoost model I have used the following libraries: Pandas, Numpy, Matplotlib, Plotly, Scikit-learn and XGBoost. 
+			iteration. In order to implement the XGBoost model \cite{xgboost_implement} I have used the following libraries: Pandas, Numpy, Matplotlib, Plotly, Scikit-learn and XGBoost. 
 			\begin{figure}[h]
 				\centering
 				\includegraphics[width=0.8\textwidth]{xgboost_code.png}
@@ -758,7 +758,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			This is not particularly bad however it is not particularly good either. The R2 score is a metric that is used to measure the variance of the data and therefore it could also just indicate the market has high variance and that is the 
 			sole reason why the R2 is higher. Conclusion to XGBoost: XGBoost has a great performance and our expectation were met as it a solid machine learning model with a rational logic backing it.
 		\subsection{Support Vector Regression}
-			Support Vector Regression or industry known as SVR is machine learning model that is used for regression problems. It belongs to the family of Support Vector Machines and is working on the 
+			Support Vector Regression or industry known as SVR \cite{svr_implement} is machine learning model that is used for regression problems. It belongs to the family of Support Vector Machines and is working on the 
 			principle of trying to find the best fit line that is able to fit the data. SVR is used for continuous data and is able to predict the future data points. It could be Mathematicaly represented as:
 			\begin{equation}
 				y = \sum_{i=1}^{n} \alpha_i K(x_i,x) + b
@@ -836,7 +836,7 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			\end{itemize}
 
 			
-			It can be clearly seen that RSI is working on the principle of momentum due to the fact it is using the previous X periods and is calculating the average gain and loss.
+			It can be clearly seen that RSI \cite{rsi_implement}is working on the principle of momentum due to the fact it is using the previous X periods and is calculating the average gain and loss.
 			By using the average gain and loss we are able to calculate the RS and then the RSI. The RSI is an actual number between 0 and 100 and is used to determine if the market is overbought or oversold.
 			When the RSI is above a ceratin factor we do consider the market to be overbought and when the RSI is below a certain factor we do consider the market to be oversold.
 			In my implementation iam using a factor of 4. I am than using factor in my implementation to adjust the RSI values at crossover and crossunder points to make the indicator
@@ -1203,195 +1203,50 @@ My Implementation is going to consist of 3 main parts. Each consisting of multip
 			Yes, all of the models are able to outperform the market and are able to generate a clean profit. Every single one of the models is able to generate a high return on investment in such a stable trading pair like the EUR/GBP one. 
 			I am exceptionally satisfied with the results of the research and I believe that the results are very promising. 
 			The equity graph can be seen in the following figure:
-			\begin{figure}[h!]
-				\centering
-				\includegraphics[width=0.8\textwidth]{equity_curve_rsi.png}
-				\caption{Equity Curve for RSI}
-				\label{fig:equity_curve}
-			\end{figure}
 			
 			\begin{figure}[h!]
 				\centering
-				\includegraphics[width=0.8\textwidth]{equity_curve_bollinger_bands.png}
-				\caption{Equity Curve for Bollinger Bands}
-				\label{fig:equity_curve}
+
+				\begin{subfigure}{0.45\textwidth}
+					\centering
+					\includegraphics[width=\textwidth]{equity_curve_rsi.png}
+					\caption{Equity Curve for RSI}
+					\label{fig:equity_curve_rsi}
+				\end{subfigure}
+				\hfill
+				\begin{subfigure}{0.45\textwidth}
+					\centering
+					\includegraphics[width=\textwidth]{equity_curve_bollinger_bands.png}
+					\caption{Equity Curve for Bollinger Bands}
+					\label{fig:equity_curve_bollinger_bands}
+				\end{subfigure}
+
+				\begin{subfigure}{0.45\textwidth}
+					\centering
+					\includegraphics[width=\textwidth]{equity_curve_rolling_windows.png}
+					\caption{Equity Curve for Rolling Windows}
+					\label{fig:equity_curve_rolling_windows}
+				\end{subfigure}
+				\hfill
+				\begin{subfigure}{0.45\textwidth}
+					\centering
+					\includegraphics[width=\textwidth]{equity_curve_moving_averages.png}
+					\caption{Equity Curve for Moving Averages}
+					\label{fig:equity_curve_moving_averages}
+				\end{subfigure}
+
+				\caption{Equity Curves for Different Strategies}
+				\label{fig:combined_equity_curves}
 			\end{figure}
-
-			\begin{figure}[h!]
-				\centering
-				\includegraphics[width=0.8\textwidth]{equity_curve_rolling_windows.png}
-				\caption{Equity Curve for Rolling Windows}
-				\label{fig:equity_curve}
-
-			\end{figure}
-
-			\begin{figure}[h!]
-				\centering
-				\includegraphics[width=0.8\textwidth]{equity_curve_moving_averages.png}
-				\caption{Equity Curve for Moving Averages}
-				\label{fig:equity_curve}
-			\end{figure}
-
-
-\chapter{Example Chapter}
-This is only an example of a chapter! Anyways, all thesis should have a problem statement -- not necessarily as a separate chapter though.
- Only after you know the problem, it will be possible for you to evaluate the results of what you did. If you want to see examples of evaluations,
-  have a look at how graph visualizations are evaluated here \cite{DBLP:journals/access/BurchHWPWH21}. 
-
-\section{Code and syntax highlighting}
-
-You may sometimes want to add code snippets to your thesis. You can do so by using \texttt{lstlisting}. Use this with care, as code should not be extensively presented in the thesis. Here is an example. 
-
-\begin{lstlisting}[language=Python]
-def addition ():
-    print("I am adding numbers here!")
-    n = float(input("Enter the number: "))
-    t = 0 // Total number enter
-    ans = 0
-    while n != 0:
-        ans = ans + n
-        t+=1
-        n = float(input("Enter another number (0 to end): "))
-    return [ans,t]
-\end{lstlisting}
-
-\section{Labels and References}
-See \autoref{chap:introduction} for interesting stuff and see a cool logo in \autoref{fig:logo}. If you are still not convinced, try adding a footnote\footnote{did you like it?}. Its easy to add citations, just use a bibtex file to list your references and cite them here like this~\cite{988366}. If you want to read a cool paper~\cite{DBLP:conf/euromicro/DhunganaHW20}, just contact the author of the paper. Haha, that was funny! 
-
-
-
-
-\section{Mathematical Equations and Expressions}
-Basic equations in  \LaTeX{} can be easily "programmed". Fermat's Last Theorem (sometimes called Fermat's conjecture, especially in older texts) states that no three positive integers a, b, and c satisfy the equation \[ a^n + b^n = c^n \] for any integer value of $n$ greater than $2$. The cases $n = 1$ and  $n = 1$  have been known since antiquity to have infinitely many solutions. And because its so much fun, here is an integral for you - thank me later!  
-
-\[ \int\limits_0^1 x^2 + y^2 \ dx \]
-
-Do you want a more complex formula, I have no idea what it means, but it looks pretty. 
-
-\[\oint_{i=1}^n \sum_{i=1}^{\infty} \frac{1}{n^s} 
-= \prod_p \frac{1}{1 - p^{-s}} \]
-
-
-\section{Enumerations and Descriptions}
-Here is a simple list: 
-\begin{enumerate}
-	\item The labels consists of sequential numbers.
-	\item The numbers starts at 1 with every call to the enumerate environment.
-\end{enumerate}
-
-Here is another list: 
-
-\begin{enumerate}
-	\item The labels consists of sequential numbers.
-	\begin{itemize}
-		\item The individual entries are indicated with a black dot, a so-called bullet.
-		\item The text in the entries may be of any length.
-	\end{itemize}
-	\item The numbers starts at 1 with every call to the enumerate environment.
-\end{enumerate}
-
-Maybe such descriptions are also useful. These look neat to me. What do you think? Oh, I forgot, this document is not a tutorial. 
-\begin{description}
-	\item[Short] This is a shorter item label, and some text that talks
-	about it. The text is wrapped into a paragraph, with successive
-	lines indented.
-	\item[Rather longer label] This is a longer item label.  As you can
-	see, the text is not started a specified distance in -- unlike
-	with other lists -- but is spaced a fixed distance from the end
-	of the label.
-\end{description}
-
-
-
-\section{Adding images}
-Adding a simple image is easy. Adding complex images is also easy. What is a complex image anyway? 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=1.0\textwidth]{imclogo.png}
-	\caption{Old IMC Logo}
-	\label{fig:logo}
-\end{figure}
-
-
-
-
-
-\begin{figure}[ht]
-	\begin{subfigure}{.5\textwidth}
-		\centering
-		% include first image
-		\includegraphics[width=.8\linewidth]{imc_logo_print.jpg}  
-		\caption{New Logo since 2023}
-		\label{fig:sub-first}
-	\end{subfigure}
-	\begin{subfigure}{.5\textwidth}
-		\centering
-		% include second image
-		\includegraphics[width=.8\linewidth]{imc_logo_print.jpg}  
-		\caption{New IMC Logo since 2023}
-		\label{fig:sub-second}
-	\end{subfigure}
-	\caption{Including sub images! }
-	\label{fig:fig}
-\end{figure}
-\section{Colors}
-\begin{enumerate}
-\item \textcolor{imcblue}{IMC Blue}  
-    \begin{verbatim}
-        \textcolor{imcblue}
-    \end{verbatim}
-\item \textcolor{imctech}{IMC Color for Science and Technology}
-    \begin{verbatim}
-        \textcolor{imctech}
-    \end{verbatim}
-\item \textcolor{imcgray}{IMC Corporate Color}
-\begin{verbatim}
-        \textcolor{imcgray}
-    \end{verbatim}
-\item \textcolor{imcorange}{IMC Corporate Color 2}
-\begin{verbatim}
-        \textcolor{imcorange}
-    \end{verbatim}
-\end{enumerate}
-
-\section {Just a poem by Emily Dickinson}
-
-I'm nobody! Who are you?
-
-Are you nobody, too?
-
-Then there's a pair of us — don't tell!
-
-They'd banish us, you know.
-
-How dreary to be somebody!
-
-How public, like a frog
-
-To tell your name the livelong day
-
-To an admiring bog!
+		
+	\section{Conclusion}
+	During this research I have been exploring the performance of Machine Learning Models and Technical Indicators and studying their performance against each other. I have been using the EUR/GBP currency pair as it is a very stable currency pair.
+	Even though the currency pair is very stable and the market could be considered as low volatile, it is important to note that this research could be applied to any other currency pair or even stock market.
+	The reason for selecting the specific models and indicators was due to the fact that I wanted to explore the performance of the most popular models and indicators on market with low perecentage differentials.
+	There was no initial bias towards any of the model or indicator and nothing has been cherry picked. As I have mentioned before the goal of this research was to determine whether Machine Learning Models 
+	and Technical Indicators are a viable option for time series forecasting. The results of the research are very promising and the null hypothesis that it is not possible to forecast the market movement using Machine Learning models
+	and Technical Indicators can be rejected. The results speak for themselves and I believe that they could be even better if the research was done on a more volatile market.
 	
-\section{Tables}
-
-\begin{table}[ht]
-\begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
-	\hline
-	\multicolumn{4}{|c|}{Country List} \\
-	\hline
-	Country Name     or Area Name& ISO ALPHA 2 Code &ISO ALPHA 3 Code&ISO numeric Code\\
-	\hline
-	Afghanistan   & AF    &AFG&   004\\
-	Aland Islands&   AX  & ALA   &248\\
-	Albania &AL & ALB&  008\\
-	Algeria    &DZ & DZA&  012\\
-	American Samoa&   AS  & ASM&016\\
-	Andorra& AD  & AND   &020\\
-	Angola& AO  & AGO&024\\
-	\hline
-\end{tabular}
-\caption{\label{tab:table-name}Example table}
-\end{table}
 
 
 
@@ -1414,15 +1269,4 @@ To an admiring bog!
 	\bibliography{references}
 	
 
-\begin{appendices} % optional
-\chapter{Example Appendix 1}
-
-Appendices should be used for supplemental information that does not form part of the main research. Remember that figures and tables in appendices should not be listed in the List of Figures or List of Tables. 
-
-\chapter{Example Appendix 2}
-
-Appendices should be used for supplemental information that does not form part of the main research. Remember that figures and tables in appendices should not be listed in the List of Figures or List of Tables. 
-	
-\end{appendices}
 \end{document}
-	
