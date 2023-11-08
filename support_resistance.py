@@ -12,12 +12,12 @@ def detection_support_resistance(financial_data:pd.DataFrame,record_to_plot:int=
     #sr = support and resistance
     sr = []
     #n1 is the number of candles before
-    n1=3
+    n1=4
     #n2 is the number of candles after
-    n2=2
+    n2=3
     
     #check for support and resistance
-    for row in range(3, record_to_plot-n2): #len(financial_data)-n2
+    for row in range(4, record_to_plot-n2): #len(financial_data)-n2
         if support(financial_data, row, n1, n2):
             #append the row, the low of the candle and 1 for support
             sr.append((row,financial_data.Low[row],1))

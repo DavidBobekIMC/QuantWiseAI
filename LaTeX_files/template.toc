@@ -16,8 +16,8 @@
 \contentsline {subsubsection}{Support Levels}{9}{subsubsection*.8}%
 \contentsline {subsubsection}{Resistance Levels}{9}{subsubsection*.9}%
 \contentsline {section}{\numberline {2.3}ARIMA}{9}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Autoregression (AR)}{9}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Differencing (I)}{10}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.1}Auto-regression (AR)}{9}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Differentiating (I)}{10}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}Moving Average {MA}}{10}{subsection.2.3.3}%
 \contentsline {chapter}{\numberline {3}Related Work}{11}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Academic Research}{11}{section.3.1}%
@@ -60,3 +60,4 @@
 \contentsline {subsubsection}{Is it possible to predict the future price of the stock market based on historical data?}{47}{subsubsection*.51}%
 \contentsline {section}{\numberline {6.3}Conclusion}{47}{section.6.3}%
 \contentsline {chapter}{Bibliography}{49}{section*.53}%
+\contentsline {chapter}{Appendix \numberline {A}Support and Resistance}{51}{appendix.a.A}%

@@ -3,7 +3,7 @@ from trendline_detection import trendline_detect
 from moving_average import moving_average
 from backtesting_module import backtesting
 from moving_average_backtest import moving_average_backtest
-from arima_module import arima_model
+#from arima_module import arima_model
 from choch_module import choch
 import pandas as pd
 from engulfing_pattern_star_pattern import detectCustomPatterns
@@ -14,7 +14,7 @@ from vold_ratio_module import void_ratio
 from macd_module import calculate_macd
 from PPSRMA import ppsrma
 import plotly.graph_objects as go
-import backtrader as bt
+#import backtrader as bt
 
 def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, window_size: int = 7, record_to_plot: int = 2000, fig: go.Figure = None):
     # sourcery skip: use-contextlib-suppress
@@ -58,7 +58,7 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
     # Print the first 10 rows of the dataset
     print(financial_data.head(10))
 
-    data_to_plot = financial_data[:]
+    data_to_plot = financial_data[:2000]
 
     # initialise the figure
     fig = go.Figure(data=[go.Candlestick(x=data_to_plot.index,
@@ -80,10 +80,10 @@ def main(file: str, num_back_candles: int = 70, back_candle_range: int = 50, win
 
 
     #financial_data = trendline_detect(financial_data, num_back_candles=20, back_candle_range=10, window_size=3,record_to_plot=record_to_plot,fig=fig)
-    # detection_support_resistance(financial_data,record_to_plot,fig)
-
+    detection_support_resistance(financial_data,record_to_plot,fig)
+    fig.show()
     # Moving average is adding extra columns to the dataframe so need to fix this
-    financial_data = moving_average(financial_data,record_to_plot=len(financial_data),fig=fig,dates=[7,15,21,60,120])
+    #financial_data = moving_average(financial_data,record_to_plot=len(financial_data),fig=fig,dates=[7,15,21,60,120])
     #backtesting(financial_data,record_to_plot=10000,fig=fig)
     # moving_average_backtest(financial_data,record_to_plot=2000,fig=fig)
     #financial_data = arima_model(financial_data, record_to_plot=500, fig=fig)
