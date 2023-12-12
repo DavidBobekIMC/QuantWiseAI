@@ -1231,7 +1231,23 @@
 		\label{fig:combined_equity_curves}
 	\end{figure}
 	
-	\section{Conclusion}
+	\section{Analysis of the Results}
+		\subsection{Machine Learning Strategies}
+		As we can see from the results of the research, the usage of Machine Learning strategies is a viable option for time series forecasting. From the 4 models examined the best one perfroming was ARIMA with a very 
+		RMSE and MAE. The answer to this is that ARIMA uses a very sophisticated algorithm that is integrated into the model. The fact that arima is great spotting seasonality and trends is a clear indicator of that.
+		ARIMA uses as already mentioned autoregression which looks as the previous values of the time series and tries to predict the future based on the previous values. This concept gives ARIMA a very big advantage over the other models.
+
+		The second best performing model was LSTM which involves a type of a neural network. This neural network was able to achieve a very low MAE, MSE and RMSE. The reason for that is that neural netwrorks are exceptionally good at detecting 
+		patterns and trends as LSTM is able to remember the previous values and detect internal relationships between the values. All of the following metrics are a clear indicator that model is staying very close to the actual values.
+		The only questionable metric is the R2 score which is very low. The reason for that R2 is metric that meassures how close the data is to the fitted regression line. The R2 score of 0.029 is a clear indicator that the model is not very close to the fitted regression line. 
+		This might sound like a bad thing however in some cases it is not. R2 is a relative metric and as a standalone metric it is not very useful. In this case the R2 score is very low however the model is still able to achieve a very low MAE, MSE and RMSE. This is a case where the R2 score is non informative about the models true performance.
+
+		The worst performing model was SVR which is a support vector machine model. The reason for that is that SVR is not as good at detecting trends and patterns as the other models. Its usecases are more in the field of classification rather than regression. In some cases it is possible to use SVR for regression however it is not as good as the other models. The R2 score of -0.483 is a clear indicator of that.
+		The R2 score is negative which means that the model is not even close to the fitted regression line. The MAE, MSE and RMSE are also very high which is a clear indicator that the model is not performing well. The reason for that is that SVR is not as good at detecting trends and patterns as the other models. Its usecases are more in the field of classification rather than regression.
+		In some cases it is possible to use SVR for regression however it is not as good as the other models. The R2 score of -0.483 is a clear indicator of that. The R2 score is negative which means that the model is not even close to the fitted regression line. The MAE, MSE and RMSE are also relatively high in comparison to the other models which is already an indicator that the model is not the best pick for this usecase.
+		The concept of SVR is to find a hyperplane that best separates the data into different classes. As stock market is very volatile on the short period of time its kernels such as linear, polynomial and rbf are not able to find trends and patterns in the data. This is the reason why the model is not performing well.
+		
+		
 	During this research I have been exploring the performance of Machine Learning Models and Technical Indicators and studying their performance against each other. I have been using the EUR/GBP currency pair as it is a very stable currency pair.
 	Even though the currency pair is very stable and the market could be considered as low volatile, it is important to note that this research could be applied to any other currency pair or even stock market.
 	The reason for selecting the specific models and indicators was due to the fact that I wanted to explore the performance of the most popular models and indicators on market with low percentage differentials.
