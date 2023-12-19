@@ -1,9 +1,12 @@
 
 
 \documentclass{imc-inf}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{subcaption}
 
-\title{Machine Learning and Technical Analysis for Time-series price forecasting in the financial market an empirical comparison of different approaches}
-\subtitle{}
+\title{Machine Learning and Technical Analysis for Time-series price forecasting in the financial market}
+\subtitle{Empirical comparison of different approaches}
 \thesistype{Bachelor Thesis}
 \author{David Bobek}
 \supervisor{Dipl.-Ing. Deepak Dhungana}
@@ -13,18 +16,50 @@
 
 
 
-% \usepackage{xyz}
-% ... add your own packages here!
-\usepackage{listings}
-\usepackage{subcaption}
+
+% Define VS Code theme colors
+\definecolor{vscode_background}{RGB}{11, 15, 21}
+\definecolor{vscode_foreground}{RGB}{235, 219, 178}
+\definecolor{vscode_comment}{RGB}{106, 122, 133}
+\definecolor{vscode_string}{RGB}{152, 201, 147}
+\definecolor{vscode_keyword}{RGB}{198, 114, 40}
+\definecolor{vscode_variable}{RGB}{173, 216, 230} 
+\definecolor{vscode_function}{RGB}{255, 255, 153}  
+
+\lstdefinestyle{vscode}{
+  backgroundcolor=\color{vscode_background},
+  basicstyle=\color{vscode_foreground}\tiny\ttfamily,
+  commentstyle=\color{vscode_comment},
+  keywordstyle=\color{vscode_keyword},
+  numberstyle=\tiny\color{vscode_foreground},
+  stringstyle=\color{vscode_string},
+  identifierstyle=\color{vscode_variable},  
+  morekeywords={moredirectives},
+  breakatwhitespace=false,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+}
 
 
+% Create a new environment for code snippets
+\lstnewenvironment{code}[1][]
+{\lstset{style=vscode, #1}} % Set options
+{} % End options
 
 \begin{document}
-\frontmatter
-\maketitle
-\begin{declarations}\end{declarations}
-
+	\frontmatter
+	\maketitle
+	
+	\begin{declarations}\end{declarations}
+	
 	
 	\begin{abstract}
 		This study is focused on the comparison of different approaches to time-series forecasting in the financial market and their performance.
@@ -609,13 +644,42 @@
 	see different results.
 	I have decided to use 6 splits and train the model on each of the splits.
 	I have decided to build the model in the following way:
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.8\textwidth]{lstm_code.png}
-		\caption{LSTM Model}
-		\label{fig:lstm_model}
-	\end{figure}
-	
+	\begin{code}[language=Python, caption={LSTM Model Building}]
+		
+		def model_building(X_train, y_train, X_test, y_test, look_back,scaler,results):   
+			X_train = np.reshape(X_train, (X_train.shape[0], 1, X_train.shape[1]))
+			X_test = np.reshape(X_test, (X_test.shape[0], 1, X_test.shape[1]))
+			
+			model = Sequential()
+			model.add(LSTM(64, input_shape=(1, look_back), return_sequences=True))
+			model.add(LSTM(32, return_sequences=True))
+			model.add(Dense(64, activation='relu'))
+			model.add(Dense(32, activation='relu'))
+			model.add(LSTM(64, return_sequences=False))
+			model.add(Dense(1))
+			model.compile(loss='mean_squared_error', optimizer='adam')
+			model.fit(X_train, y_train, epochs=5, verbose=0)
+			
+			#------ Prediction ------ #
+			
+			train_predict = model.predict(X_train)
+			train_predict = scaler.inverse_transform(train_predict)
+			
+			test_predict = model.predict(X_test)
+			test_predict = scaler.inverse_transform(test_predict)
+			
+			y_train = scaler.inverse_transform(y_train.reshape(-1,1))
+			y_test = scaler.inverse_transform(y_test.reshape(-1,1))
+			
+			results['RMSE'].append(sqrt(mean_squared_error(y_test,test_predict)))
+			results['MAE'].append(mean_absolute_error(y_test,test_predict))
+			results['R2'].append(r2_score(y_test,test_predict))
+			results["MSE"].append(mean_squared_error(y_test,test_predict))
+			
+			joined_data = np.concatenate((train_predict,test_predict),axis=0)
+			return train_predict, test_predict,joined_data,model
+	\end{code}
+	\captionof{lstlisting}{LSTM Model Building}
 	
 	I am using a Sequential model which is a linear stack of layers. I am than adding a LSTM
 	layer with 4 units and a Dense layer with 1 unit. I am using the Adam optimizer and the Mean Squared Error as a loss function.
@@ -656,12 +720,37 @@
 	to the fact that during its activation it is combining the usage of 3 different models. ARIMA is a combination of Autoregression, Differentiation and Moving Average. The concept of these 3 models was already 
 	introduced in the theoretical part of this thesis and therefore I will not be going into detail about them. I will be focusing on the implementation of the ARIMA model and its performance.
 	In order to implement the ARIMA model I have used the following libraries: Pandas,statsmodels, Matplotlib, pmdarima and Scikit-learn. Scikit-learn only to calculate MSE and MAE.
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.8\textwidth]{arima_code.png}
-		\caption{ARIMA Model}
-		\label{fig:arima_model}		
-	\end{figure}
+	\begin{code}[language=Python, caption={ARIMA Model Building}]
+		def fit_arima_model(train_arima, test_arima, order=(0, 1, 2)):
+			history = [x for x in train_arima]
+			y = test_arima
+			
+			predictions = []
+			
+			model = ARIMA(history, order=order)
+			model_fit = model.fit()
+			yhat = model_fit.forecast(steps=1)[0]
+			predictions.append(yhat)
+			history.append(y.values[0])
+			
+			for i in range(1, len(y)):
+			model = ARIMA(history, order=order)
+			model_fit = model.fit()
+			yhat = model_fit.forecast(steps=1)[0]
+			predictions.append(yhat)
+			obs = y.values[i]
+			history.append(obs)
+			
+			return predictions, y
+			
+			def evaluate_forecast(y, predictions):
+			mse = mean_squared_error(y, predictions)
+			mae = mean_absolute_error(y, predictions)
+			rmse = math.sqrt(mse)
+			return mse, mae, rmse
+	\end{code}
+	
+	
 	In order to run the ARIMA model there are 3 main steps that need to be done. The steps is to split the data into train and test data. This is than followed by fitting the model with the train data
 	and than predicting the test data.During this step I have been calculating a rolling forecast during which I have builf a new model based on the previous data and than predicted 
 	the next data point. This way I was able to predict the entire test data iteratievly and than calculate the RMSE and MAE of the model. There also comes a question of tuning the
@@ -701,24 +790,85 @@
 	and implements a gradient boosting framework. The gradient boosting framework is an approach where new models are created that predict the residuals or errors of prior models and then added together.
 	This means that over time the model is taking the errors of the previous models as inputs and is trying to predict the errors of th next model. This way the model is able to learn from its mistakes and improve every
 	iteration. In order to implement the XGBoost model \cite{xgboost_implement} I have used the following libraries: Pandas, Numpy, Matplotlib, Plotly, Scikit-learn and XGBoost. 
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.8\textwidth]{xgboost_code.png}
-		\caption{XGBoost Model}
-		\label{fig:xgboost_model}
-	\end{figure}
-	
+	\begin{code}[language=Python, caption={XGBoost Model Building}]
+		def xg_boost_pred(financial_data: pd.DataFrame,record_to_plot):
+			financial_data = financial_data[:record_to_plot]
+			tscv = TimeSeriesSplit(n_splits=4)
+			scaler = MinMaxScaler(feature_range=(0, 1))
+			reports= {
+				"MAE":[],
+				"MSE":[],
+				"RMSE":[],
+				"R2":[]
+			}
+			for train_index, test_index in tscv.split(financial_data):
+			train_data, test_data = financial_data.iloc[train_index], financial_data.iloc[test_index]
+			train_data, test_data = train_data["Close"], test_data["Close"]
+			
+			
+			X_train, y_train = train_data.iloc[:-1], train_data.iloc[1:]
+			X_test, y_test = test_data.iloc[:-1], test_data.iloc[1:]
+			
+			X_train = np.array(X_train).reshape(-1, 1)
+			X_test = np.array(X_test).reshape(-1, 1)
+			y_train = np.array(y_train).reshape(-1, 1)
+			y_test = np.array(y_test).reshape(-1, 1)
+			
+			X_train = scaler.fit_transform(X_train)
+			X_test = scaler.transform(X_test)
+			y_train = scaler.fit_transform(y_train)
+			y_test = scaler.transform(y_test)
+			
+			# Fit and transform with the same scaler
+			model = XGBRegressor()
+			
+			
+			model.fit(X_train, y_train)
+			y_pred = model.predict(X_test)
+			print("Initial prediction")
+			statistics(y_test, y_pred,reports)
+			
+			def statistics(y_test, y_pred,reports):
+			mae = mean_absolute_error(y_test, y_pred)
+			mse = mean_squared_error(y_test, y_pred)
+			rmse = np.sqrt(mse)
+			r2 = r2_score(y_test, y_pred)
+			
+			print(f'Mean Absolute Error (MAE): {mae:.3f}')
+			print(f'Mean Squared Error (MSE): {mse:.3f}')
+			print(f'Root Mean Squared Error (RMSE): {rmse:.3f}')
+			print(f'R-squared (R2) Score: {r2:.3f}')
+			reports["MAE"].append(mae)
+			reports["MSE"].append(mse)
+			reports["RMSE"].append(rmse)
+			reports["R2"].append(r2)
+		
+		
+	\end{code}
 	In my implementation I have also decided to use the time series split as I have done previously. The train test split is the same as in the previous models. What changed is that now I have decided to use 
 	scaler transform and fit transform for my train and test data respectively. This will allow me to scale the data and make it more suitable for the model. I have also decided to use a MinMaxScaler which takes 
 	the data and scales it to a range of 0 and 1. By scaling the data I am able to make the data more suitable for the model and therefore improve its performance. When it comes to building the model I have decided not to define
 	anything as an initial value in order to experiment. Internally the objective of this model is squared error and therefore there is not need to overwrite it. After building the model, I have decided to 
 	experiment with hyperparameters, specifically: number of estimators, learning rate, max depth, subsample and colsample bytree. Running this hyperparameter tuning was very time consuming and took a lot of time to run. 
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.8\textwidth]{xgboost_tuning_code.png}
-		\caption{XGBoost Hyperparameters}
-		\label{fig:xgboost_hyperparameters}
-	\end{figure}
+	\begin{code}[language=Python, caption={XGBoost Hyperparameter Tuning}]
+		param_grid = {
+			'learning_rate': [0.1,0.05],
+			'max_depth': [10],
+			'subsample': [0.5, 0.7],
+			'n_estimators': [1000]
+		}
+		
+		# Perform the grid search
+		grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=3)
+		grid_search.fit(X_train, y_train)
+		
+		# Print the best hyperparameters
+		print(grid_search.best_params_)
+		
+		best_model = grid_search.best_estimator_
+		y_pred = best_model.predict(X_test)
+		
+	\end{code}
 	As we can see from the code I have decided to use a GridSearchCV which is a function that is able to run a grid search on the hyper-parameters and find the best set of hyperparameters for my model.
 	The input parameter of cv is representing a cross-validation which is a technique used to evaluate the performance of the model. I have decided to use a 3 fold cross validation which means that the data is split into 3 parts and
 	the model is trained on 2 parts and tested on 1 part. This is done 3 times and the average of the 3 results is taken. This way I am able to evaluate the performance of the model on multiple different splits and therefore.
@@ -768,12 +918,26 @@
 	In my implementation I have decided to use the RBF, Linear and Polynomial kernel and compare their performance. In order to implement the SVR model I have decided to use the time series split as I have done with the LSTM model.
 	I have decided to use only 4 splits and look at a very short time period of 100 ticks. I have decided to use a short time period as I wanted to see how the model is performing on a short time period and how it is able to perform 
 	on a short training data. The implementation of the SVR is rather simple and it can be done like this:
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.8\textwidth]{svr_code.png}
-		\caption{SVR Model}
-		\label{fig:svr_model}
-	\end{figure}
+	
+	\begin{code}[language=Python, caption={SVR Models Building}]
+		def initialize_and_predict(train_data, test_data):
+			scaler = MinMaxScaler(feature_range=(0, 1))
+			
+			X_train, y_train = train_data.index.values.reshape(-1, 1), train_data.values.reshape(-1, 1)
+			X_test, y_test = test_data.index.values.reshape(-1, 1), test_data.values.reshape(-1, 1)
+			
+			X_train, y_train, X_test, y_test = map(scaler.fit_transform, [X_train, y_train, X_test, y_test])
+			
+			models = [SVR(kernel='rbf', C=1e7), 
+			SVR(kernel='linear', C=1e7, gamma='auto'), 
+			SVR(kernel='poly', C=1e7, gamma='auto',degree=3)]
+			
+			for model in models:
+			model.fit(X_train, y_train)
+			
+			return [model.predict(X_test) for model in models], X_test, y_test
+	\end{code}
+	
 	At the start I have declared 4 time series splits and looped through each of them. I have than declared 3 different models (RBF, Linear, Polynomial) and than fitted each of them with the train data.
 	In terms of the hyper-parameters I have opted to minimize the C as I am dealing with very litle changes in the data over time. The principle of C is that it is a penalty parameter of the error term.
 	It controls the trade off between smooth decision boundary and classifying the training points correctly. As my deltas are very small I have decided to minimize the C and therefore minimize the penalty parameter. 
@@ -833,20 +997,66 @@
 	When the RSI is above a certain factor we do consider the market to be overbought and when the RSI is below a certain factor we do consider the market to be oversold.
 	In my implementation I am using a factor of 4. I am than using factor in my implementation to adjust the RSI values at crossover and crossunder points to make the indicator
 	more responsive to changes in the market.
-	\begin {figure}[h!]
-	\centering
-	\includegraphics[width=0.8\textwidth]{rsi_code.png}
-	\caption{RSI}
-	\label{fig:rsi}
-	\end {figure}
+	
+	
+	
+	
+	\begin{code}[language=Python, caption={RSI Implementation}] 
+		# Calculate RSI
+		delta = np.diff(close_prices)
+		gain = np.where(delta > 0, delta, 0)
+		loss = np.where(delta < 0, -delta, 0)
+		
+		avg_gain = np.mean(gain[:length])
+		avg_loss = np.mean(loss[:length])
+		
+		rs = avg_gain / avg_loss
+		rsi = 100 - (100 / (1 + rs))
+		
+		for i in range(length, len(close_prices)):
+		delta = close_prices[i] - close_prices[i - 1]
+		gain = max(delta, 0)
+		loss = -min(delta, 0)
+		
+		avg_gain = ((length - 1) * avg_gain + gain) / length
+		avg_loss = ((length - 1) * avg_loss + loss) / length
+		
+		rs = avg_gain / avg_loss
+		rsi = np.append(rsi, 100 - (100 / (1 + rs)))
+		
+	\end{code}
+	
 	My implementation is not only limited to the usage of RSI, but I am also incorporating the usage of Trailing Stop.
 	At the begining of the implementation I am setting the initial values of crossover and crossunder where for each index RSI is lower or higher than 1.
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.8\textwidth]{trailing_stop.png}
-		\caption{RSI}
-		\label{fig:rsi_initial_values}
-	\end{figure}
+	\begin{code}[language=Python, caption={Trailing Stop Implementation}]
+		# Calculate Trailing Stop
+		# Calculate the difference between consecutive RSI values
+		rsi_diff = np.diff(rsi)
+		
+		crossover = np.where(rsi > 0, 1, 0)
+		crossunder = np.where(rsi < 0, 1, 0)
+		
+		close_prices = close_prices[:-1]
+		crossunder = crossunder[:-1]
+		
+		ts = np.zeros_like(rsi)  # Initialize ts with zeros
+		crossover = crossover[:-1]
+		for i in range(1, len(rsi)-1):
+		if crossover[i]:
+		ts[i] = rsi[i] - np.abs(rsi_diff[i]) * factor
+		elif crossunder[i]:
+		ts[i] = rsi[i] + np.abs(rsi_diff[i]) * factor
+		else:
+		if rsi[i] > ts[i - 1]:
+		ts[i] = max(rsi[i] - np.abs(rsi_diff[i]) * factor, ts[i - 1])
+		else:
+		ts[i] = min(rsi[i] + np.abs(rsi_diff[i]) * factor, ts[i - 1])
+		
+		for i in range(1, len(ts)):
+		ts[i] = ts[i] / 100 * close_prices[i] + (1 - ts[i] / 100) * ts[i - 1]
+		rsi[i] = rsi[i] / 100 * close_prices[i] + \
+		(1 - rsi[i] / 100) * rsi[i - 1]
+	\end{code}
 	If the crossover or crossunder is detected by the presence of a 1 at the current index a Trailing Stop is calculated. It is calculated by
 	the difference between the RSI value at the current index and the absolute value of the RSI at the current index multiplied by the factor mentioned before.
 	After successfully calculating the Trailing Stop we are than reassigning the values of RSI and Trailing Stop in the following way. Combining a 
@@ -913,13 +1123,47 @@
 		\end{equation}
 	\end{itemize}
 	
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.8\textwidth]{bollinger_bands_code.png}
-		\caption{Bollinger Bands}
-		\label{fig:bollinger_bands}
-		
-	\end{figure}
+	\begin{code}[language=Python, caption={Bollinger Bands Implementation}]
+		# Bollinger Bands
+		length = 50  
+		mult = 2.0
+		basis = financial_data['Close'].rolling(window=length).mean()
+		dev = mult * financial_data['Close'].rolling(window=length).std()
+		upper = basis + dev
+		lower = basis - dev
+		last_signal = None
+		not_active = 0
+		for i in range(length, len(financial_data)):
+			
+			
+			if last_signal != 'buy':
+				if financial_data['Close'][i] > lower[i] and i < len(financial_data):
+					plt.plot(i, financial_data['Close'][i], marker='o', color='red')
+					last_signal = 'buy'
+					financial_data.loc[i, "signal"] = 2 
+					continue
+			if last_signal != 'buy':
+				if financial_data['Close'][i] < basis[i] and i < len(financial_data):
+					plt.plot(i, financial_data['Close'][i], marker='o', color='red')
+					last_signal = 'buy'
+					financial_data.loc[i, "signal"] = 2
+					continue
+			
+			if last_signal != 'sell':
+				if financial_data['Close'][i] > upper[i] and i < len(financial_data):
+					plt.plot(i, financial_data['Close'][i], marker='o', color='green')
+					last_signal = 'sell'
+					financial_data.loc[i, "signal"] = 1
+					continue
+			
+			
+			if last_signal != 'sell':
+				if financial_data['Close'][i] < lower[i] and i < len(financial_data):
+					plt.plot(i, financial_data['Close'][i], marker='o', color='green')
+					last_signal = 'sell'
+					financial_data.loc[i, "signal"] = 1
+					continue 
+	\end{code}
 	As we can see from the formulas above the Bollinger Bands are working on the principle of volatility.
 	At the begining of the implementation I am setting the length and the number of standard deviations. The length is the number of periods we are using to calculate
 	the moving average. The variable basis is than used to calculate the rolling mean of the window we have specified and the variable dev 
@@ -977,13 +1221,42 @@
 	The principle of this indicator is to calculate the where the peaks and valleys of the market are and than calculate the differences between the peaks and valleys.
 	When calculating each of the peaks and valleys we are than setting a using the window size in which we are going to be trying to detect the peaks and valleys.
 	When trying to detect the peaks and valleys we are using a peak/valley coefficient in order to determine how big of a peak we are trying to detect and how big of a valley we are trying to detect.
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.8\textwidth]{rolling_windows_code.png}
-		\caption{Rolling Windows}
-		\label{fig:rolling_windows}
-		
-	\end{figure}
+	
+	\begin{code}[language=Python, caption={Rolling Windows Implementation}]
+		def is_local_valley(data, current_index, half_window_size, threshold_coefficient):
+			if current_index < half_window_size or current_index >= len(data) - half_window_size:
+				return False
+
+			neighborhood = data[current_index - half_window_size : current_index + half_window_size + 1]
+
+			min_value = np.min(neighborhood)
+			max_value = np.max(neighborhood)
+			threshold = min_value + threshold_coefficient * (max_value - min_value)
+
+			return data[current_index] <= threshold
+
+		def is_local_peak(data, current_index, half_window_size, threshold_coefficient):
+			if current_index < half_window_size or current_index >= len(data) - half_window_size:
+				return False
+
+			neighborhood = data[current_index - half_window_size : current_index + half_window_size + 1]
+
+			min_value = np.min(neighborhood)
+			max_value = np.max(neighborhood)
+			threshold = threshold_coefficient * (max_value - min_value) + min_value
+
+			# Function is similar to valleys, but with the inequality reversed
+			return data[current_index] >= threshold
+
+
+		# Detect peaks: The value at the current index is greater than or equal to the threshold value
+		peaks_indices = [i for i in range(half_window_size, len(data) - half_window_size) if is_local_peak(data, i, half_window_size, peak_coeff)]
+
+		# Detect valleys: The value at the current index is less than or equal to the threshold value
+		valleys_indices = [i for i in range(half_window_size, len(data) - half_window_size) if is_local_valley(data, i, half_window_size, valley_coeff)]
+	\end{code}
+	
+	
 	In my implementation you can see 2 clear function which are then used inside of a list comprehension. The first function is local valley in which 
 	we are determining a so called neighborhood of the current index by using a half window size in order to determining the neighborhood before and after the current index.
 	After successfully determining the neighborhood I am than checking for the lowest and highest value and than determining a threshold. This threshold is than used to determine
@@ -1075,13 +1348,23 @@
 	In my implementation I have opted to use 2 moving averages and both are relatively short term. The first moving average is 6 periods and the second moving average is 10 periods.
 	This strategy is high risk high reward as it is very volatile and is able to detect trend changes very quickly. This contrasts with the previous implementation of the 
 	Bollinger bands where I have opted for rather long term moving average.
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.8\textwidth]{moving_averages_code.png}
-		\caption{Moving Averages}
-		\label{fig:moving_averages}
-		
-	\end{figure}
+	\begin{code}[language=Python,caption={Implementation of Moving Averages}]
+		for date in dates:
+			financial_data[f"MA{date}"] = pa.ema(financial_data.Close, length=date)
+			shortest = f"MA{sorted(dates)[0]}"
+			longest = f"MA{sorted(dates)[-1]}"
+			previous_date = 0
+			
+			for index in financial_data.index:
+				if financial_data.loc[index,shortest] > financial_data.loc[index,longest] and previous_date !=2:
+					financial_data.loc[index, "signal"] = 2
+					previous_date = 2
+				elif financial_data.loc[index,shortest] < financial_data.loc[index,longest] and previous_date !=1:
+					financial_data.loc[index, "signal"] = 1
+					previous_date = 1
+				else:
+					financial_data.loc[index, "signal"] = 0
+	\end{code}
 	
 	As we can see from the code above, there is a list of numbers that is used to represent the windows that moving averages are going to be calculated on. 
 	By using a loop like this I am giving the user the potential to use as many moving averages as they want. However in my implementation I am only using 2 moving averages.
@@ -1232,22 +1515,22 @@
 	\end{figure}
 	
 	\section{Analysis of the Results}
-		\subsection{Machine Learning Strategies}
-		As we can see from the results of the research, the usage of Machine Learning strategies is a viable option for time series forecasting. From the 4 models examined the best one perfroming was ARIMA with a very 
-		RMSE and MAE. The answer to this is that ARIMA uses a very sophisticated algorithm that is integrated into the model. The fact that arima is great spotting seasonality and trends is a clear indicator of that.
-		ARIMA uses as already mentioned autoregression which looks as the previous values of the time series and tries to predict the future based on the previous values. This concept gives ARIMA a very big advantage over the other models.
-
-		The second best performing model was LSTM which involves a type of a neural network. This neural network was able to achieve a very low MAE, MSE and RMSE. The reason for that is that neural netwrorks are exceptionally good at detecting 
-		patterns and trends as LSTM is able to remember the previous values and detect internal relationships between the values. All of the following metrics are a clear indicator that model is staying very close to the actual values.
-		The only questionable metric is the R2 score which is very low. The reason for that R2 is metric that meassures how close the data is to the fitted regression line. The R2 score of 0.029 is a clear indicator that the model is not very close to the fitted regression line. 
-		This might sound like a bad thing however in some cases it is not. R2 is a relative metric and as a standalone metric it is not very useful. In this case the R2 score is very low however the model is still able to achieve a very low MAE, MSE and RMSE. This is a case where the R2 score is non informative about the models true performance.
-
-		The worst performing model was SVR which is a support vector machine model. The reason for that is that SVR is not as good at detecting trends and patterns as the other models. Its usecases are more in the field of classification rather than regression. In some cases it is possible to use SVR for regression however it is not as good as the other models. The R2 score of -0.483 is a clear indicator of that.
-		The R2 score is negative which means that the model is not even close to the fitted regression line. The MAE, MSE and RMSE are also very high which is a clear indicator that the model is not performing well. The reason for that is that SVR is not as good at detecting trends and patterns as the other models. Its usecases are more in the field of classification rather than regression.
-		In some cases it is possible to use SVR for regression however it is not as good as the other models. The R2 score of -0.483 is a clear indicator of that. The R2 score is negative which means that the model is not even close to the fitted regression line. The MAE, MSE and RMSE are also relatively high in comparison to the other models which is already an indicator that the model is not the best pick for this usecase.
-		The concept of SVR is to find a hyperplane that best separates the data into different classes. As stock market is very volatile on the short period of time its kernels such as linear, polynomial and rbf are not able to find trends and patterns in the data. This is the reason why the model is not performing well.
-		
-		
+	\subsection{Machine Learning Strategies}
+	As we can see from the results of the research, the usage of Machine Learning strategies is a viable option for time series forecasting. From the 4 models examined the best one perfroming was ARIMA with a very 
+	RMSE and MAE. The answer to this is that ARIMA uses a very sophisticated algorithm that is integrated into the model. The fact that arima is great spotting seasonality and trends is a clear indicator of that.
+	ARIMA uses as already mentioned autoregression which looks as the previous values of the time series and tries to predict the future based on the previous values. This concept gives ARIMA a very big advantage over the other models.
+	
+	The second best performing model was LSTM which involves a type of a neural network. This neural network was able to achieve a very low MAE, MSE and RMSE. The reason for that is that neural netwrorks are exceptionally good at detecting 
+	patterns and trends as LSTM is able to remember the previous values and detect internal relationships between the values. All of the following metrics are a clear indicator that model is staying very close to the actual values.
+	The only questionable metric is the R2 score which is very low. The reason for that R2 is metric that meassures how close the data is to the fitted regression line. The R2 score of 0.029 is a clear indicator that the model is not very close to the fitted regression line. 
+	This might sound like a bad thing however in some cases it is not. R2 is a relative metric and as a standalone metric it is not very useful. In this case the R2 score is very low however the model is still able to achieve a very low MAE, MSE and RMSE. This is a case where the R2 score is non informative about the models true performance.
+	
+	The worst performing model was SVR which is a support vector machine model. The reason for that is that SVR is not as good at detecting trends and patterns as the other models. Its usecases are more in the field of classification rather than regression. In some cases it is possible to use SVR for regression however it is not as good as the other models. The R2 score of -0.483 is a clear indicator of that.
+	The R2 score is negative which means that the model is not even close to the fitted regression line. The MAE, MSE and RMSE are also very high which is a clear indicator that the model is not performing well. The reason for that is that SVR is not as good at detecting trends and patterns as the other models. Its usecases are more in the field of classification rather than regression.
+	In some cases it is possible to use SVR for regression however it is not as good as the other models. The R2 score of -0.483 is a clear indicator of that. The R2 score is negative which means that the model is not even close to the fitted regression line. The MAE, MSE and RMSE are also relatively high in comparison to the other models which is already an indicator that the model is not the best pick for this usecase.
+	The concept of SVR is to find a hyperplane that best separates the data into different classes. As stock market is very volatile on the short period of time its kernels such as linear, polynomial and rbf are not able to find trends and patterns in the data. This is the reason why the model is not performing well.
+	
+	
 	During this research I have been exploring the performance of Machine Learning Models and Technical Indicators and studying their performance against each other. I have been using the EUR/GBP currency pair as it is a very stable currency pair.
 	Even though the currency pair is very stable and the market could be considered as low volatile, it is important to note that this research could be applied to any other currency pair or even stock market.
 	The reason for selecting the specific models and indicators was due to the fact that I wanted to explore the performance of the most popular models and indicators on market with low percentage differentials.
@@ -1279,19 +1562,19 @@
 	
 	\begin{appendices} % optional
 		\chapter{Support and Resistance}\label{appendix:support_resistance}
-			Support and resistance is a concept that belongs to the field of technical analysis. It is a very popular concept which has been used by traders for a very long time. I have created a script that is able to detect support and resistance levels on a given data set.
-			On this plot we can see the support and resistance levels that have been detected by the script. The support levels are the green lines and the resistance levels are the red lines. The script is able to detect the support and resistance levels by defining
-			local windows in which the script is looking for the lowest and highest values. By examining the figure we can see that the green lines at the end  of the plot (support levels) are holding the price up and created a plateauing effect.
-			Support and resistance levels are a very personal topic in terms of their selection and therefore I have not been using them in my research. However I believe that they could be used along side other indicators to create a more robust strategy.
-			I have wanted to include this finding as an extra to the research as I believe it belongs in the field of technical analysis.
-			\begin{figure}[h!]
-				\centering
-				\includegraphics[width=0.8\textwidth]{support_resistance.png}
-				\caption{Support and Resistance}
-				\label{fig:support_resistance}
-			\end{figure}
-
+		Support and resistance is a concept that belongs to the field of technical analysis. It is a very popular concept which has been used by traders for a very long time. I have created a script that is able to detect support and resistance levels on a given data set.
+		On this plot we can see the support and resistance levels that have been detected by the script. The support levels are the green lines and the resistance levels are the red lines. The script is able to detect the support and resistance levels by defining
+		local windows in which the script is looking for the lowest and highest values. By examining the figure we can see that the green lines at the end  of the plot (support levels) are holding the price up and created a plateauing effect.
+		Support and resistance levels are a very personal topic in terms of their selection and therefore I have not been using them in my research. However I believe that they could be used along side other indicators to create a more robust strategy.
+		I have wanted to include this finding as an extra to the research as I believe it belongs in the field of technical analysis.
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.8\textwidth]{support_resistance.png}
+			\caption{Support and Resistance}
+			\label{fig:support_resistance}
+		\end{figure}
+		
 	\end{appendices}
 	
 \end{document}
-	
+

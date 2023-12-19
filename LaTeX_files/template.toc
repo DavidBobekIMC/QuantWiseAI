@@ -39,25 +39,26 @@
 \contentsline {subsection}{\numberline {5.2.2}ARIMA}{25}{subsection.5.2.2}%
 \contentsline {subsection}{\numberline {5.2.3}XGBoost}{27}{subsection.5.2.3}%
 \contentsline {subsection}{\numberline {5.2.4}Support Vector Regression}{30}{subsection.5.2.4}%
-\contentsline {section}{\numberline {5.3}Technical indicators}{33}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}RSI}{33}{subsection.5.3.1}%
-\contentsline {subsubsection}{Performance}{35}{subsubsection*.27}%
-\contentsline {subsection}{\numberline {5.3.2}Bollinger Bands}{36}{subsection.5.3.2}%
-\contentsline {subsubsection}{Trend detection}{38}{subsubsection*.31}%
-\contentsline {subsubsection}{Performance}{38}{subsubsection*.32}%
-\contentsline {subsection}{\numberline {5.3.3}Rolling Windows}{39}{subsection.5.3.3}%
-\contentsline {subsubsection}{Trend detection}{41}{subsubsection*.36}%
-\contentsline {subsubsection}{Performance}{41}{subsubsection*.37}%
-\contentsline {subsection}{\numberline {5.3.4}Moving Averages}{42}{subsection.5.3.4}%
-\contentsline {subsubsection}{Trend detection}{43}{subsubsection*.42}%
-\contentsline {subsubsection}{Performance}{43}{subsubsection*.43}%
+\contentsline {section}{\numberline {5.3}Technical indicators}{32}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}RSI}{32}{subsection.5.3.1}%
+\contentsline {subsubsection}{Performance}{34}{subsubsection*.20}%
+\contentsline {subsection}{\numberline {5.3.2}Bollinger Bands}{35}{subsection.5.3.2}%
+\contentsline {subsubsection}{Trend detection}{36}{subsubsection*.23}%
+\contentsline {subsubsection}{Performance}{37}{subsubsection*.24}%
+\contentsline {subsection}{\numberline {5.3.3}Rolling Windows}{38}{subsection.5.3.3}%
+\contentsline {subsubsection}{Trend detection}{40}{subsubsection*.27}%
+\contentsline {subsubsection}{Performance}{40}{subsubsection*.28}%
+\contentsline {subsection}{\numberline {5.3.4}Moving Averages}{40}{subsection.5.3.4}%
+\contentsline {subsubsection}{Trend detection}{42}{subsubsection*.32}%
+\contentsline {subsubsection}{Performance}{42}{subsubsection*.33}%
 \contentsline {chapter}{\numberline {6}Conclusion}{45}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Machine Learning Strategies}{45}{section.6.1}%
-\contentsline {subsubsection}{ What is the comparative performance and predictive accuracy of a machine learning algorithms and technical indicators for price forecasting in financial markets? }{45}{subsubsection*.46}%
-\contentsline {subsubsection}{Is it possible to predict the future price of the stock market based on historical data?}{46}{subsubsection*.48}%
+\contentsline {subsubsection}{ What is the comparative performance and predictive accuracy of a machine learning algorithms and technical indicators for price forecasting in financial markets? }{45}{subsubsection*.36}%
+\contentsline {subsubsection}{Is it possible to predict the future price of the stock market based on historical data?}{46}{subsubsection*.38}%
 \contentsline {section}{\numberline {6.2}Technical Indicators}{46}{section.6.2}%
-\contentsline {subsubsection}{ What is the comparative performance and predictive accuracy of a machine learning algorithms and technical indicators for price forecasting in financial markets? }{46}{subsubsection*.49}%
-\contentsline {subsubsection}{Is it possible to predict the future price of the stock market based on historical data?}{47}{subsubsection*.51}%
-\contentsline {section}{\numberline {6.3}Conclusion}{47}{section.6.3}%
-\contentsline {chapter}{Bibliography}{49}{section*.53}%
-\contentsline {chapter}{Appendix \numberline {A}Support and Resistance}{51}{appendix.a.A}%
+\contentsline {subsubsection}{ What is the comparative performance and predictive accuracy of a machine learning algorithms and technical indicators for price forecasting in financial markets? }{46}{subsubsection*.39}%
+\contentsline {subsubsection}{Is it possible to predict the future price of the stock market based on historical data?}{47}{subsubsection*.41}%
+\contentsline {section}{\numberline {6.3}Analysis of the Results}{47}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Machine Learning Strategies}{47}{subsection.6.3.1}%
+\contentsline {chapter}{Bibliography}{50}{section*.43}%
+\contentsline {chapter}{Appendix \numberline {A}Support and Resistance}{53}{appendix.a.A}%
