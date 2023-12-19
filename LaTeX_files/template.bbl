@@ -46,6 +46,15 @@ S.~Chaudhari, ``Autoregression: Model, autocorrelation and python
   \url{https://blog.quantinsti.com/autoregression/}
 \BIBentrySTDinterwordspacing
 
+\bibitem{sliding_windows}
+\BIBentryALTinterwordspacing
+J.-S. Chou and T.-K. Nguyen, ``Forward forecast of stock price using
+  sliding-window metaheuristic-optimized machine-learning regression,''
+  \emph{IEEE Transactions on Industrial Informatics}, vol.~14, pp. 3132--3142,
+  2018. [Online]. Available:
+  \url{https://api.semanticscholar.org/CorpusID:49576047}
+\BIBentrySTDinterwordspacing
+
 \bibitem{RSI_1}
 \BIBentryALTinterwordspacing
 J.~Fernando, ``Relative strength index (rsi) indicator explained with
@@ -67,6 +76,15 @@ A.~B. Gumelar, H.~Setyorini, D.~P. Adi, S.~Nilowardono, Latipah, A.~Widodo,
   \url{https://ieeexplore.ieee.org/document/9234256}
 \BIBentrySTDinterwordspacing
 
+\bibitem{ma}
+\BIBentryALTinterwordspacing
+S.~Hansun and M.~B. Kristanda, ``Performance analysis of conventional moving
+  average methods in forex forecasting,'' \emph{2017 International Conference
+  on Smart Cities, Automation \& Intelligent Computing Systems (ICON-SONICS)},
+  pp. 11--17, 2017. [Online]. Available:
+  \url{https://api.semanticscholar.org/CorpusID:6353089}
+\BIBentrySTDinterwordspacing
+
 \bibitem{svr_implement}
 \BIBentryALTinterwordspacing
 B.~M. Henrique, V.~A. Sobreiro, and H.~Kimura, ``Stock price prediction using
@@ -74,6 +92,13 @@ B.~M. Henrique, V.~A. Sobreiro, and H.~Kimura, ``Stock price prediction using
   Journal of Finance and Data Science}, vol.~4, no.~3, pp. 183--201, 2018.
   [Online]. Available:
   \url{https://www.sciencedirect.com/science/article/pii/S2405918818300060}
+\BIBentrySTDinterwordspacing
+
+\bibitem{bollinger_rsi_combination}
+\BIBentryALTinterwordspacing
+K.~Kannan, P.~S. Sekar, and P.~Arumugam, ``Financial stock market forecast
+  using data mining techniques,'' 2010. [Online]. Available:
+  \url{https://api.semanticscholar.org/CorpusID:3165594}
 \BIBentrySTDinterwordspacing
 
 \bibitem{evaluation_metrics_2}
@@ -90,6 +115,16 @@ M.~M. Kumbure, C.~Lohrmann, P.~Luukka, and J.~Porras, ``Machine learning
   \emph{Expert Systems with Applications}, vol. 197, p. 116659, 2022. [Online].
   Available:
   \url{https://www.sciencedirect.com/science/article/pii/S0957417422001452}
+\BIBentrySTDinterwordspacing
+
+\bibitem{bollinger}
+\BIBentryALTinterwordspacing
+S.~C. Lauguico, R.~S.~C. Ii, J.~D. Alejandrino, D.~D. Macasaet, R.~R. Tobias,
+  A.~A. Bandala, and E.~P. Dadios, ``A fuzzy logic-based stock market trading
+  algorithm using bollinger bands,'' \emph{2019 IEEE 11th International
+  Conference on Humanoid, Nanotechnology, Information Technology, Communication
+  and Control, Environment, and Management ( HNICEM )}, pp. 1--6, 2019.
+  [Online]. Available: \url{https://api.semanticscholar.org/CorpusID:216105346}
 \BIBentrySTDinterwordspacing
 
 \bibitem{prml}

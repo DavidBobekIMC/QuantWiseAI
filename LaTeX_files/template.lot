@@ -3,15 +3,15 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces LSTM Model Results}}{23}{table.caption.13}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces ARIMA Model Results}}{26}{table.caption.15}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces XGBoost Detailed Results}}{29}{table.caption.17}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces SVR Model Results}}{32}{table.caption.19}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces RSI Performance Metrics}}{35}{table.caption.22}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Bollinger Bands Performance Metrics}}{38}{table.caption.26}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Rolling Windows Performance Metrics}}{40}{table.caption.30}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Moving Averages Performance Metrics}}{43}{table.caption.35}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces LSTM Model Results}}{25}{table.caption.13}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces ARIMA Model Results}}{28}{table.caption.15}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces XGBoost Detailed Results}}{31}{table.caption.17}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces SVR Model Results}}{34}{table.caption.19}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces RSI Performance Metrics}}{37}{table.caption.22}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Bollinger Bands Performance Metrics}}{40}{table.caption.26}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Rolling Windows Performance Metrics}}{42}{table.caption.30}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Moving Averages Performance Metrics}}{45}{table.caption.35}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Machine Learning Strategies Metrics}}{45}{table.caption.37}%
-\contentsline {table}{\numberline {6.2}{\ignorespaces Technical Indicators Metrics}}{46}{table.caption.40}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Machine Learning Strategies Metrics}}{47}{table.caption.37}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Technical Indicators Metrics}}{48}{table.caption.40}%
 \addvspace {10\p@ }
